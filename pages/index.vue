@@ -1,5 +1,5 @@
 <template>
-    
+    인덱스
 </template>
 
 <script>
