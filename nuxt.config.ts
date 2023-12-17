@@ -2,11 +2,22 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   pages: true, // 페이지 라우팅 가능하게
+  css: ['~/assets/tailwind.css'],
   postcss: { // tailwind css
     plugins: {
-      tailwindcss: {},
+      tailwindcss: {
+        cssPath: './assets/tailwind.css',
+        configPath: 'tailwind.config',
+        exposeConfig: false,
+        exposeLevel: 2,
+        config: {},
+        injectPosition: 'first',
+        viewer: true,
+      },
       autoprefixer: {},
     },
   },
-  css: ['~/assets/main.css'],
+
+  // modules: ['@nuxtjs/tailwindcss'],
+
 })

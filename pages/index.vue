@@ -1,5 +1,7 @@
 <template>
-    인덱스
+    <div class="text-3xl">
+        텍스트
+    </div>
 </template>
 
 <script>

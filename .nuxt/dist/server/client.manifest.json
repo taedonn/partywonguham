@@ -7,12 +7,12 @@
     "module": true,
     "resourceType": "script"
   },
-  "C:/Users/grand/Desktop/taedonn/PartywonGuham/node_modules/nuxt/dist/app/entry.js": {
+  "/Users/hongsuji/Desktop/PartywonGuham/node_modules/nuxt/dist/app/entry.js": {
     "resourceType": "script",
     "module": true,
     "prefetch": true,
     "preload": true,
     "isEntry": true,
-    "file": "C:/Users/grand/Desktop/taedonn/PartywonGuham/node_modules/nuxt/dist/app/entry.js"
+    "file": "/Users/hongsuji/Desktop/PartywonGuham/node_modules/nuxt/dist/app/entry.js"
   }
 }
