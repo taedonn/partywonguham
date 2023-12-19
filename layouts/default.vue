@@ -1,14 +1,17 @@
 <template>
     <div>
         <Header />
-        <p class="text-xl font-bold text-red-500"> 텍스트 </p>
     </div>
 </template>
 
 <script>
+import Header from '../components/Header'
 
 export default {
-
+    name: 'default',
+    components: {
+        Header,
+    }
 }
 
 </script>

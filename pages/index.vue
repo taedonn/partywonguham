@@ -1,13 +1,12 @@
 <template>
-    <div class="text-3xl">
-        텍스트
+    <div> 
+    
     </div>
 </template>
 
 <script>
-    export default {
-        
-    }
+export default {
+}
 </script>
 
 <style>
