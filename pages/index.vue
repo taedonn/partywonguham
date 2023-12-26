@@ -17,7 +17,9 @@
                     <p class="text-base leading-6 font-light">{{ data.date }}</p>
                 </div>
                 <div class="w-full mt-5 flex">
-
+                    <div class="w-full flex">
+                        {{ data.timeline }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -36,9 +38,37 @@ export default {
             const data = {
                 title: '11/23 풋살하실 분',
                 date: '2023년 11/23일',
+                start_time: 'Tue Dec 26 2023 08:00:00',
+                end_time: 'Tue Dec 26 2023 23:00:00',
             }
 
-            this.data = data;
+            // 날짜 포맷
+            data.start_time = new Date(data.start_time);
+            data.end_time = new Date(data.end_time);
+
+            // 타임라인 생성을 위한 날짜 반복문
+            const timeline = [
+                data.start_time.getHours() < 12 
+                    ? `오전 ${data.start_time.getHours()}:00` 
+                    : `오후 ${data.start_time.getHours()}:00`
+            ]
+            const timelineLength = data.end_time.getHours() - data.start_time.getHours();
+            for (let i = 1; i < timelineLength + 1; i++) {
+                let hour = Number(timeline[i-1].split(':')[0].split(' ')[1]) + 1;
+                let meridiem = timeline[i-1].split(' ')[0];
+                timeline.push(`${
+                    meridiem === '오전'
+                        ? hour < 12
+                            ? `오전 ${hour}:00`
+                            : `오후 ${hour}:00`
+                        : hour > 12
+                            ? `오후 ${hour - 12}:00`
+                            : `오후 ${hour}:00`
+                }`);
+            }
+            const newData = { ...data, timeline };
+
+            this.data = newData;
         }
     },
     created() {
