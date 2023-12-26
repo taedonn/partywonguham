@@ -9,12 +9,15 @@
                         시간 선택하기를 눌러 타임라인 내 가능한 시간을 선택해 주세요.
                     </p>
                 </div>
-                <button>시간 선택하기</button>
+                <button class="shrink-0 px-5 py-3 text-xl leading-none font-medium rounded-lg border-2 border-blue-4 text-blue-4">시간 선택하기</button>
             </div>
             <div class="mt-16 text-black-333">
-                <div class="pl-40">
-                    <h2 class="mb-3 text-xl leading-none font-medium">11/23 풋살하실 분</h2>
-                    <p class="text-base leading-6 font-light">2023년 11월 23일</p>
+                <div class="ml-1.5 pl-40">
+                    <h2 class="mb-3 text-xl leading-none font-medium">{{ data.title }}</h2>
+                    <p class="text-base leading-6 font-light">{{ data.date }}</p>
+                </div>
+                <div class="w-full mt-5 flex">
+
                 </div>
             </div>
         </div>
@@ -23,9 +26,24 @@
 
 <script>
 export default {
-    data: () => ({
-        
-    })
+    data() {
+        return {
+            data: {},
+        }
+    },
+    methods: {
+        async fetchData() {
+            const data = {
+                title: '11/23 풋살하실 분',
+                date: '2023년 11/23일',
+            }
+
+            this.data = data;
+        }
+    },
+    created() {
+        this.fetchData();
+    }
 }
 </script>
 
