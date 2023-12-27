@@ -25,8 +25,15 @@
                             
                         </div>
                     </div>
-                    <div class="w-80 p-5 ml-5 shrink-0 rounded-lg bg-blue-4/10 text-black-333">
-                        <h2>파티원</h2>
+                    <div class="w-80 p-5 ml-5 shrink-0 rounded-lg bg-blue-4/10 text-black-333 fill-black-333">
+                        <h2>파티원 ({{ data.partywon.length + '/' + data.capacity }})</h2>
+                        <ul class="mt-4 text-sm font-light flex flex-col gap-3">
+                            <li class="flex items-center">
+                                {{ data.partyjang.name }}(파티장)
+                                <svg class="w-3.5 ml-1" xmlns="http://www.w3.org/2000/svg" height="16" width="18" viewBox="0 0 576 512"><path d="M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.7 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0zm0 79L235.4 187.2c-3.5 7.1-10.2 12.1-18.1 13.3L99 217.9 184.9 303c5.5 5.5 8.1 13.3 6.8 21L171.4 443.7l105.2-56.2c7.1-3.8 15.6-3.8 22.6 0l105.2 56.2L384.2 324.1c-1.3-7.7 1.2-15.5 6.8-21l85.9-85.1L358.6 200.5c-7.8-1.2-14.6-6.1-18.1-13.3L287.9 79z"/></svg>
+                            </li>
+                            <li v-for="partywon in data.partywon">{{ partywon.name }}</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -47,12 +54,27 @@ export default {
                 id: '5D23E8',
                 title: '12/26 풋살하실 분',
                 date: 'Tue Dec 26 2023',
-                start_time: 'Tue Dec 26 2023 08:00:00',
-                end_time: 'Tue Dec 26 2023 13:00:00',
-                partyjang_name: '홍길동',
-                partyjang_email: 'partywonguham@gmail.com',
-                partywon_name: '이말갑,이말을,이말병,이말정',
-                party_capacity: 6,
+                start_time: 'Tue Dec 26 2023 10:00:00',
+                end_time: 'Tue Dec 26 2023 15:00:00',
+                partyjang: {
+                    name: '홍길동',
+                    email: 'partywonguham@gmail.com',
+                },
+                partywon: [
+                    { name: '이말갑' },
+                    { name: '이말을' },
+                    { name: '이말병' },
+                    { name: '이말정' },
+                ],
+                checked_time: [
+                    { time: 10, checked: 3 },
+                    { time: 10.5, checked: 2 },
+                    { time: 11, checked: 2 },
+                    { time: 11.5, checked: 4 },
+                    { time: 12, checked: 0 },
+                    { time: 12.5, checked: 1 },
+                ],
+                capacity: 6,
             }
 
             // 날짜 포맷
@@ -66,13 +88,13 @@ export default {
             // 타임라인 생성을 위한 날짜 반복문
             const timeline = [
                 data.start_time.getHours() < 11 
-                    ? `오전 ${data.start_time.getHours() === 10 ? data.start_time.getHours() : '0' + data.start_time.getHours()}:00 ~ 오전 ${data.start_time.getHours() + 1 === 10 ? data.start_time.getHours() + 1 : '0' + (data.start_time.getHours() + 1)}:00` 
+                    ? `오전 ${data.start_time.getHours() >= 10 ? data.start_time.getHours() : '0' + data.start_time.getHours()}:00 ~ 오전 ${data.start_time.getHours() + 1 >= 10 ? data.start_time.getHours() + 1 : '0' + (data.start_time.getHours() + 1)}:00` 
                     : data.start_time.getHours() === 11
                         ? `오전 11:00 ~ 오후 12:00`
                         : `오후 ${data.start_time.getHours() >= 10 ? data.start_time.getHours() : '0' + data.start_time.getHours()}:00 ~ 오후 ${data.start_time.getHours() + 1 >= 10 ? data.start_time.getHours() + 1 : '0' + (data.start_time.getHours() + 1)}:00`
             ]
             const timelineLength = data.end_time.getHours() - data.start_time.getHours();
-            for (let i = 0; i < timelineLength; i++) {
+            for (let i = 0; i < timelineLength - 1; i++) {
                 let hour = Number(timeline[i].split(' ~ ')[1].split(':')[0].split(' ')[1]);
                 let meridiem = timeline[i].split(' ~ ')[1].split(':')[0].split(' ')[0];
                 timeline.push(`${
