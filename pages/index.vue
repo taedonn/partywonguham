@@ -17,11 +17,16 @@
                     <p class="text-sm leading-6 font-light">{{ data.date }}</p>
                 </div>
                 <div class="w-full mt-5 flex">
-                    <div class="flex flex-col shrink-0 mr-1.5">
-                        <div v-for="time in data.timeline" class="w-40 h-12 text-sm font-light flex items-center">{{ time }}</div>
+                    <div class="w-full flex">
+                        <div class="flex flex-col shrink-0 mr-1.5">
+                            <div v-for="time in data.timeline" class="w-40 h-12 text-sm font-light flex items-center">{{ time }}</div>
+                        </div>
+                        <div class="w-full flex flex-col border rounded-lg border-gray-ccc">
+                            
+                        </div>
                     </div>
-                    <div class="w-full flex flex-col border rounded-lg border-gray-ccc">
-
+                    <div class="w-80 p-5 ml-5 shrink-0 rounded-lg bg-blue-4/10 text-black-333">
+                        <h2>파티원</h2>
                     </div>
                 </div>
             </div>
@@ -39,13 +44,22 @@ export default {
     methods: {
         async fetchData() {
             const data = {
-                title: '11/23 풋살하실 분',
-                date: '2023년 11/23일',
+                id: '5D23E8',
+                title: '12/26 풋살하실 분',
+                date: 'Tue Dec 26 2023',
                 start_time: 'Tue Dec 26 2023 08:00:00',
                 end_time: 'Tue Dec 26 2023 13:00:00',
+                partyjang_name: '홍길동',
+                partyjang_email: 'partywonguham@gmail.com',
+                partywon_name: '이말갑,이말을,이말병,이말정',
+                party_capacity: 6,
             }
 
             // 날짜 포맷
+            const newDate = new Date(data.date);
+            data.date = `${newDate.getFullYear()}년 ${newDate.getMonth() + 1}월 ${newDate.getDate()}일`;
+
+            // 시간대 포맷
             data.start_time = new Date(data.start_time);
             data.end_time = new Date(data.end_time);
 
