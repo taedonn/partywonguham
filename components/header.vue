@@ -4,7 +4,7 @@
             <div class="flex justify-between items-center gap-3.5">
                 <img src="/img/partiwon_logo.svg" />
                 <h1 class="text-xl text-black-333"> 
-                    <Nuxtlink to='/'>파티원 구함</Nuxtlink>
+                    <nuxt-link to='/'>파티원 구함</nuxt-link>
                 </h1>
             </div>
             <ul class="flex items-center gap-4">
@@ -22,19 +22,16 @@
                         </div>
                     </form>
                 </li>
-                <li class="text-base"><NuxtLink to='/'>일정 생성하기</NuxtLink></li>
-                <li class="text-base"><NuxtLink to='/'>사용 가이드</NuxtLink></li>
-                <li class="text-base"><NuxtLink to='/'>프로젝트 정보</NuxtLink></li>
+                <li class="text-base"><nuxt-link to='/'>일정 생성하기</nuxt-link></li>
+                <li class="text-base"><nuxt-link to='/'>사용 가이드</nuxt-link></li>
+                <li class="text-base"><nuxt-link to='/'>프로젝트 정보</nuxt-link></li>
             </ul>
         </div>
     </header>
 </template>
 
 <script>
-    export default {
-        name: "Header",
 
-    }
 </script>
 
 <style>
