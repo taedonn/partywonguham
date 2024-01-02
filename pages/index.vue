@@ -17,16 +17,23 @@
                     <p class="text-sm leading-6 font-light">{{ data.date }}</p>
                 </div>
                 <div class="w-full mt-5 flex">
-                    <div class="w-full flex">
+                    <div class="w-full h-fit flex">
                         <div class="flex flex-col shrink-0 mr-1.5">
-                            <div v-for="time in data.timeline" class="w-40 h-12 text-sm font-light flex items-center">{{ time }}</div>
+                            <div v-for="time in data.timeline" class="w-40 h-14 text-sm font-light flex items-center">{{ time }}</div>
                         </div>
-                        <div class="w-full flex flex-col border rounded-lg border-gray-ccc">
-                            
+                        <div class="w-full flex flex-col border rounded-lg overflow-hidden border-gray-ccc">
+                            <div v-for="checked_time in data.checked_time" class="w-full flex flex-col flex-auto first:border-none odd:border-t border-gray-ccc">
+                                <input type="checkbox" v-bind:id="`time-${checked_time.time}`" class="hidden"/>
+                                <label
+                                    v-bind:for="`time-${checked_time.time}`"
+                                    v-bind:style="`opacity: ${checked_time.checked / (data.checked_time.length + 1)}`"
+                                    class="w-full h-full bg-blue-4"
+                                ></label>
+                            </div>
                         </div>
                     </div>
                     <div class="w-80 p-5 ml-5 shrink-0 rounded-lg bg-blue-4/10 text-black-333 fill-black-333">
-                        <h2>파티원 ({{ data.partywon.length + '/' + data.capacity }})</h2>
+                        <h2>파티원 ({{ (data.partywon.length + 1) + '/' + data.capacity }})</h2>
                         <ul class="mt-4 text-sm font-light flex flex-col gap-3">
                             <li class="flex items-center">
                                 {{ data.partyjang.name }}(파티장)
@@ -73,6 +80,10 @@ export default {
                     { time: 11.5, checked: 4 },
                     { time: 12, checked: 0 },
                     { time: 12.5, checked: 1 },
+                    { time: 13, checked: 0 },
+                    { time: 13.5, checked: 0 },
+                    { time: 14, checked: 0 },
+                    { time: 14.5, checked: 0 },
                 ],
                 capacity: 6,
             }
@@ -90,7 +101,7 @@ export default {
                 data.start_time.getHours() < 11 
                     ? `오전 ${data.start_time.getHours() >= 10 ? data.start_time.getHours() : '0' + data.start_time.getHours()}:00 ~ 오전 ${data.start_time.getHours() + 1 >= 10 ? data.start_time.getHours() + 1 : '0' + (data.start_time.getHours() + 1)}:00` 
                     : data.start_time.getHours() === 11
-                        ? `오전 11:00 ~ 오후 12:00`
+                        ? '오전 11:00 ~ 오후 12:00'
                         : `오후 ${data.start_time.getHours() >= 10 ? data.start_time.getHours() : '0' + data.start_time.getHours()}:00 ~ 오후 ${data.start_time.getHours() + 1 >= 10 ? data.start_time.getHours() + 1 : '0' + (data.start_time.getHours() + 1)}:00`
             ]
             const timelineLength = data.end_time.getHours() - data.start_time.getHours();
@@ -100,10 +111,10 @@ export default {
                 timeline.push(`${
                     meridiem === '오전'
                         ? hour === 11
-                            ? `오전 11:00 ~ 오후 12:00`
+                            ? '오전 11:00 ~ 오후 12:00'
                             : `오전 ${hour >= 10 ? hour : '0' + hour}:00 ~ 오전 ${hour + 1 >= 10 ? hour + 1 : '0' + (hour + 1)}:00`
                         : hour === 12
-                            ? `오후 12:00 ~ 오후 01:00`
+                            ? '오후 12:00 ~ 오후 01:00'
                             : `오후 ${hour >= 10 ? hour : '0' + hour}:00 ~ 오후 ${hour + 1 >= 10 ? hour + 1 : '0' + (hour + 1)}:00`
                 }`);
             }
