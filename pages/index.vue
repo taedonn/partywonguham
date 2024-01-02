@@ -26,7 +26,7 @@
                                 <input type="checkbox" v-bind:id="`time-${checked_time.time}`" class="hidden"/>
                                 <label
                                     v-bind:for="`time-${checked_time.time}`"
-                                    v-bind:style="`opacity: ${checked_time.checked / (data.checked_time.length + 1)}`"
+                                    v-bind:style="`opacity: ${checked_time.checked.length / (data.checked_time.length + 1)}`"
                                     class="w-full h-full bg-blue-4"
                                 ></label>
                             </div>
@@ -61,8 +61,8 @@ export default {
                 id: '5D23E8',
                 title: '12/26 풋살하실 분',
                 date: 'Tue Dec 26 2023',
-                start_time: 'Tue Dec 26 2023 10:00:00',
-                end_time: 'Tue Dec 26 2023 15:00:00',
+                start_time: 10,
+                end_time: 15,
                 partyjang: {
                     name: '홍길동',
                     email: 'partywonguham@gmail.com',
@@ -74,16 +74,16 @@ export default {
                     { name: '이말정' },
                 ],
                 checked_time: [
-                    { time: 10, checked: 3 },
-                    { time: 10.5, checked: 2 },
-                    { time: 11, checked: 2 },
-                    { time: 11.5, checked: 4 },
-                    { time: 12, checked: 0 },
-                    { time: 12.5, checked: 1 },
-                    { time: 13, checked: 0 },
-                    { time: 13.5, checked: 0 },
-                    { time: 14, checked: 0 },
-                    { time: 14.5, checked: 0 },
+                    { time: 10, checked: ['이말갑', '이말을', '이말병'] },
+                    { time: 10.5, checked: ['이말갑', '이말을'] },
+                    { time: 11, checked: ['이말갑', '이말을'] },
+                    { time: 11.5, checked: ['이말갑', '이말을', '이말병', '이말정'] },
+                    { time: 12, checked: [] },
+                    { time: 12.5, checked: ['이말갑'] },
+                    { time: 13, checked: [] },
+                    { time: 13.5, checked: ['이말갑'] },
+                    { time: 14, checked: ['이말갑', '이말을'] },
+                    { time: 14.5, checked: ['이말갑'] },
                 ],
                 capacity: 6,
             }
@@ -92,19 +92,15 @@ export default {
             const newDate = new Date(data.date);
             data.date = `${newDate.getFullYear()}년 ${newDate.getMonth() + 1}월 ${newDate.getDate()}일`;
 
-            // 시간대 포맷
-            data.start_time = new Date(data.start_time);
-            data.end_time = new Date(data.end_time);
-
             // 타임라인 생성을 위한 날짜 반복문
             const timeline = [
-                data.start_time.getHours() < 11 
-                    ? `오전 ${data.start_time.getHours() >= 10 ? data.start_time.getHours() : '0' + data.start_time.getHours()}:00 ~ 오전 ${data.start_time.getHours() + 1 >= 10 ? data.start_time.getHours() + 1 : '0' + (data.start_time.getHours() + 1)}:00` 
-                    : data.start_time.getHours() === 11
+                data.start_time < 11 
+                    ? `오전 ${data.start_time >= 10 ? data.start_time : '0' + data.start_time}:00 ~ 오전 ${data.start_time + 1 >= 10 ? data.start_time + 1 : '0' + (data.start_time + 1)}:00` 
+                    : data.start_time === 11
                         ? '오전 11:00 ~ 오후 12:00'
-                        : `오후 ${data.start_time.getHours() >= 10 ? data.start_time.getHours() : '0' + data.start_time.getHours()}:00 ~ 오후 ${data.start_time.getHours() + 1 >= 10 ? data.start_time.getHours() + 1 : '0' + (data.start_time.getHours() + 1)}:00`
+                        : `오후 ${data.start_time >= 10 ? data.start_time : '0' + data.start_time}:00 ~ 오후 ${data.start_time + 1 >= 10 ? data.start_time + 1 : '0' + (data.start_time + 1)}:00`
             ]
-            const timelineLength = data.end_time.getHours() - data.start_time.getHours();
+            const timelineLength = data.end_time - data.start_time;
             for (let i = 0; i < timelineLength - 1; i++) {
                 let hour = Number(timeline[i].split(' ~ ')[1].split(':')[0].split(' ')[1]);
                 let meridiem = timeline[i].split(' ~ ')[1].split(':')[0].split(' ')[0];
