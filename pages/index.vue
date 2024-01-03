@@ -25,8 +25,8 @@
                         <h2>파티원 ({{ (data.partywon.length + 1) + '/' + data.capacity }})</h2>
                         <ul class="mt-4 text-sm font-light flex flex-col gap-3">
                             <li class="flex items-center">
-                                {{ data.partyjang.name }}(파티장)
-                                <i class="fa-regular fa-star w-3.5 ml-1"></i>
+                                {{ data.partyjang.name }} (파티장)
+                                <!-- <i class="fa-regular fa-star w-3.5 ml-1"></i> -->
                             </li>
                             <li v-for="partywon in data.partywon">{{ partywon.name }}</li>
                         </ul>
@@ -34,12 +34,12 @@
                 </div>
             </div>
         </div>
-        <Popup>
+        <!-- <Popup>
             <Timeline
                 :timeline="data.timeline"
                 :checked_time="data.checked_time"
             />
-        </Popup>
+        </Popup> -->
     </main>
 </template>
 
