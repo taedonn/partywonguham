@@ -17,21 +17,10 @@
                     <p class="text-sm leading-6 font-light">{{ data.date }}</p>
                 </div>
                 <div class="w-full mt-5 flex">
-                    <div class="w-full h-fit flex">
-                        <div class="flex flex-col shrink-0 mr-1.5">
-                            <div v-for="time in data.timeline" class="w-40 h-14 text-sm font-light flex items-center">{{ time }}</div>
-                        </div>
-                        <div class="w-full flex flex-col border rounded-lg overflow-hidden border-gray-ccc">
-                            <div v-for="checked_time in data.checked_time" class="w-full flex flex-col flex-auto first:border-none odd:border-t border-gray-ccc">
-                                <input type="checkbox" v-bind:id="`time-${checked_time.time}`" class="hidden"/>
-                                <label
-                                    v-bind:for="`time-${checked_time.time}`"
-                                    v-bind:style="`opacity: ${checked_time.checked.length / (data.checked_time.length + 1)}`"
-                                    class="w-full h-full bg-blue-4"
-                                ></label>
-                            </div>
-                        </div>
-                    </div>
+                    <timeline
+                        :timeline="data.timeline"
+                        :checked_time="data.checked_time"
+                    />
                     <div class="w-80 p-5 ml-5 shrink-0 rounded-lg bg-blue-4/10 text-black-333 fill-black-333">
                         <h2>파티원 ({{ (data.partywon.length + 1) + '/' + data.capacity }})</h2>
                         <ul class="mt-4 text-sm font-light flex flex-col gap-3">
@@ -49,6 +38,8 @@
 </template>
 
 <script>
+import timeline from '~/components/timeline.vue';
+
 export default {
     data() {
         return {
@@ -88,19 +79,21 @@ export default {
                 capacity: 6,
             }
 
+            const { start_time, end_time } = data;
+
             // 날짜 포맷
-            const newDate = new Date(data.date);
-            data.date = `${newDate.getFullYear()}년 ${newDate.getMonth() + 1}월 ${newDate.getDate()}일`;
+            const date = new Date(data.date);
+            data.date = `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
 
             // 타임라인 생성을 위한 날짜 반복문
             const timeline = [
-                data.start_time < 11 
-                    ? `오전 ${data.start_time >= 10 ? data.start_time : '0' + data.start_time}:00 ~ 오전 ${data.start_time + 1 >= 10 ? data.start_time + 1 : '0' + (data.start_time + 1)}:00` 
-                    : data.start_time === 11
+                start_time < 11 
+                    ? `오전 ${start_time >= 10 ? start_time : '0' + start_time}:00 ~ 오전 ${start_time + 1 >= 10 ? start_time + 1 : '0' + (start_time + 1)}:00` 
+                    : start_time === 11
                         ? '오전 11:00 ~ 오후 12:00'
-                        : `오후 ${data.start_time >= 10 ? data.start_time : '0' + data.start_time}:00 ~ 오후 ${data.start_time + 1 >= 10 ? data.start_time + 1 : '0' + (data.start_time + 1)}:00`
+                        : `오후 ${start_time >= 10 ? start_time : '0' + start_time}:00 ~ 오후 ${start_time + 1 >= 10 ? start_time + 1 : '0' + (start_time + 1)}:00`
             ]
-            const timelineLength = data.end_time - data.start_time;
+            const timelineLength = end_time - start_time;
             for (let i = 0; i < timelineLength - 1; i++) {
                 let hour = Number(timeline[i].split(' ~ ')[1].split(':')[0].split(' ')[1]);
                 let meridiem = timeline[i].split(' ~ ')[1].split(':')[0].split(' ')[0];
