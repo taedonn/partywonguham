@@ -20,7 +20,7 @@
     const props = defineProps({
         timeline: Array,
         checked_time: Array,
-    })
+    });
 </script>
 
 <style>
