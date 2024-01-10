@@ -9,7 +9,7 @@
                         시간 선택하기를 눌러 타임라인 내 가능한 시간을 선택해 주세요.
                     </p>
                 </div>
-                <button class="shrink-0 px-4 py-2 text-base leading-none font-medium rounded-lg border-2 border-blue-4 text-blue-4">시간 선택하기</button>
+                <button @click="handleShow" class="shrink-0 px-4 py-2 text-base leading-none font-medium rounded-lg border-2 border-blue-4 text-blue-4">시간 선택하기</button>
             </div>
             <div class="mt-16 text-black-333">
                 <div class="ml-1.5 pl-40">
@@ -21,35 +21,56 @@
                         :timeline="data.timeline"
                         :checked_time="data.checked_time"
                     />
-                    <div class="w-80 p-5 ml-5 shrink-0 rounded-lg bg-blue-4/10 text-black-333 fill-black-333">
-                        <h2>파티원 ({{ (data.partywon.length + 1) + '/' + data.capacity }})</h2>
-                        <ul class="mt-4 text-sm font-light flex flex-col gap-3">
-                            <li class="flex items-center">
-                                {{ data.partyjang.name }} (파티장)
-                                <!-- <i class="fa-regular fa-star w-3.5 ml-1"></i> -->
-                            </li>
-                            <li v-for="partywon in data.partywon">{{ partywon.name }}</li>
-                        </ul>
+                    <div class="w-80 shrink-0 ml-4 pb-[52px]">
+                        <div class="w-full h-full p-5 shrink-0 rounded-lg bg-blue-4/10 text-black-333 fill-black-333">
+                            <h2>파티원 ({{ (data.partywon.length + 1) + '/' + data.capacity }})</h2>
+                            <ul class="mt-4 text-sm font-light flex flex-col gap-3">
+                                <li class="flex items-center">
+                                    {{ data.partyjang.name }} (파티장)
+                                </li>
+                                <li v-for="partywon in data.partywon">{{ partywon.name }}</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- <Popup>
-            <Timeline
-                :timeline="data.timeline"
-                :checked_time="data.checked_time"
-            />
-        </Popup> -->
+        <Popup
+            :show="show"
+            :handleClick="handleShow"
+            title="시간대 설정"
+            subtitle="가능한 시간을 선택해 주세요."
+        >
+            <div class="flex gap-7">
+                <Timeline
+                    :timeline="data.timeline"
+                    :checked_time="data.checked_time"
+                />
+                <div class="w-48 shrink-0">
+                    <h2>이름</h2>
+                    <input
+                        type="text"
+                        placeholder="이름을 입력해 주세요."
+                        class="w-full p-2 mt-3 text-sm font-light border-b border-gray-ccc"
+                    />
+                    <button @click="handleShow" class="w-full mt-3 px-4 py-2 leading-none rounded-lg border-2 border-blue-4 text-blue-4">타임라인 추가</button>
+                </div>
+            </div>
+        </Popup>
     </main>
 </template>
 
 <script>
-import Timeline from '~/components/timeline.vue';
+// components
+import Timeline from '~/components/Timeline.vue';
 import Popup from '~/components/Popup.vue';
 
 export default {
     data() {
         return {
+            // states
+            show: false,
+            // fetched data
             data: {},
         }
     },
@@ -79,7 +100,7 @@ export default {
                     { time: 12, checked: [] },
                     { time: 12.5, checked: ['이말갑'] },
                     { time: 13, checked: [] },
-                    { time: 13.5, checked: ['이말갑'] },
+                    { time: 13.5, checked: [] },
                     { time: 14, checked: ['이말갑', '이말을'] },
                     { time: 14.5, checked: ['이말갑'] },
                 ],
@@ -117,7 +138,8 @@ export default {
             const newData = { ...data, timeline };
 
             this.data = newData;
-        }
+        },
+        handleShow() { this.show = !this.show; }
     },
     created() {
         this.fetchData();
