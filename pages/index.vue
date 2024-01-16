@@ -1,5 +1,5 @@
 <template>
-    <main class="w-full py-40 flex justify-center">
+    <main class="w-full px-5 py-40 flex justify-center">
         <div class="max-w-[80rem] w-full">
             <div class="w-full flex items-end text-black-333">
                 <div class="w-full">
@@ -9,10 +9,10 @@
                         시간 선택하기를 눌러 타임라인 내 가능한 시간을 선택해 주세요.
                     </p>
                 </div>
-                <Button :click="store.setShow">시간 선택하기</Button>
+                <Button :click="store.setShow" :icon="'fa-regular fa-paper-plane'">시간 선택하기</Button>
             </div>
             <div class="mt-16 text-black-333">
-                <div class="pl-[9.375rem]">
+                <div class="pl-36">
                     <h2 class="mb-3 text-xl leading-none font-medium">{{ data.title }}</h2>
                     <p class="text-sm leading-6 font-light text-gray-666">{{ data.date }}</p>
                 </div>
@@ -22,7 +22,7 @@
                         :checked_time="data.checked_time"
                     />
                     <div class="w-80 shrink-0 ml-4 pb-[3.125rem]">
-                        <div class="w-full h-full p-5 shrink-0 border border-blue-3 bg-blue-4/10 text-black-333 fill-black-333">
+                        <div class="w-full h-full px-4 py-5 shrink-0 border border-gray-ccc text-black-333">
                             <h2>파티원 ({{ (data.partywon.length + 1) + '/' + data.capacity }})</h2>
                             <ul class="mt-4 text-sm font-light flex flex-col gap-3">
                                 <li class="flex items-center">
@@ -42,21 +42,22 @@
             subtitle="가능한 시간을 선택해 주세요."
         >
             <div>
-                <div class="w-48 shrink-0 mb-8">
+                <div class="w-52 shrink-0 mt-14">
                     <h2>이름</h2>
-                    <input
-                        type="text"
-                        placeholder="이름을 입력해 주세요."
-                        class="w-full p-2 mt-3 text-sm font-light border-b border-gray-ccc text-black-333 placeholder-gray-999"
-                    />
+                    <div class="mt-4">
+                        <Input
+                            placeHolder="이름을 입력해 주세요."
+                        />
+                    </div>
                 </div>
+                <h2 class="mt-14 mb-4">시간대 선택</h2>
                 <Timeline
                     blank
                     :timeline="timeline"
                     :checked_time="data.checked_time"
                 />
-                <div class="mt-8">
-                    <Button :click="store.setShow">타임라인 추가</Button>
+                <div class="mt-14">
+                    <Button :click="store.setShow" :icon="'fa-regular fa-paper-plane'">타임라인 추가</Button>
                 </div>
             </div>
         </Popup>
@@ -70,6 +71,7 @@ const store = usePopupStore();
 
 // components
 import Button from '~/components/Button.vue';
+import Input from '~/components/Input.vue';
 import Timeline from '~/components/Timeline.vue';
 import Popup from '~/components/Popup.vue';
 
