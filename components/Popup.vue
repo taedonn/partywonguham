@@ -11,13 +11,15 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
     const props = defineProps({
         show: Boolean,
-        handleClick: Function,
+        handleShow: Function,
         title: String,
         subtitle: String,
     });
+
+    const handleClick = props.handleShow ? props.handleShow : () => { return }
 </script>
 
 <style>

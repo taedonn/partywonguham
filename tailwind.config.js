@@ -4,6 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        'gray-d': '#D2D4DC',
         'gray-ccc': '#CCCCCC',
         'gray-999': '#999999',
         'gray-666': '#666666',
@@ -12,7 +13,8 @@ export default {
         'blue-2': '#AAD8FB',
         'blue-3': '#7FC4F8',
         'blue-4': '#2A9DF4',
-      }
+        'blue-e': '#EDF6FF',
+      },
     },
   },
   plugins: [],

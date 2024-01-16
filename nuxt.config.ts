@@ -7,8 +7,12 @@ export default defineNuxtConfig({
   ],
   modules: [
     '@nuxtjs/tailwindcss',
-    '@nuxt/image'
+    '@nuxt/image',
+    '@pinia/nuxt',
   ],
+  pinia: { // pinia store 경로
+    storesDirs: ['./stores/**']
+  },
   app: {
     head: {
       link: [

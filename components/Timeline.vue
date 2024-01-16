@@ -4,15 +4,30 @@
             <div class="flex flex-col shrink-0 mr-1.5">
                 <div v-for="time in timeline" class="w-36 h-14 text-xs font-light flex items-center text-gray-666">{{ time }}</div>
             </div>
-            <div class="w-full flex flex-col border rounded-lg overflow-hidden border-gray-ccc">
-                <div v-for="checked, idx in checked_time" class="w-full flex flex-col flex-auto">
-                    <div v-bind:class="`${checked.checked.length === 0 && idx % 2 === 0 && checked_time[idx - 1].checked.length === 0 ? 'bg-gray-ccc' : 'hidden'} w-full h-px`"></div>
+            <div class="w-full flex flex-col border border-gray-d">
+                <!-- 선택 화면 -->
+                <div v-if="blank" v-for="checked, idx in checkedTime" class="w-full flex flex-col flex-auto">
+                    <div v-bind:class="`${checked.checked.length === 0 && idx % 2 === 0 && checkedTime[idx - 1].checked.length === 0 ? 'bg-gray-ccc' : 'hidden'} w-full h-px`"></div>
                     <input type="checkbox" v-bind:id="`time-${checked.time}`" class="hidden"/>
                     <label
                         v-bind:for="`time-${checked.time}`"
-                        v-bind:style="`opacity: ${blank ? 1 : checked.checked.length / (checked_time.length + 1)}`"
-                        v-bind:class="`${blank ? '' : 'bg-blue-4'} w-full h-full`"
+                        v-bind:style="`opacity: ${blank ? 1 : checked.checked.length / (checkedTime.length + 1)}`"
+                        v-bind:class="`${blank ? '' : 'bg-blue-4'} w-full h-full cursor-pointer hover:bg-blue-1`"
                     ></label>
+                </div>
+                <!-- 볼 화면 -->
+                <div v-else v-for="checked, idx in checkedTime" class="group w-full relative flex flex-col flex-auto cursor-pointer">
+                    <div v-bind:class="`${checked.checked.length === 0 && idx % 2 === 0 && checkedTime[idx - 1].checked.length === 0 ? 'bg-gray-ccc' : 'hidden'} w-full h-px`"></div>
+                    <div
+                        v-bind:style="`opacity: ${checked.checked.length / (checkedTime.length + 1)}`"
+                        v-bind:class="`w-full h-full bg-blue-4 duration-100`"
+                    >
+                    </div>
+                    <div v-if="checked.checked.length !== 0" class="w-full h-full absolute group-hover:bg-blue-4 opacity-20 duration-100"></div>
+                    <div v-if="checked.checked.length !== 0" class="w-max invisible group-hover:visible px-3 py-2 absolute z-10 bottom-1/2 left-[80%] -translate-x-1/2 -translate-y-2 scale-50 group-hover:scale-100 opacity-0 group-hover:opacity-100 text-sm font-light rounded-md origin-bottom duration-100 text-white bg-black-333">
+                        <div v-for="person in checked.checked" class="">{{ person }}</div>
+                        <div class="w-2.5 h-2.5 rotate-45 absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 bg-black-333"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -27,7 +42,12 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+    interface CheckedTime {
+        time: number,
+        checked: Array<string>
+    }
+
     const props = defineProps({
         blank: {
             type: Boolean,
@@ -35,8 +55,10 @@
             default: false,
         },
         timeline: Array,
-        checked_time: Array,
+        checked_time: Array<CheckedTime>,
     });
+
+    const checkedTime = props.checked_time ? props.checked_time : []
 </script>
 
 <style>
