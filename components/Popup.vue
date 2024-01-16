@@ -1,7 +1,7 @@
 <template>
     <div v-if="show" class="w-full h-full fixed left-0 top-0 flex justify-center items-center text-black-333 bg-black-333/20">
-        <div id="popup" class="w-[768px] p-14 relative rounded-lg bg-white">
-            <button @click="handleClick()" class="absolute right-5 top-5">
+        <div id="popup" class="animate-fade-in w-[48rem] p-14 relative rounded-lg bg-white">
+            <button @click="handleClick()" class="w-10 h-10 absolute right-5 top-5 flex justify-center items-center rounded-full duration-100 lg:hover:bg-gray-e">
                 <i class="text-2xl leading-none fa-solid fa-xmark"></i>
             </button>
             <h2 class="mb-3 text-xl">{{ title }}</h2>

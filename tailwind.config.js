@@ -4,6 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        'gray-e': '#E9EAEE',
         'gray-d': '#D2D4DC',
         'gray-ccc': '#CCCCCC',
         'gray-999': '#999999',
@@ -15,6 +16,15 @@ export default {
         'blue-4': '#2A9DF4',
         'blue-e': '#EDF6FF',
       },
+      animation: {
+        "fade-in": "fade-in 0.2s 1 both",
+      },
+      keyframes: {
+        "fade-in": {
+          "0%": { opacity: "0", transform: "scale(0.5)" },
+          "100%": { opacity: "1", transform: "scale(1)" }
+        }
+      }
     },
   },
   plugins: [],

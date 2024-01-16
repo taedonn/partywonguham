@@ -1,6 +1,6 @@
 <template>
     <main class="w-full py-40 flex justify-center">
-        <div class="max-w-[1280px] w-full">
+        <div class="max-w-[80rem] w-full">
             <div class="w-full flex items-end text-black-333">
                 <div class="w-full">
                     <h1 class="mb-3 text-xl leading-none font-medium">타임라인</h1>
@@ -9,10 +9,10 @@
                         시간 선택하기를 눌러 타임라인 내 가능한 시간을 선택해 주세요.
                     </p>
                 </div>
-                <button @click="store.setShow" class="shrink-0 px-4 py-2 text-base leading-none font-medium rounded-lg border-2 border-blue-4 text-blue-4">시간 선택하기</button>
+                <Button :click="store.setShow">시간 선택하기</Button>
             </div>
             <div class="mt-16 text-black-333">
-                <div class="ml-1.5 pl-40">
+                <div class="pl-[9.375rem]">
                     <h2 class="mb-3 text-xl leading-none font-medium">{{ data.title }}</h2>
                     <p class="text-sm leading-6 font-light text-gray-666">{{ data.date }}</p>
                 </div>
@@ -21,7 +21,7 @@
                         :timeline="timeline"
                         :checked_time="data.checked_time"
                     />
-                    <div class="w-80 shrink-0 ml-4 pb-[50px]">
+                    <div class="w-80 shrink-0 ml-4 pb-[3.125rem]">
                         <div class="w-full h-full p-5 shrink-0 border border-blue-3 bg-blue-4/10 text-black-333 fill-black-333">
                             <h2>파티원 ({{ (data.partywon.length + 1) + '/' + data.capacity }})</h2>
                             <ul class="mt-4 text-sm font-light flex flex-col gap-3">
@@ -55,7 +55,9 @@
                     :timeline="timeline"
                     :checked_time="data.checked_time"
                 />
-                <button @click="store.setShow" class="mt-8 px-4 py-2 leading-none rounded-lg border-2 border-blue-4 text-blue-4">타임라인 추가</button>
+                <div class="mt-8">
+                    <Button :click="store.setShow">타임라인 추가</Button>
+                </div>
             </div>
         </Popup>
     </main>
@@ -67,6 +69,7 @@ import { usePopupStore } from '~/stores/popup';
 const store = usePopupStore();
 
 // components
+import Button from '~/components/Button.vue';
 import Timeline from '~/components/Timeline.vue';
 import Popup from '~/components/Popup.vue';
 
