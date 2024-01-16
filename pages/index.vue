@@ -21,7 +21,7 @@
                         :timeline="timeline"
                         :checked_time="data.checked_time"
                     />
-                    <div class="w-80 shrink-0 ml-4 pb-[52px]">
+                    <div class="w-80 shrink-0 ml-4 pb-[50px]">
                         <div class="w-full h-full p-5 shrink-0 border border-blue-3 bg-blue-4/10 text-black-333 fill-black-333">
                             <h2>파티원 ({{ (data.partywon.length + 1) + '/' + data.capacity }})</h2>
                             <ul class="mt-4 text-sm font-light flex flex-col gap-3">

@@ -1,6 +1,6 @@
 <template>
-    <div v-show="show" class="w-full h-full fixed left-0 top-0 flex justify-center items-center text-black-333 bg-black-333/20">
-        <div class="w-[768px] p-14 relative rounded-lg bg-white">
+    <div v-if="show" class="w-full h-full fixed left-0 top-0 flex justify-center items-center text-black-333 bg-black-333/20">
+        <div id="popup" class="w-[768px] p-14 relative rounded-lg bg-white">
             <button @click="handleClick()" class="absolute right-5 top-5">
                 <i class="text-2xl leading-none fa-solid fa-xmark"></i>
             </button>
@@ -20,6 +20,26 @@
     });
 
     const handleClick = props.handleShow ? props.handleShow : () => { return }
+    const handleKeydown = (e: KeyboardEvent) => { if (e.key === "Escape" && props.show) handleClick(); }
+    const handleMousedown = (e: MouseEvent) => {
+        let popup = document.getElementById("popup");
+        let target = e.target as HTMLElement; // e.target에서 HTMLElement만 분리
+        if (e.target) {
+            if (target.contains(popup) && target !== popup) handleClick();
+        }
+    }
+
+    // 컴포넌트가 마운트 된 후 실행될 콜백
+    onMounted(() => {
+        window.addEventListener("keydown", handleKeydown);
+        window.addEventListener("mousedown", handleMousedown);
+    });
+
+    // 컴포넌트가 마운토 해제되기 직전에 실행될 콜백
+    onBeforeUnmount(() => {
+        window.removeEventListener("keydown", handleKeydown);
+        window.removeEventListener("mousedown", handleMousedown);
+    });
 </script>
 
 <style>
