@@ -2,7 +2,7 @@
     <div class="w-full">
         <div class="w-full h-fit flex">
             <div class="flex flex-col shrink-0">
-                <div v-for="time in timeline" class="w-36 h-14 text-xs font-light flex items-center text-gray-666">{{ time }}</div>
+                <div v-for="time in timeline" class="w-14 h-14 text-xs font-light flex items-center text-gray-666">{{ time }}</div>
             </div>
             <div class="w-full flex flex-col border border-gray-ccc">
                 <!-- 선택 화면 -->
@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="!blank" class="w-full ml-36 mt-3 text-xs font-light text-gray-999">
+        <div v-if="!blank" class="w-full ml-14 mt-4 text-xs font-light text-gray-999">
             <div class="flex items-center gap-2">
                 <i class="text-[0.188rem] fa-solid fa-circle"></i> 시간은 30분 단위로 생성되며 중복해서 선택할 수 있습니다.
             </div>

@@ -12,16 +12,16 @@
                 <Button :click="store.setShow" :icon="'fa-regular fa-paper-plane'">시간 선택하기</Button>
             </div>
             <div class="mt-16 text-black-333">
-                <div class="pl-36">
+                <div class="pl-14">
                     <h2 class="mb-3 text-xl leading-none font-medium">{{ data.title }}</h2>
                     <p class="text-sm leading-6 font-light text-gray-666">{{ data.date }}</p>
                 </div>
-                <div class="w-full mt-5 flex">
+                <div class="w-full mt-4 flex">
                     <Timeline
                         :timeline="timeline"
                         :checked_time="data.checked_time"
                     />
-                    <div class="w-80 shrink-0 ml-4 pb-[3.125rem]">
+                    <div class="w-80 shrink-0 ml-4 pb-[3.375rem]">
                         <div class="w-full h-full px-4 py-5 shrink-0 border border-gray-ccc text-black-333">
                             <h2>파티원 ({{ (data.partywon.length + 1) + '/' + data.capacity }})</h2>
                             <ul class="mt-4 text-sm font-light flex flex-col gap-3">
@@ -112,26 +112,14 @@ const date = new Date(data.date);
 data.date = `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
 
 // 타임라인 생성을 위한 날짜 반복문
-const timeline = [
-    start_time < 11 
-        ? `오전 ${start_time >= 10 ? start_time : '0' + start_time}:00 ~ 오전 ${start_time + 1 >= 10 ? start_time + 1 : '0' + (start_time + 1)}:00` 
-        : start_time === 11
-            ? '오전 11:00 ~ 오후 12:00'
-            : `오후 ${start_time >= 10 ? start_time : '0' + start_time}:00 ~ 오후 ${start_time + 1 >= 10 ? start_time + 1 : '0' + (start_time + 1)}:00`
-]
+const timeline: string[] = []
 const timelineLength = end_time - start_time;
-for (let i = 0; i < timelineLength - 1; i++) {
-    let hour = Number(timeline[i].split(' ~ ')[1].split(':')[0].split(' ')[1]);
-    let meridiem = timeline[i].split(' ~ ')[1].split(':')[0].split(' ')[0];
-    timeline.push(`${
-        meridiem === '오전'
-            ? hour === 11
-                ? '오전 11:00 ~ 오후 12:00'
-                : `오전 ${hour >= 10 ? hour : '0' + hour}:00 ~ 오전 ${hour + 1 >= 10 ? hour + 1 : '0' + (hour + 1)}:00`
-            : hour === 12
-                ? '오후 12:00 ~ 오후 01:00'
-                : `오후 ${hour >= 10 ? hour : '0' + hour}:00 ~ 오후 ${hour + 1 >= 10 ? hour + 1 : '0' + (hour + 1)}:00`
-    }`);
+for (let i = 0; i < timelineLength; i++) {
+    timeline.push(
+        start_time + i < 12
+        ? `${start_time + i} AM`
+        : `${start_time + i} PM`
+    );
 }
 </script>
 
