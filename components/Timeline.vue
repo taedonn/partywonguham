@@ -10,9 +10,9 @@
                     <input type="checkbox" v-bind:id="`time-${checked.time}`" class="peer hidden"/>
                     <label
                         v-bind:for="`time-${checked.time}`"
-                        class="w-full h-full cursor-pointer duration-100 peer-checked:bg-blue-2 lg:hover:bg-blue-1"
+                        class="w-full h-full cursor-[row-resize] duration-100 peer-checked:bg-blue-2 lg:hover:bg-blue-1"
                     ></label>
-                    <div v-bind:class="`${idx % 2 === 1 ? 'bg-gray-ccc' : 'hidden'} peer-checked:bg-white group-last:hidden w-full h-px`"></div>
+                    <div v-bind:class="`${idx % 2 === 1 ? 'bg-gray-ccc' : 'hidden'} peer-checked:bg-white group-last:hidden w-full h-px cursor-[row-resize]`"></div>
                 </div>
                 <!-- 볼 화면 -->
                 <div v-else v-for="checked, idx in checkedTime" class=" group w-full relative flex flex-col flex-auto">
