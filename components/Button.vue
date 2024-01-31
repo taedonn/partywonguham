@@ -3,7 +3,8 @@
         @click="handleClick()"
         @mousedown="handleMousedown"
         @mouseup="handleMouseup"
-        class="px-4 py-2.5 shrink-0 rounded border-2 duration-100 border-blue-4 focus:border-blue-4 text-blue-4 hover:bg-blue-4 hover:text-white"
+        @mouseleave="handleMouseup"
+        class="px-4 py-2.5 shrink-0 rounded border-2 duration-100 border-blue-4 text-blue-4 lg:hover:bg-blue-4 lg:hover:text-white"
     > 
         <i
             v-if="icon !== ''"
@@ -25,14 +26,17 @@
     });
 
     const handleClick = props.click ? props.click : () => { return }
+
+    // 마우스 이벤트
     const handleMousedown = (e: MouseEvent) => {
-        const button = e.target as HTMLButtonElement;
-        button.classList.remove("bg-blue-4");
-        button.classList.add("bg-blue-3");
+        const button = e.currentTarget as HTMLButtonElement;
+        button.classList.remove("lg:hover:bg-blue-4");
+        button.classList.add("lg:hover:bg-blue-4-h", "lg:border-blue-4-h");
     }
     const handleMouseup = (e: MouseEvent) => {
-        const button = e.target as HTMLButtonElement;
-        button.classList.remove("bg-blue-3");
+        const button = e.currentTarget as HTMLButtonElement;
+        button.classList.remove("lg:hover:bg-blue-4-h", "lg:border-blue-4-h");
+        button.classList.add("lg:hover:bg-blue-4");
     }
 </script>
 

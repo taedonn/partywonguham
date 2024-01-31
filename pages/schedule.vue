@@ -41,16 +41,16 @@
             title="시간대 설정"
             subtitle="가능한 시간을 선택해 주세요."
         >
-            <div>
+            <div class="text-lg">
                 <div class="w-52 shrink-0 mt-14">
                     <h2>이름</h2>
-                    <div class="mt-4">
+                    <div class="mt-3">
                         <Input
                             placeHolder="이름을 입력해 주세요."
                         />
                     </div>
                 </div>
-                <h2 class="mt-14 mb-4">시간대 선택</h2>
+                <h2 class="mt-14 mb-5">시간대 선택</h2>
                 <Timeline
                     blank
                     :timeline="timeline"
