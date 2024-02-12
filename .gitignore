@@ -1,3 +1,11 @@
+# default
 node_modules
 .nuxt/
 .DS_Store
+.output
+
+# env 파일
+.env
+
+# 파이어베이스
+.firebase
