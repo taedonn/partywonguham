@@ -30,5 +30,15 @@ export default defineNuxtConfig({
         serverDir: '.output/server',
         publicDir: '.output/public'
     }
+  },
+  runtimeConfig: {
+    firebaseApiKey: '',
+    firebaseAuthDomain: '',
+    firebaseDatabaseUrl: '',
+    firebaseId: '',
+    firebaseStorageBucket: '',
+    firebaseMessagingSenderId: '',
+    firebaseAppId: '',
+    firebaseMeasurementId: '',
   }
 })

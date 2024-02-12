@@ -9,3 +9,4 @@ node_modules
 
 # 파이어베이스
 .firebase
+service-account.json
