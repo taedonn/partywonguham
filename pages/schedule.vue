@@ -65,62 +65,62 @@
 </template>
 
 <script setup lang="ts">
-// pinia
-import { usePopupStore } from '~/stores/popup';
-const store = usePopupStore();
+    // pinia
+    import { usePopupStore } from '~/stores/popup';
+    const store = usePopupStore();
 
-// components
-import Button from '~/components/Button.vue';
-import Input from '~/components/Input.vue';
-import Timeline from '~/components/Timeline.vue';
-import Popup from '~/components/Popup.vue';
+    // components
+    import Button from '~/components/Button.vue';
+    import Input from '~/components/Input.vue';
+    import Timeline from '~/components/Timeline.vue';
+    import Popup from '~/components/Popup.vue';
 
-const data = {
-    id: '5D23E8',
-    title: '12/26 풋살하실 분',
-    date: 'Tue Dec 26 2023',
-    start_time: 10,
-    end_time: 15,
-    partyjang: {
-        name: '홍길동',
-        email: 'partywonguham@gmail.com',
-    },
-    partywon: [
-        { name: '이말갑' },
-        { name: '이말을' },
-        { name: '이말병' },
-        { name: '이말정' },
-    ],
-    checked_time: [
-        { time: 10, checked: ['이말갑', '이말을', '이말병'] },
-        { time: 10.5, checked: ['이말갑', '이말을'] },
-        { time: 11, checked: ['이말갑', '이말을'] },
-        { time: 11.5, checked: ['이말갑', '이말을', '이말병', '이말정'] },
-        { time: 12, checked: [] },
-        { time: 12.5, checked: ['이말갑'] },
-        { time: 13, checked: [] },
-        { time: 13.5, checked: [] },
-        { time: 14, checked: ['이말갑', '이말을'] },
-        { time: 14.5, checked: ['이말갑'] },
-    ],
-    capacity: 6,
-}
-const { start_time, end_time } = data;
+    const data = {
+        id: '5D23E8',
+        title: '12/26 풋살하실 분',
+        date: 'Tue Dec 26 2023',
+        start_time: 10,
+        end_time: 15,
+        partyjang: {
+            name: '홍길동',
+            email: 'partywonguham@gmail.com',
+        },
+        partywon: [
+            { name: '이말갑' },
+            { name: '이말을' },
+            { name: '이말병' },
+            { name: '이말정' },
+        ],
+        checked_time: [
+            { time: 10, checked: ['이말갑', '이말을', '이말병'] },
+            { time: 10.5, checked: ['이말갑', '이말을'] },
+            { time: 11, checked: ['이말갑', '이말을'] },
+            { time: 11.5, checked: ['이말갑', '이말을', '이말병', '이말정'] },
+            { time: 12, checked: [] },
+            { time: 12.5, checked: ['이말갑'] },
+            { time: 13, checked: [] },
+            { time: 13.5, checked: [] },
+            { time: 14, checked: ['이말갑', '이말을'] },
+            { time: 14.5, checked: ['이말갑'] },
+        ],
+        capacity: 6,
+    }
+    const { start_time, end_time } = data;
 
-// 날짜 포맷
-const date = new Date(data.date);
-data.date = `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
+    // 날짜 포맷
+    const date = new Date(data.date);
+    data.date = `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
 
-// 타임라인 생성을 위한 날짜 반복문
-const timeline: string[] = []
-const timelineLength = end_time - start_time;
-for (let i = 0; i < timelineLength; i++) {
-    timeline.push(
-        start_time + i < 12
-        ? `${start_time + i} AM`
-        : `${start_time + i} PM`
-    );
-}
+    // 타임라인 생성을 위한 날짜 반복문
+    const timeline: string[] = []
+    const timelineLength = end_time - start_time;
+    for (let i = 0; i < timelineLength; i++) {
+        timeline.push(
+            start_time + i < 12
+            ? `${start_time + i} AM`
+            : `${start_time + i} PM`
+        );
+    }
 </script>
 
 <style>
