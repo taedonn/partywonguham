@@ -7,7 +7,6 @@ export const useFirebase = () => {
     const firebaseConfig = {
         apiKey: config.public.firebaseApiKey + '',
         authDomain: config.public.firebaseAuthDomain + '',
-        databaseURL: config.public.firebaseDatabaseUrl + '',
         projectId: config.public.firebaseId + '',
         storageBucket: config.public.firebaseStorageBucket + '',
         messagingSenderId: config.public.firebaseMessagingSenderId + '',

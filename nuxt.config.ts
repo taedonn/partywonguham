@@ -35,7 +35,6 @@ export default defineNuxtConfig({
     public: {
       firebaseApiKey: '',
       firebaseAuthDomain: '',
-      firebaseDatabaseUrl: '',
       firebaseId: '',
       firebaseStorageBucket: '',
       firebaseMessagingSenderId: '',
