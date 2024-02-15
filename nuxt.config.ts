@@ -32,13 +32,15 @@ export default defineNuxtConfig({
     }
   },
   runtimeConfig: {
-    firebaseApiKey: '',
-    firebaseAuthDomain: '',
-    firebaseDatabaseUrl: '',
-    firebaseId: '',
-    firebaseStorageBucket: '',
-    firebaseMessagingSenderId: '',
-    firebaseAppId: '',
-    firebaseMeasurementId: '',
+    public: {
+      firebaseApiKey: '',
+      firebaseAuthDomain: '',
+      firebaseDatabaseUrl: '',
+      firebaseId: '',
+      firebaseStorageBucket: '',
+      firebaseMessagingSenderId: '',
+      firebaseAppId: '',
+      firebaseMeasurementId: '',
+    }
   }
 })
