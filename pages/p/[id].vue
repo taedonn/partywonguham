@@ -11,21 +11,25 @@
 
     // fetch data
     const route = useRoute();
-    const { data } = await useFetch(`/api/${route.params.id}`);
-    const { start_time, end_time } = data.value;
+    const { data }: any = await useFetch(`/api/p/${route.params.id}`);
+    const { start_time, end_time, date } = data.value;
 
-    // format data
-    const date = new Date(data.value.date);
-    const refinedDate = `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
+    // format date
+    const dateProp = new Date(date);
+    const dateDesc = `${dateProp.getFullYear()}년 ${dateProp.getMonth() + 1}월 ${dateProp.getDate()}일`;
 
     // set timeline
-    const timeline: string[] = []
-    const timelineLength = end_time - start_time;
-    for (let i = 0; i < timelineLength; i++) {
+    const timeline: string[] = [];
+    const startTime = Number(start_time);
+    const endTime = Number(end_time);
+    const length = Number(endTime) - Number(startTime);
+    for (let i = 0; i < length; i++) {
         timeline.push(
-            start_time + i < 12
-            ? `${start_time + i} AM`
-            : `${start_time + i} PM`
+            startTime + i < 12
+            ? `${startTime + i} AM`
+            : startTime + i === 12
+                ? `${startTime + i} PM`
+                : `${startTime + i - 12} PM`
         );
     }
 </script>
@@ -46,7 +50,7 @@
             <div class="mt-16 text-black-333">
                 <div class="pl-14">
                     <h2 class="mb-3 text-xl leading-none font-medium">{{ data.title }}</h2>
-                    <p class="text-sm leading-6 font-light text-gray-666">{{ refinedDate }}</p>
+                    <p class="text-sm leading-6 font-light text-gray-666">{{ dateDesc }}</p>
                 </div>
                 <div class="w-full mt-4 flex">
                     <Timeline

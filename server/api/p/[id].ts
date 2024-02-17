@@ -1,4 +1,4 @@
-import { db } from '../utils/firebase';
+import { db } from '../../utils/firebase';
 
 export default defineEventHandler(async e => {
     const id = getRouterParam(e, 'id');
@@ -6,4 +6,4 @@ export default defineEventHandler(async e => {
     const snapshot = await ref.get();
     const data = snapshot.data();
     return data;
-})
+});
