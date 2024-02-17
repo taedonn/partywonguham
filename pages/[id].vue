@@ -1,3 +1,35 @@
+<script setup lang="ts">
+    // pinia
+    import { usePopupStore } from '~/stores/popup';
+    const store = usePopupStore();
+
+    // components
+    import Button from '~/components/Button.vue';
+    import Input from '~/components/Input.vue';
+    import Timeline from '~/components/Timeline.vue';
+    import Popup from '~/components/Popup.vue';
+
+    // fetch data
+    const route = useRoute();
+    const { data } = await useFetch(`/api/${route.params.id}`);
+    const { start_time, end_time } = data.value;
+
+    // format data
+    const date = new Date(data.value.date);
+    const refinedDate = `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
+
+    // set timeline
+    const timeline: string[] = []
+    const timelineLength = end_time - start_time;
+    for (let i = 0; i < timelineLength; i++) {
+        timeline.push(
+            start_time + i < 12
+            ? `${start_time + i} AM`
+            : `${start_time + i} PM`
+        );
+    }
+</script>
+
 <template>
     <main class="w-full px-5 py-40 flex justify-center">
         <div class="max-w-[80rem] w-full">
@@ -14,7 +46,7 @@
             <div class="mt-16 text-black-333">
                 <div class="pl-14">
                     <h2 class="mb-3 text-xl leading-none font-medium">{{ data.title }}</h2>
-                    <p class="text-sm leading-6 font-light text-gray-666">{{ data.date }}</p>
+                    <p class="text-sm leading-6 font-light text-gray-666">{{ refinedDate }}</p>
                 </div>
                 <div class="w-full mt-4 flex">
                     <Timeline
@@ -63,65 +95,6 @@
         </Popup>
     </main>
 </template>
-
-<script setup lang="ts">
-    // pinia
-    import { usePopupStore } from '~/stores/popup';
-    const store = usePopupStore();
-
-    // components
-    import Button from '~/components/Button.vue';
-    import Input from '~/components/Input.vue';
-    import Timeline from '~/components/Timeline.vue';
-    import Popup from '~/components/Popup.vue';
-
-    const data = {
-        id: '5D23E8',
-        title: '12/26 풋살하실 분',
-        date: 'Tue Dec 26 2023',
-        start_time: 10,
-        end_time: 15,
-        partyjang: {
-            name: '홍길동',
-            email: 'partywonguham@gmail.com',
-        },
-        partywon: [
-            { name: '이말갑' },
-            { name: '이말을' },
-            { name: '이말병' },
-            { name: '이말정' },
-        ],
-        checked_time: [
-            { time: 10, checked: ['이말갑', '이말을', '이말병'] },
-            { time: 10.5, checked: ['이말갑', '이말을'] },
-            { time: 11, checked: ['이말갑', '이말을'] },
-            { time: 11.5, checked: ['이말갑', '이말을', '이말병', '이말정'] },
-            { time: 12, checked: [] },
-            { time: 12.5, checked: ['이말갑'] },
-            { time: 13, checked: [] },
-            { time: 13.5, checked: [] },
-            { time: 14, checked: ['이말갑', '이말을'] },
-            { time: 14.5, checked: ['이말갑'] },
-        ],
-        capacity: 6,
-    }
-    const { start_time, end_time } = data;
-
-    // 날짜 포맷
-    const date = new Date(data.date);
-    data.date = `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
-
-    // 타임라인 생성을 위한 날짜 반복문
-    const timeline: string[] = []
-    const timelineLength = end_time - start_time;
-    for (let i = 0; i < timelineLength; i++) {
-        timeline.push(
-            start_time + i < 12
-            ? `${start_time + i} AM`
-            : `${start_time + i} PM`
-        );
-    }
-</script>
 
 <style>
 
