@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         'gray-e': '#E9EAEE',
+        'gray-d': '#D2D4DC',
         'gray-ccc': '#CCCCCC',
         'gray-999': '#999999',
         'gray-666': '#666666',
@@ -13,6 +14,7 @@ export default {
         'blue-2': '#AAD8FB',
         'blue-3': '#7FC4F8',
         'blue-4': '#2A9DF4',
+        'blue-4-h': '#4EAAEF',
       },
       animation: {
         "fade-in": "fade-in 0.2s 1 both",
