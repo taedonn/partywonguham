@@ -43,6 +43,11 @@
         window.navigator.clipboard.writeText(location.toString());
         toastStore.success({ text: "링크가 복사되었어요." });
     }
+
+    // Create timeline
+    const createTimeline = async () => {
+        const name = document.getElementById("user-name") as HTMLInputElement;
+    }
 </script>
 
 <template>
@@ -70,17 +75,16 @@
                     <Timeline
                         :timeline="timeline"
                         :checked_time="data.checked_time"
-                        :capacity="data.capacity"
                     />
                     <div class="w-80 shrink-0 ml-4 pb-[3.375rem]">
-                        <div class="w-full h-full px-4 py-5 shrink-0 border border-gray-ccc text-black-333">
+                        <div class="w-full h-full px-4 py-5 shrink-0 rounded-md border border-gray-999 text-black-333">
                             <h2>파티원{{ hoverStore.partywon.length !== 0 ? " (" + (hoverStore.partywon.length) + '/' + data.capacity + ')' : '' }}</h2>
                             <ul class="mt-4 text-sm font-light flex flex-col gap-3">
                                 <li
                                     v-for="partywon in data.partywon"
                                     v-bind:class="`${
-                                        hoverStore.partywon.length !== 0 && hoverStore.partywon.includes(partywon.name)
-                                        ? 'text-blue-4'
+                                        hoverStore.partywon.length !== 0 && !hoverStore.partywon.includes(partywon.name)
+                                        ? 'text-gray-ccc'
                                         : ''
                                     } duration-100`"
                                 >
@@ -104,6 +108,7 @@
                     <div class="mt-3">
                         <Input
                             placeHolder="이름을 입력해 주세요."
+                            id="user-name"
                             icon="fa-solid fa-user-pen"
                         />
                     </div>
@@ -115,7 +120,7 @@
                     :checked_time="data.checked_time"
                 />
                 <div class="mt-14 text-base flex gap-2.5">
-                    <Button :click="popupStore.setShow" :icon="'fa-regular fa-paper-plane'">추가하기</Button>
+                    <Button :click="createTimeline" :icon="'fa-regular fa-paper-plane'">추가하기</Button>
                     <Button :click="popupStore.setShow" :icon="'fa-solid fa-xmark'" color="gray">취소하기</Button>
                 </div>
             </div>

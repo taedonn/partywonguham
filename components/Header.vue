@@ -11,6 +11,7 @@
                 <li class="w-40">
                     <Input
                         placeHolder="아이디로 일정 조회"
+                        id="search-id"
                         icon="fa-solid fa-magnifying-glass"
                     />
                 </li>
