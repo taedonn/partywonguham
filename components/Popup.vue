@@ -1,5 +1,5 @@
 <template>
-    <div v-if="show" class="w-full h-full fixed left-0 top-0 flex justify-center items-center text-black-333 bg-black-333/20">
+    <div v-if="show" class="w-full h-full fixed z-20 left-0 top-0 flex justify-center items-center text-black-333 bg-black-333/20">
         <div id="popup" class="animate-fade-in w-[48rem] p-14 relative rounded-lg drop-shadow bg-white">
             <button
                 @click="handleClick()"
