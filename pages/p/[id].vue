@@ -4,6 +4,8 @@
     const popupStore = usePopupStore();
     import { useToastStore } from '~/stores/toast';
     const toastStore = useToastStore();
+    import { useHoverStore } from '~/stores/hover';
+    const hoverStore = useHoverStore();
 
     // Components
     import Button from '~/components/Button.vue';
@@ -68,15 +70,22 @@
                     <Timeline
                         :timeline="timeline"
                         :checked_time="data.checked_time"
+                        :capacity="data.capacity"
                     />
                     <div class="w-80 shrink-0 ml-4 pb-[3.375rem]">
                         <div class="w-full h-full px-4 py-5 shrink-0 border border-gray-ccc text-black-333">
-                            <h2>파티원 ({{ (data.partywon.length + 1) + '/' + data.capacity }})</h2>
+                            <h2>파티원{{ hoverStore.partywon.length !== 0 ? " (" + (hoverStore.partywon.length) + '/' + data.capacity + ')' : '' }}</h2>
                             <ul class="mt-4 text-sm font-light flex flex-col gap-3">
-                                <li class="flex items-center">
-                                    {{ data.partyjang.name }} (파티장)
+                                <li
+                                    v-for="partywon in data.partywon"
+                                    v-bind:class="`${
+                                        hoverStore.partywon.length !== 0 && hoverStore.partywon.includes(partywon.name)
+                                        ? 'text-blue-4'
+                                        : ''
+                                    } duration-100`"
+                                >
+                                    {{ partywon.name }}
                                 </li>
-                                <li v-for="partywon in data.partywon">{{ partywon.name }}</li>
                             </ul>
                         </div>
                     </div>

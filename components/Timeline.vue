@@ -15,8 +15,8 @@
                     <div
                         v-bind:data-id="`time-${checked.time}`"
                         class="w-full h-[calc(100%+1px)] group-first:h-full absolute z-10 bottom-0 cursor-[row-resize] duration-100 peer-checked:bg-blue-4/40 lg:hover:bg-blue-4/20"
-                        @mouseover="onMouseOver"
-                        @mousedown="onMouseDown"
+                        @mouseover="onSelectMouseOver"
+                        @mousedown="onSelectMouseDown"
                     ></div>
                     <div class="group-last:hidden w-full h-px absolute bottom-0 cursor-[row-resize] bg-gray-ccc peer-checked:bg-gray-ccc/60"></div>
                 </div>
@@ -27,11 +27,12 @@
                         v-bind:class="`w-full h-[calc(100%+1px)] group-first:h-full absolute z-10 bottom-0 bg-blue-4 duration-100`"
                     >
                     </div>
-                    <div v-if="checked.checked.length !== 0" class="w-full h-[calc(100%+1px)] group-first:h-full absolute z-10 bottom-0 group-hover:bg-blue-4 opacity-20 cursor-pointer duration-100"></div>
-                    <div v-if="checked.checked.length !== 0" class="w-max invisible group-hover:visible px-3 py-2 absolute z-10 bottom-1/2 left-[80%] -translate-x-1/2 -translate-y-2 scale-50 group-hover:scale-100 opacity-0 group-hover:opacity-100 text-sm font-light rounded-md origin-bottom drop-shadow duration-100 text-white bg-black-333">
-                        <div v-for="person in checked.checked" class="">{{ person }}</div>
-                        <div class="w-2.5 h-2.5 rotate-45 absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 bg-black-333"></div>
-                    </div>
+                    <div
+                        v-if="checked.checked.length !== 0"
+                        @mouseover="() => onMouseOver(checked)"
+                        @mouseleave="onMouseLeave"
+                        class="w-full h-[calc(100%+1px)] group-first:h-full absolute z-10 bottom-0 group-hover:bg-blue-4 opacity-20 cursor-pointer duration-100"
+                    ></div>
                     <div class="group-last:hidden w-full h-px absolute bottom-0 bg-gray-ccc"></div>
                 </div>
             </div>
@@ -50,6 +51,10 @@
 <script setup lang="ts">
     import { onMounted, onUnmounted } from 'vue';
 
+    // Pinia
+    import { useHoverStore } from '~/stores/hover';
+    const hoverStore = useHoverStore();
+
     interface CheckedTime {
         time: number,
         checked: Array<string>
@@ -61,16 +66,31 @@
             required: false,
             default: false,
         },
+        capacity: {
+            type: Number,
+            required: false,
+            default: 0,
+        },
         timeline: Array,
         checked_time: Array<CheckedTime>,
     });
 
     const checkedTime = props.checked_time ? props.checked_time : [];
 
+    // 호버 이벤트
+    const onMouseOver = (checked: any) => {
+        hoverStore.mouseover({ partywon: checked.checked, capacity: props.capacity });
+    }
+
+    const onMouseLeave = () => {
+        hoverStore.mouseleave();
+    }
+
+    // 팝업 드래그 이벤트
     let isChecked = false;
     let isMouseDown = false;
 
-    const onMouseDown = (e: MouseEvent) => {
+    const onSelectMouseDown = (e: MouseEvent) => {
         e.preventDefault();
         const el = e.target as HTMLDivElement;
         const id = el.getAttribute("data-id") + "";
@@ -79,25 +99,25 @@
         isChecked = input.checked;
     }
 
-    const onMouseOver = (e: MouseEvent) => {
+    const onSelectMouseOver = (e: MouseEvent) => {
         const el = e.target as HTMLDivElement;
         const id = el.getAttribute("data-id") + "";
         const input = document.getElementById(id) as HTMLInputElement;
         if (isMouseDown) input.checked = isChecked;
     }
 
-    const onGlobalMouseDown = () => { isMouseDown = true; }
-    const onGlobalMouseUp = () => { isMouseDown = false; }
+    const onGlobalSelectMouseDown = () => { isMouseDown = true; }
+    const onGlobalSelectMouseUp = () => { isMouseDown = false; }
 
     onMounted(() => {
-        window.addEventListener("mousedown", onGlobalMouseDown);
-        window.addEventListener("mouseup", onGlobalMouseUp);
+        window.addEventListener("mousedown", onGlobalSelectMouseDown);
+        window.addEventListener("mouseup", onGlobalSelectMouseUp);
     });
 
     onUnmounted(() => {
-        window.removeEventListener("mousedown", onGlobalMouseDown);
-        window.removeEventListener("mouseup", onGlobalMouseUp);
-    })
+        window.removeEventListener("mousedown", onGlobalSelectMouseDown);
+        window.removeEventListener("mouseup", onGlobalSelectMouseUp);
+    });
 </script>
 
 <style>

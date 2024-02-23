@@ -15,7 +15,7 @@ const createToast = (text: string, status: string): Toast => ({
 	id: Math.random() * 1000,
 });
 
-export const useToastStore = defineStore("toaster-store", {
+export const useToastStore = defineStore("toast", {
 	state: (): { toasts: Toast[] } => ({
 		toasts: [],
 	}),
