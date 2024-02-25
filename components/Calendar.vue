@@ -12,14 +12,14 @@
                 <div class="flex justify-items-end items-center"> <Button> 일정 생성하기 </Button></div>
             </div>
             <div class="calendar-wrap flex flex-col mt-14">
-                <h2 class="subtitle mb-12 text-center">
+                <h2 class="subtitle mb-12 text-center text-2xl ">
                     {{ currentYear }}년 {{ currentMonth }}월
                 </h2>
                 <div class="calendar flex flex-row ">
                     <button type="button" class="btn-prev" @click="moveMonth(-1)"> &lt; </button>
                     <table class="w-full">
-                        <thead class="">
-                            <th> 일 </th>
+                        <thead>
+                            <th class="pb-5"> 일 </th>
                             <th> 월 </th>
                             <th> 화 </th>
                             <th> 수 </th>
@@ -27,7 +27,7 @@
                             <th> 금 </th>
                             <th> 토 </th>
                         </thead>
-                        <tbody>
+                        <tbody class="border-y border-gray-999 pt-5">
                             <tr v-for="weekIndex in data.calendarWeekCount" :key="weekIndex">
                                 <td v-for="dayIndex in data.weekdate" :key="(weekIndex - 1) * data.weekdate + dayIndex"
                                     class="text-center"
@@ -39,9 +39,13 @@
                             </tr>
                         </tbody>
                     </table>                       
-                    <button type="button" class="btn-next " @click="moveMonth(1)"> &gt; </button>
+                    <button type="button" class="btn-next" @click="moveMonth(1)"> &gt; </button>
                 </div>
                 <!-- calendar end -->
+                <ul class="list-disc text-sm font-light text-gray-666 mt-2"> 
+                    <li> 일정은 하루 단위로 생성할 수 있습니다.</li>
+                    <li> 일정은 해당 날짜가 지난 후 30일이 지나면 자동으로 폐기됩니다. </li>
+                </ul>
             </div>
         </div>
     </section>
