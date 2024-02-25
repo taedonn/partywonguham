@@ -30,7 +30,8 @@
                         <tbody>
                             <tr v-for="weekIndex in data.calendarWeekCount" :key="weekIndex">
                                 <td v-for="dayIndex in data.weekdate" :key="(weekIndex - 1) * data.weekdate + dayIndex"
-                                    class="text-center">
+                                    class="text-center"
+                                    :class="{'text-gray-500':isPastDate(weekIndex, dayIndex)}">
                                     <div v-if="isCalendarDayVisible(weekIndex, dayIndex)">
                                         <span class="block my-6" @click="handleDateClick(weekIndex, dayIndex)">{{ getCalendarDay(weekIndex, dayIndex) }}</span>
                                     </div>
@@ -46,7 +47,6 @@
     </section>
 </template>
 <script setup>
-//2024.02.28 Push
 import { ref } from 'vue';
 
 const data = {
@@ -122,13 +122,36 @@ const moveMonth = (direction) => {
     updateCalendarData();
 };
 
+// 클릭한 날짜를 보여주는 메서드
 const handleDateClick = (weekIndex, dayIndex) => {
     const yearMonth = `${currentYear.value}.${currentMonth.value}`;
     const clickedDate = calculateCalendarPosition(weekIndex, dayIndex) - data.calendarMonthStartDay + 1;
-    alert(`${yearMonth}.${clickedDate}`);
+    console.log(`${yearMonth}.${clickedDate}`);
     // console.log(clickDate.text());
 };
 
+// 과거 날짜인지 확인하는 메서드
+const isPastDate = (weekIndex, dayIndex) => {
+    const clickedDate = calculateCalendarPosition(weekIndex, dayIndex) - data.calendarMonthStartDay + 2;
+    const currentDate = new Date();
+    const year = currentYear.value;
+    const month = currentMonth.value;
+
+    // 과거 년도인 경우 무조건 과거 날짜로 판단
+    if (year < currentDate.getFullYear()) {
+        return true;
+    }
+    // 현재 년도이고, 과거 월인 경우 과거 날짜로 판단
+    if (year === currentDate.getFullYear() && month < currentDate.getMonth() + 1) {
+        return true;
+    }
+    // 현재 년도, 월이면서 현재 날짜보다 이전인 경우 과거 날짜로 판단
+    if (year === currentDate.getFullYear() && month === currentDate.getMonth() + 1 && clickedDate <= currentDate.getDate()) {
+        return true;
+    }
+    // 나머지 경우는 현재 날짜 이후의 날짜로 판단
+    return false;
+};
 updateCalendarData();
 
 </script>
