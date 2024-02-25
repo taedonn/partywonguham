@@ -45,8 +45,12 @@
     }
 
     // Create timeline
+    let nameChk = "";
     const createTimeline = async () => {
         const name = document.getElementById("user-name") as HTMLInputElement;
+        if (name.value === "") {
+            nameChk = "empty";
+        }
     }
 </script>
 
