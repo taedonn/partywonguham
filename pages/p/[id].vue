@@ -6,6 +6,8 @@
     const toastStore = useToastStore();
     import { useHoverStore } from '~/stores/hover';
     const hoverStore = useHoverStore();
+    import { useTimelineStore } from '~/stores/timeline';
+    const timelineStore = useTimelineStore();
 
     // Components
     import Button from '~/components/Button.vue';
@@ -51,11 +53,12 @@
         if (name.value === "") {
             nameChk = "empty";
         }
+        console.log(timelineStore.name);
     }
 </script>
 
 <template>
-    <main class="w-full px-5 py-40 flex justify-center">
+    <main class="w-full px-5 lg:px-16 py-40 flex justify-center">
         <div class="max-w-[80rem] w-full">
             <div class="w-full flex items-end text-black-333">
                 <div class="w-full">
@@ -112,6 +115,7 @@
                     <div class="mt-3">
                         <Input
                             placeHolder="이름을 입력해 주세요."
+                            :onChange="timelineStore.onNameChange"
                             id="user-name"
                             icon="fa-solid fa-user-pen"
                         />
