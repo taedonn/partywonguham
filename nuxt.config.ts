@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true },
-  ssr: true, // 서버 사이드 렌더링 *SPA 말고 페이지별로 따로 HTML 파일이 빌드 된다.
+  devtools: { enabled: false },
+  ssr: true, // 서버 사이드 렌더링 가능하게
   pages: true, // 페이지 라우팅 가능하게
   css: [
     '~/assets/tailwind.css',
