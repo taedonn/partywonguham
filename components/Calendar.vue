@@ -12,14 +12,14 @@
                 <div class="flex justify-items-end items-center"> <Button> 일정 생성하기 </Button></div>
             </div>
             <div class="calendar-wrap flex flex-col mt-14">
-                <h2 class="subtitle mb-12 text-center">
+                <h2 class="subtitle mb-12 text-center text-2xl ">
                     {{ currentYear }}년 {{ currentMonth }}월
                 </h2>
                 <div class="calendar flex flex-row ">
                     <button type="button" class="btn-prev" @click="moveMonth(-1)"> &lt; </button>
                     <table class="w-full">
-                        <thead class="">
-                            <th> 일 </th>
+                        <thead>
+                            <th class="pb-5"> 일 </th>
                             <th> 월 </th>
                             <th> 화 </th>
                             <th> 수 </th>
@@ -27,10 +27,11 @@
                             <th> 금 </th>
                             <th> 토 </th>
                         </thead>
-                        <tbody>
+                        <tbody class="border-y border-gray-999 pt-5">
                             <tr v-for="weekIndex in data.calendarWeekCount" :key="weekIndex">
                                 <td v-for="dayIndex in data.weekdate" :key="(weekIndex - 1) * data.weekdate + dayIndex"
-                                    class="text-center">
+                                    class="text-center"
+                                    :class="{'text-gray-500':isPastDate(weekIndex, dayIndex)}">
                                     <div v-if="isCalendarDayVisible(weekIndex, dayIndex)">
                                         <span class="block my-6" @click="handleDateClick(weekIndex, dayIndex)">{{ getCalendarDay(weekIndex, dayIndex) }}</span>
                                     </div>
@@ -38,9 +39,13 @@
                             </tr>
                         </tbody>
                     </table>                       
-                    <button type="button" class="btn-next " @click="moveMonth(1)"> &gt; </button>
+                    <button type="button" class="btn-next" @click="moveMonth(1)"> &gt; </button>
                 </div>
                 <!-- calendar end -->
+                <ul class="list-disc text-sm font-light text-gray-666 mt-2"> 
+                    <li> 일정은 하루 단위로 생성할 수 있습니다.</li>
+                    <li> 일정은 해당 날짜가 지난 후 30일이 지나면 자동으로 폐기됩니다. </li>
+                </ul>
             </div>
         </div>
     </section>
@@ -121,13 +126,36 @@ const moveMonth = (direction) => {
     updateCalendarData();
 };
 
+// 클릭한 날짜를 보여주는 메서드
 const handleDateClick = (weekIndex, dayIndex) => {
     const yearMonth = `${currentYear.value}.${currentMonth.value}`;
     const clickedDate = calculateCalendarPosition(weekIndex, dayIndex) - data.calendarMonthStartDay + 1;
-    alert(`${yearMonth}.${clickedDate}`);
+    console.log(`${yearMonth}.${clickedDate}`);
     // console.log(clickDate.text());
 };
 
+// 과거 날짜인지 확인하는 메서드
+const isPastDate = (weekIndex, dayIndex) => {
+    const clickedDate = calculateCalendarPosition(weekIndex, dayIndex) - data.calendarMonthStartDay + 2;
+    const currentDate = new Date();
+    const year = currentYear.value;
+    const month = currentMonth.value;
+
+    // 과거 년도인 경우 무조건 과거 날짜로 판단
+    if (year < currentDate.getFullYear()) {
+        return true;
+    }
+    // 현재 년도이고, 과거 월인 경우 과거 날짜로 판단
+    if (year === currentDate.getFullYear() && month < currentDate.getMonth() + 1) {
+        return true;
+    }
+    // 현재 년도, 월이면서 현재 날짜보다 이전인 경우 과거 날짜로 판단
+    if (year === currentDate.getFullYear() && month === currentDate.getMonth() + 1 && clickedDate <= currentDate.getDate()) {
+        return true;
+    }
+    // 나머지 경우는 현재 날짜 이후의 날짜로 판단
+    return false;
+};
 updateCalendarData();
 
 </script>
