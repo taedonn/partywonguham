@@ -47,13 +47,16 @@
     }
 
     // Create timeline
-    let nameChk = "";
     const createTimeline = async () => {
-        const name = document.getElementById("user-name") as HTMLInputElement;
-        if (name.value === "") {
-            nameChk = "empty";
+        if (timelineStore.name === "") {
+            timelineStore.onNameStateChange("empty");
         }
-        console.log(timelineStore.name);
+    }
+
+    // Close popup and reset states
+    const closePopup = () => {
+        timelineStore.onNameReset();
+        popupStore.setShow();
     }
 </script>
 
@@ -70,7 +73,7 @@
                 </div>
                 <div class="shrink-0 flex gap-2.5 text-base">
                     <Button :click="copyLink" :icon="'fa-solid fa-share-nodes'" color="gray">링크 복사하기</Button>
-                    <Button :click="popupStore.setShow" :icon="'fa-regular fa-paper-plane'">시간 선택하기</Button>
+                    <Button :click="closePopup" :icon="'fa-regular fa-paper-plane'">시간 선택하기</Button>
                 </div>
             </div>
             <div class="mt-16 text-black-333">
@@ -105,7 +108,7 @@
         </div>
         <Popup
             :show="popupStore.show"
-            :handleShow="popupStore.setShow"
+            :handleShow="closePopup"
             title="시간대 설정"
             subtitle="가능한 시간을 선택해 주세요."
         >
@@ -115,9 +118,10 @@
                     <div class="mt-3">
                         <Input
                             placeHolder="이름을 입력해 주세요."
-                            :onChange="timelineStore.onNameChange"
+                            :onchange="timelineStore.onNameChange"
                             id="user-name"
                             icon="fa-solid fa-user-pen"
+                            :state="timelineStore.nameState"
                         />
                     </div>
                 </div>
@@ -129,7 +133,7 @@
                 />
                 <div class="mt-14 text-base flex gap-2.5">
                     <Button :click="createTimeline" :icon="'fa-regular fa-paper-plane'">추가하기</Button>
-                    <Button :click="popupStore.setShow" :icon="'fa-solid fa-xmark'" color="gray">취소하기</Button>
+                    <Button :click="closePopup" :icon="'fa-solid fa-xmark'" color="gray">취소하기</Button>
                 </div>
             </div>
         </Popup>

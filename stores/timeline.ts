@@ -2,18 +2,27 @@ import { defineStore } from "pinia";
 
 interface Timeline {
     name: string,
+    nameState: string,
     time: number[]
 }
 
 export const useTimelineStore = defineStore("timeline", {
     state: (): Timeline => ({
         name: "",
+        nameState: "",
         time: []
     }),
     actions: {
-        onNameChange(e: Event) {
-            const el = e.target as HTMLInputElement
-            this.name = el.value;
+        onNameReset() {
+            this.name = "";
+            this.nameState = "";
         },
+        onNameChange(name: string) {
+            this.name = name;
+            this.nameState = "";
+        },
+        onNameStateChange(state: string) {
+            this.nameState = state;
+        }
     }
 });

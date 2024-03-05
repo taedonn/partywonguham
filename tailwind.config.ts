@@ -15,6 +15,7 @@ export default {
         'blue-3': '#7FC4F8',
         'blue-4': '#2A9DF4',
         'blue-4-h': '#4EAAEF',
+        'red-e': '#EB4D3E'
       },
       animation: {
         "fade-in": "fade-in 0.2s 1 both",
