@@ -1,7 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: false },
-  ssr: true, // 서버 사이드 렌더링 가능하게
   pages: true, // 페이지 라우팅 가능하게
   css: [
     '~/assets/tailwind.css',
@@ -24,15 +23,18 @@ export default defineNuxtConfig({
       ]
     }
   },
-  nitro: {
-    output: {
-        dir: '.output',
-        serverDir: '.output/server',
-        publicDir: '.output/public'
-    }
+  routeRules: { // https://github.com/danielroe/nuxt-vercel-isr
+    '/**': { isr: 60 },
+    '/static': { isr: true },
+    '/prerendered': { prerender: true },
+    '/dynamic': { isr: false },
+    '/redirect': { redirect: '/static' },
+    '/headers': { headers: { 'x-magic-of': 'nuxt and vercel' } },
+    '/spa': { ssr: false },
   },
   runtimeConfig: {
     public: {
+      firebaseServiceAccountKey: '',
       firebaseApiKey: '',
       firebaseAuthDomain: '',
       firebaseId: '',
