@@ -25,12 +25,6 @@ export default defineNuxtConfig({
   },
   routeRules: { // https://github.com/danielroe/nuxt-vercel-isr
     '/**': { isr: 60 },
-    '/static': { isr: true },
-    '/prerendered': { prerender: true },
-    '/dynamic': { isr: false },
-    '/redirect': { redirect: '/static' },
-    '/headers': { headers: { 'x-magic-of': 'nuxt and vercel' } },
-    '/spa': { ssr: false },
   },
   runtimeConfig: {
     public: {
