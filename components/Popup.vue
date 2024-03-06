@@ -1,6 +1,6 @@
 <template>
-    <div v-if="show" class="w-full h-full fixed z-20 left-0 top-0 flex justify-center items-center text-black-333 bg-black-333/20">
-        <div id="popup" class="animate-fade-in w-[48rem] p-14 relative rounded-lg drop-shadow bg-white">
+    <div v-if="show" class="w-full h-full fixed z-20 left-0 top-0 px-4 lg:px-8 flex justify-center overflow-y-auto text-black-333 bg-black-333/20">
+        <div id="popup" class="animate-fade-in w-full max-w-[48rem] h-fit my-20 p-8 lg:p-16 relative rounded-lg drop-shadow bg-white">
             <button
                 @click="handleClick()"
                 @mousedown="handleCloseMousedown"
@@ -8,7 +8,7 @@
                 @mouseleave="handleCloseMouseup"
                 class="w-10 h-10 absolute right-5 top-5 flex justify-center items-center rounded-full duration-100 lg:hover:bg-gray-e"
             >
-                <i class="text-2xl leading-none fa-solid fa-xmark"></i>
+                <i class="text-3xl leading-none bi bi-x"></i>
             </button>
             <h2 class="mb-3 text-xl">{{ title }}</h2>
             <h3 class="mb-10 text-sm font-light">{{ subtitle }}</h3>

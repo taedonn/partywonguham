@@ -4,7 +4,7 @@
         @mousedown="e => handleMousedown(e, color)"
         @mouseup="e => handleMouseup(e, color)"
         @mouseleave="e => handleMouseup(e, color)"
-        v-bind:class="`px-4 py-1 shrink-0 rounded border-2 outline-none duration-100 
+        v-bind:class="`px-4 py-1.5 flex items-center gap-2.5 shrink-0 rounded border-2 outline-none font-light duration-100 
                         ${
                             color === 'blue' 
                             ? 'border-blue-4 text-blue-4 lg:hover:bg-blue-4 lg:hover:text-white' 
@@ -14,7 +14,7 @@
     > 
         <i
             v-if="icon !== ''"
-            v-bind:class="`mr-3 ${icon}`"
+            v-bind:class="`${icon}`"
         ></i>
         <slot>{{ text }}</slot>
     </button>

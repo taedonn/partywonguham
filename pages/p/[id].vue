@@ -46,6 +46,12 @@
         toastStore.success({ text: "링크가 복사되었어요." });
     }
 
+    // On timeline name change
+    const onTimelineNameChange = (e: Event) => {
+        const el = e.target as HTMLInputElement;
+        timelineStore.onNameChange(el.value);
+    }
+
     // Create timeline
     const createTimeline = async () => {
         if (timelineStore.name === "") {
@@ -61,7 +67,7 @@
 </script>
 
 <template>
-    <main class="w-full px-5 lg:px-16 py-40 flex justify-center">
+    <main class="w-full px-4 lg:px-16 py-40 flex justify-center">
         <div class="max-w-[80rem] w-full">
             <div class="w-full flex items-end text-black-333">
                 <div class="w-full">
@@ -72,8 +78,8 @@
                     </p>
                 </div>
                 <div class="shrink-0 flex gap-2.5 text-base">
-                    <Button :click="copyLink" :icon="'fa-solid fa-share-nodes'" color="gray">링크 복사하기</Button>
-                    <Button :click="closePopup" :icon="'fa-regular fa-paper-plane'">시간 선택하기</Button>
+                    <Button :click="copyLink" :icon="'bi bi-share'" color="gray">링크 복사하기</Button>
+                    <Button :click="closePopup" :icon="'bi bi-calendar-week'">시간 선택하기</Button>
                 </div>
             </div>
             <div class="mt-16 text-black-333">
@@ -115,13 +121,14 @@
             <div class="text-lg">
                 <div class="w-full shrink-0 mt-14">
                     <h2>이름</h2>
-                    <div class="mt-3">
+                    <div class="text-base font-light mt-3">
                         <Input
                             placeHolder="이름을 입력해 주세요."
-                            :onchange="timelineStore.onNameChange"
+                            :onchange="onTimelineNameChange"
                             id="user-name"
-                            icon="fa-solid fa-user-pen"
+                            icon="bi bi-person"
                             :state="timelineStore.nameState"
+                            :onStateChange="timelineStore.onNameStateReset"
                         />
                     </div>
                 </div>
@@ -132,8 +139,8 @@
                     :checked_time="data.checked_time"
                 />
                 <div class="mt-14 text-base flex gap-2.5">
-                    <Button :click="createTimeline" :icon="'fa-regular fa-paper-plane'">추가하기</Button>
-                    <Button :click="closePopup" :icon="'fa-solid fa-xmark'" color="gray">취소하기</Button>
+                    <Button :click="createTimeline" :icon="'bi bi-check-circle'">추가하기</Button>
+                    <Button :click="closePopup" :icon="'bi bi-x-circle'" color="gray">취소하기</Button>
                 </div>
             </div>
         </Popup>

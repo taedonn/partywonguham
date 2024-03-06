@@ -21,6 +21,9 @@ export const useTimelineStore = defineStore("timeline", {
             this.name = name;
             this.nameState = "";
         },
+        onNameStateReset() {
+            this.nameState = "";
+        },
         onNameStateChange(state: string) {
             this.nameState = state;
         }
