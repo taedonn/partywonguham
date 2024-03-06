@@ -9,3 +9,10 @@ export const generateId = () => {
 	}
     return result;
 }
+
+/** 문자열에서 숫자 추출 */
+export function getIntFromString(string: string) {
+    const regex = /[^0-9]/g;
+    const result = string.replace(regex, '');
+    return parseInt(result);
+}

@@ -77,7 +77,7 @@
                         시간 선택하기를 눌러 타임라인 내 가능한 시간을 선택해 주세요.
                     </p>
                 </div>
-                <div class="shrink-0 flex gap-2.5 text-base">
+                <div class="shrink-0 flex gap-2.5 text-base font-light">
                     <Button :click="copyLink" :icon="'bi bi-share'" color="gray">링크 복사하기</Button>
                     <Button :click="closePopup" :icon="'bi bi-calendar-week'">시간 선택하기</Button>
                 </div>
@@ -138,7 +138,7 @@
                     :timeline="timeline"
                     :checked_time="data.checked_time"
                 />
-                <div class="mt-14 text-base flex gap-2.5">
+                <div class="mt-14 text-base font-light flex gap-2.5">
                     <Button :click="createTimeline" :icon="'bi bi-check-circle'">추가하기</Button>
                     <Button :click="closePopup" :icon="'bi bi-x-circle'" color="gray">취소하기</Button>
                 </div>

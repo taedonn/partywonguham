@@ -10,6 +10,7 @@
                     <input
                         type="checkbox"
                         v-bind:id="`time-${checked.time}`"
+                        @onchange="onTimelineChange"
                         class="peer hidden"
                     />
                     <div
@@ -49,11 +50,17 @@
 </template>
 
 <script setup lang="ts">
+    // Vue
     import { onMounted, onUnmounted } from 'vue';
 
     // Pinia
     import { useHoverStore } from '~/stores/hover';
     const hoverStore = useHoverStore();
+    import { useTimelineStore } from '~/stores/timeline';
+    const timelineStore = useTimelineStore();
+
+    // Common
+    import { getIntFromString } from '~/utils/common';
 
     interface CheckedTime {
         time: number,
@@ -79,6 +86,14 @@
 
     const onMouseLeave = () => {
         hoverStore.mouseleave();
+    }
+
+    // 타임라인 선택 이벤트
+    const onTimelineChange = (e: Event) => {
+        const el = e.target as HTMLInputElement;
+        const id = getIntFromString(el.id);
+        timelineStore.onTimelineChange(el.checked, id);
+        console.log(id);
     }
 
     // 팝업 드래그 이벤트
