@@ -16,3 +16,8 @@ export function getIntFromString(string: string) {
     const result = string.replace(regex, '');
     return parseInt(result);
 }
+
+/** 문자열에서 특정 문자 제거 */
+export function removeStr(string: string, target: string) {
+    return string.replace(target, "");
+}

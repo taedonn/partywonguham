@@ -1,71 +1,3 @@
-<script setup lang="ts">
-    // Pinia
-    import { usePopupStore } from '~/stores/popup';
-    const popupStore = usePopupStore();
-    import { useToastStore } from '~/stores/toast';
-    const toastStore = useToastStore();
-    import { useHoverStore } from '~/stores/hover';
-    const hoverStore = useHoverStore();
-    import { useTimelineStore } from '~/stores/timeline';
-    const timelineStore = useTimelineStore();
-
-    // Components
-    import Button from '~/components/Button.vue';
-    import Input from '~/components/Input.vue';
-    import Timeline from '~/components/Timeline.vue';
-    import Popup from '~/components/Popup.vue';
-    import Toast from '~/components/Toast.vue';
-
-    // Fetch data
-    const route = useRoute();
-    const { data }: any = await useFetch(`/api/p/${route.params.id}`);
-    const { start_time, end_time, date } = data.value;
-
-    // Format date
-    const dateProp = new Date(date);
-    const dateDesc = `${dateProp.getFullYear()}년 ${dateProp.getMonth() + 1}월 ${dateProp.getDate()}일`;
-
-    // Set timeline
-    const timeline: string[] = [];
-    const startTime = Number(start_time);
-    const endTime = Number(end_time);
-    const length = Number(endTime) - Number(startTime);
-    for (let i = 0; i < length; i++) {
-        timeline.push(
-            startTime + i < 12
-            ? `${startTime + i} AM`
-            : startTime + i === 12
-                ? `${startTime + i} PM`
-                : `${startTime + i - 12} PM`
-        );
-    }
-
-    // Copy shareable link
-    const copyLink = () => {
-        window.navigator.clipboard.writeText(location.toString());
-        toastStore.success({ text: "링크가 복사되었어요." });
-    }
-
-    // On timeline name change
-    const onTimelineNameChange = (e: Event) => {
-        const el = e.target as HTMLInputElement;
-        timelineStore.onNameChange(el.value);
-    }
-
-    // Create timeline
-    const createTimeline = async () => {
-        if (timelineStore.name === "") {
-            timelineStore.onNameStateChange("empty");
-        }
-    }
-
-    // Close popup and reset states
-    const closePopup = () => {
-        timelineStore.onNameReset();
-        popupStore.setShow();
-    }
-</script>
-
 <template>
     <main class="w-full px-4 lg:px-16 py-40 flex justify-center">
         <div class="max-w-[80rem] w-full">
@@ -147,3 +79,71 @@
         <Toast/>
     </main>
 </template>
+
+<script setup lang="ts">
+    // Pinia
+    import { usePopupStore } from '~/stores/popup';
+    const popupStore = usePopupStore();
+    import { useToastStore } from '~/stores/toast';
+    const toastStore = useToastStore();
+    import { useHoverStore } from '~/stores/hover';
+    const hoverStore = useHoverStore();
+    import { useTimelineStore } from '~/stores/timeline';
+    const timelineStore = useTimelineStore();
+
+    // Components
+    import Button from '~/components/Button.vue';
+    import Input from '~/components/Input.vue';
+    import Timeline from '~/components/Timeline.vue';
+    import Popup from '~/components/Popup.vue';
+    import Toast from '~/components/Toast.vue';
+
+    // Fetch data
+    const route = useRoute();
+    const { data }: any = await useFetch(`/api/p/${route.params.id}`);
+    const { start_time, end_time, date } = data.value;
+
+    // Format date
+    const dateProp = new Date(date);
+    const dateDesc = `${dateProp.getFullYear()}년 ${dateProp.getMonth() + 1}월 ${dateProp.getDate()}일`;
+
+    // Set timeline
+    const timeline: string[] = [];
+    const startTime = Number(start_time);
+    const endTime = Number(end_time);
+    const length = Number(endTime) - Number(startTime);
+    for (let i = 0; i < length; i++) {
+        timeline.push(
+            startTime + i < 12
+            ? `${startTime + i} AM`
+            : startTime + i === 12
+                ? `${startTime + i} PM`
+                : `${startTime + i - 12} PM`
+        );
+    }
+
+    // Copy shareable link
+    const copyLink = () => {
+        window.navigator.clipboard.writeText(location.toString());
+        toastStore.success({ text: "링크가 복사되었어요." });
+    }
+
+    // On timeline name change
+    const onTimelineNameChange = (e: Event) => {
+        const el = e.target as HTMLInputElement;
+        timelineStore.onNameChange(el.value);
+    }
+
+    // Create timeline
+    const createTimeline = async () => {
+        if (timelineStore.name === "") {
+            timelineStore.onNameStateChange("empty");
+        }
+    }
+
+    // Close popup and reset states
+    const closePopup = () => {
+        timelineStore.onNameReset();
+        popupStore.setShow();
+    }
+</script>

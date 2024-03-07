@@ -10,14 +10,14 @@
                     <input
                         type="checkbox"
                         v-bind:id="`time-${checked.time}`"
-                        @onchange="onTimelineChange"
-                        class="peer hidden"
+                        class="select-time peer hidden"
                     />
                     <div
                         v-bind:data-id="`time-${checked.time}`"
                         class="w-full h-[calc(100%+1px)] group-first:h-full absolute z-10 bottom-0 cursor-[row-resize] duration-100 peer-checked:bg-blue-4/40 lg:hover:bg-blue-4/20"
                         @mouseover="onSelectMouseOver"
                         @mousedown="onSelectMouseDown"
+                        @mouseup="onSelectMouseUp"
                     ></div>
                     <div class="group-last:hidden w-full h-px absolute bottom-0 cursor-[row-resize] bg-gray-999 peer-checked:bg-gray-999/60"></div>
                 </div>
@@ -60,13 +60,15 @@
     const timelineStore = useTimelineStore();
 
     // Common
-    import { getIntFromString } from '~/utils/common';
+    import { removeStr } from '~/utils/common';
 
+    // Types
     interface CheckedTime {
         time: number,
         checked: Array<string>
     }
 
+    // Props
     const props = defineProps({
         blank: {
             type: Boolean,
@@ -88,21 +90,13 @@
         hoverStore.mouseleave();
     }
 
-    // 타임라인 선택 이벤트
-    const onTimelineChange = (e: Event) => {
-        const el = e.target as HTMLInputElement;
-        const id = getIntFromString(el.id);
-        timelineStore.onTimelineChange(el.checked, id);
-        console.log(id);
-    }
-
     // 팝업 드래그 이벤트
     let isChecked = false;
     let isMouseDown = false;
 
     const onSelectMouseDown = (e: MouseEvent) => {
         e.preventDefault();
-        const el = e.target as HTMLDivElement;
+        const el = e.currentTarget as HTMLDivElement;
         const id = el.getAttribute("data-id") + "";
         const input = document.getElementById(id) as HTMLInputElement;
         input.checked = !input.checked;
@@ -114,6 +108,17 @@
         const id = el.getAttribute("data-id") + "";
         const input = document.getElementById(id) as HTMLInputElement;
         if (isMouseDown) input.checked = isChecked;
+    }
+
+    const onSelectMouseUp = () => {
+        const input = document.getElementsByClassName("select-time");
+        const arr = [];
+        for (let i = 0; i < input.length; i++) {
+            let thisInput = input[i] as HTMLInputElement;
+            let id = Number(removeStr(thisInput.id, "time-"));
+            if (thisInput.checked) arr.push(id);
+        }
+        timelineStore.onTimelineChange(arr);
     }
 
     const onGlobalSelectMouseDown = () => { isMouseDown = true; }

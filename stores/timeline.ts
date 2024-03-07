@@ -27,14 +27,8 @@ export const useTimelineStore = defineStore("timeline", {
         onNameStateChange(state: string) {
             this.nameState = state;
         },
-        onTimelineChange(checked: boolean, num: number) {
-            if (checked) {
-                this.time.push(num);
-            }
-            else {
-                const filteredTime = this.time.filter(el => el !== num);
-                this.time = filteredTime;
-            }
+        onTimelineChange(arr: number[]) {
+            this.time = arr;
         }
     }
 });
