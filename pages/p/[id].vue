@@ -11,7 +11,7 @@
                 </div>
                 <div class="shrink-0 flex gap-2.5 text-base font-light">
                     <Button :click="copyLink" :icon="'bi bi-share'" color="gray">링크 복사하기</Button>
-                    <Button :click="closePopup" :icon="'bi bi-calendar-week'">시간 선택하기</Button>
+                    <Button :click="handlePopupShow" :icon="'bi bi-calendar-week'">시간 선택하기</Button>
                 </div>
             </div>
             <div class="mt-16 text-black-333">
@@ -20,18 +20,30 @@
                     <p class="text-sm font-light text-gray-666">{{ dateDesc }}</p>
                 </div>
                 <div class="w-full flex">
-                    <Timeline
-                        :timeline="timeline"
-                        :checked_time="data.checked_time"
-                    />
+                    <div class="w-full flex flex-col">
+                        <TimelineView
+                            :period="period"
+                            :periodBlock="data.checked_time"
+                            :onMouseOver="handleTimelineMouseOver"
+                            :onMouseLeave="handleTimelineMouseLeave"
+                        />
+                        <div class="w-full ml-12 mt-4 text-xs font-light text-gray-666">
+                            <div class="flex items-center gap-2">
+                                <i class="text-[0.188rem] fa-solid fa-circle"></i> 시간은 30분 단위로 생성되고 중복해서 선택할 수 있어요.
+                            </div>
+                            <div class="mt-1.5 flex items-center gap-2">
+                                <i class="text-[0.188rem] fa-solid fa-circle"></i> 일정은 해당 날짜가 지난 후 30일이 지나면 자동으로 폐기돼요.
+                            </div>
+                        </div>
+                    </div>
                     <div class="w-80 shrink-0 ml-4 pb-[3.375rem]">
                         <div class="w-full h-full px-4 py-5 shrink-0 rounded-md border border-gray-999 text-black-333">
-                            <h2>파티원{{ hoverStore.partywon.length !== 0 ? " (" + (hoverStore.partywon.length) + '/' + data.capacity + ')' : '' }}</h2>
+                            <h2>파티원{{ states.checkedPartywon.length !== 0 ? " (" + (states.checkedPartywon.length) + '/' + data.capacity + ')' : '' }}</h2>
                             <ul class="mt-4 text-sm font-light flex flex-col gap-3">
                                 <li
                                     v-for="partywon in data.partywon"
                                     v-bind:class="`${
-                                        hoverStore.partywon.length !== 0 && !hoverStore.partywon.includes(partywon.name)
+                                        states.checkedPartywon.length !== 0 && !states.checkedPartywon.includes(partywon.name)
                                         ? 'text-gray-ccc'
                                         : ''
                                     } duration-100`"
@@ -45,8 +57,8 @@
             </div>
         </div>
         <Popup
-            :show="popupStore.show"
-            :handleShow="closePopup"
+            :show="states.popupShow"
+            :handleShow="handlePopupShow"
             title="시간대 설정"
             subtitle="가능한 시간을 선택해 주세요."
         >
@@ -56,23 +68,25 @@
                     <div class="text-base font-light mt-3">
                         <Input
                             placeHolder="이름을 입력해 주세요."
-                            :onchange="onTimelineNameChange"
+                            :onchange="handlePopupNameChange"
                             id="user-name"
                             icon="bi bi-person"
-                            :state="timelineStore.nameState"
-                            :onStateChange="timelineStore.onNameStateReset"
+                            :state="states.popupNameState"
+                            :onStateChange="handlePopupNameStateChange"
                         />
                     </div>
                 </div>
                 <h2 class="mt-14 mb-5">시간대 선택</h2>
-                <Timeline
-                    blank
-                    :timeline="timeline"
-                    :checked_time="data.checked_time"
+                <TimelineSelect
+                    :period="period"
+                    :periodBlock="data.checked_time"
+                    :onChange="handlePopupTimeChange"
+                    :state="states.popupTimeState"
+                    :onStateChange="handlePopupTimeStateChange"
                 />
                 <div class="mt-14 text-base font-light flex gap-2.5">
-                    <Button :click="createTimeline" :icon="'bi bi-check-circle'">추가하기</Button>
-                    <Button :click="closePopup" :icon="'bi bi-x-circle'" color="gray">취소하기</Button>
+                    <Button :click="handlePopupCreate" :icon="'bi bi-check-circle'">추가하기</Button>
+                    <Button :click="handlePopupShow" :icon="'bi bi-x-circle'" color="gray">취소하기</Button>
                 </div>
             </div>
         </Popup>
@@ -81,22 +95,40 @@
 </template>
 
 <script setup lang="ts">
+    // Vue
+    import { reactive } from 'vue';
+
     // Pinia
-    import { usePopupStore } from '~/stores/popup';
-    const popupStore = usePopupStore();
     import { useToastStore } from '~/stores/toast';
     const toastStore = useToastStore();
-    import { useHoverStore } from '~/stores/hover';
-    const hoverStore = useHoverStore();
-    import { useTimelineStore } from '~/stores/timeline';
-    const timelineStore = useTimelineStore();
 
     // Components
     import Button from '~/components/Button.vue';
     import Input from '~/components/Input.vue';
-    import Timeline from '~/components/Timeline.vue';
     import Popup from '~/components/Popup.vue';
     import Toast from '~/components/Toast.vue';
+    import TimelineView from '~/components/TimelineView.vue';
+    import TimelineSelect from '~/components/TimelineSelect.vue';
+
+    // Types
+    interface States {
+        checkedPartywon: string[],
+        popupShow: boolean,
+        popupName: string,
+        popupNameState: string,
+        popupTime: number[],
+        popupTimeState: string,
+    }
+
+    // States
+    const states: States = reactive({
+        checkedPartywon: [],
+        popupShow: false,
+        popupName: "",
+        popupNameState: "",
+        popupTime: [],
+        popupTimeState: "",
+    });
 
     // Fetch data
     const route = useRoute();
@@ -107,19 +139,29 @@
     const dateProp = new Date(date);
     const dateDesc = `${dateProp.getFullYear()}년 ${dateProp.getMonth() + 1}월 ${dateProp.getDate()}일`;
 
-    // Set timeline
-    const timeline: string[] = [];
-    const startTime = Number(start_time);
-    const endTime = Number(end_time);
-    const length = Number(endTime) - Number(startTime);
+    // Set timeline period
+    const period: string[] = [];
+    const startPeriod = Number(start_time);
+    const endPeriod = Number(end_time);
+    const length = Number(endPeriod) - Number(startPeriod);
     for (let i = 0; i < length; i++) {
-        timeline.push(
-            startTime + i < 12
-            ? `${startTime + i} AM`
-            : startTime + i === 12
-                ? `${startTime + i} PM`
-                : `${startTime + i - 12} PM`
+        period.push(
+            startPeriod + i < 12
+            ? `${startPeriod + i} AM`
+            : startPeriod + i === 12
+                ? `${startPeriod + i} PM`
+                : `${startPeriod + i - 12} PM`
         );
+    }
+
+    // Trigger timeline mouseover event
+    const handleTimelineMouseOver = (checkedPartywon: any) => {
+        states.checkedPartywon = checkedPartywon.checked;
+    }
+
+    // Trigger timeline mouseleave event
+    const handleTimelineMouseLeave = () => {
+        states.checkedPartywon = [];
     }
 
     // Copy shareable link
@@ -128,22 +170,48 @@
         toastStore.success({ text: "링크가 복사되었어요." });
     }
 
-    // On timeline name change
-    const onTimelineNameChange = (e: Event) => {
-        const el = e.target as HTMLInputElement;
-        timelineStore.onNameChange(el.value);
-    }
+    // Show/close popup
+    const handlePopupShow = () => {
+        states.popupShow = !states.popupShow;
 
-    // Create timeline
-    const createTimeline = async () => {
-        if (timelineStore.name === "") {
-            timelineStore.onNameStateChange("empty");
+        // Reset states when popup is closed
+        if (!states.popupShow) {
+            states.popupName = "";
+            states.popupNameState = "";
+            states.popupTime = [];
+            states.popupTimeState = "";
         }
     }
 
-    // Close popup and reset states
-    const closePopup = () => {
-        timelineStore.onNameReset();
-        popupStore.setShow();
+    // Trigger popup name change event
+    const handlePopupNameChange = (e: Event) => {
+        const el = e.target as HTMLInputElement;
+        states.popupName = el.value;
+        states.popupNameState = "";
+    }
+
+    // Trigger popup name change event
+    const handlePopupNameStateChange = () => {
+        states.popupNameState = "";
+    }
+
+    // Trigger popup time change event
+    const handlePopupTimeChange = (arr: number[]) => {
+        states.popupTime = arr;
+        states.popupTimeState = "";
+    }
+
+    // Trigger popup time state change event
+    const handlePopupTimeStateChange = () => {
+        states.popupTimeState = "";
+    }
+
+    // Trigger popup create event
+    const handlePopupCreate = () => {
+        if (states.popupName === "") {
+            states.popupNameState = "empty";
+        } else if (states.popupTime.length === 0) {
+            states.popupTimeState = "empty";
+        }
     }
 </script>

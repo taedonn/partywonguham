@@ -59,7 +59,3 @@
         window.removeEventListener("mousedown", handleMousedown);
     });
 </script>
-
-<style>
-
-</style>

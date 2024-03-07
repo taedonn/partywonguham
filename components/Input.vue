@@ -3,7 +3,7 @@
         <input
             type="text"
             :placeholder="placeHolder"
-            @input="e => onInputChange(e)"
+            @input="onInputChange"
             v-bind:id="`${id}`"
             v-bind:class="`
                 ${
@@ -53,7 +53,7 @@
     });
 
     const onInputChange = (e: Event) => {
-        props.onStateChange();
         props.onChange(e);
+        props.onStateChange();
     }
 </script>
