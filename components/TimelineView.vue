@@ -8,7 +8,7 @@
                 <!-- 볼 화면 -->
                 <div v-for="checked in periodBlock" class=" group w-full relative flex flex-col flex-auto">
                     <div
-                        v-bind:style="`opacity: ${checked.checked.length / (periodBlock.length + 1)}`"
+                        v-bind:style="`opacity: ${checked.checked.length >= capacity ? capacity / (capacity + 1) : checked.checked.length / (capacity + 1)}`"
                         v-bind:class="`w-full h-[calc(100%+1px)] group-first:h-full absolute z-10 bottom-0 bg-blue-4 duration-100`"
                     >
                     </div>
@@ -39,6 +39,7 @@
 
     // Props
     const props = defineProps({
+        capacity: Number,
         period: Array,
         periodBlock: Array<PeriodBlock>,
         onMouseOver: {
@@ -53,6 +54,7 @@
         }
     });
 
+    const capacity = props.capacity ? props.capacity : 0
     const periodBlock = props.periodBlock ? props.periodBlock : [];
 
     // 호버 이벤트

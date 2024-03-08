@@ -10,6 +10,7 @@
                     </p>
                 </div>
                 <div class="shrink-0 flex gap-2.5 text-base font-light">
+                    <Button :click="handleReset" color="gray" class="text-black-333 lg:hover:text-blue-4">리셋하기</button>
                     <Button :click="copyLink" :icon="'bi bi-share'" color="gray">링크 복사하기</Button>
                     <Button :click="handlePopupShow" :icon="'bi bi-calendar-week'">시간 선택하기</Button>
                 </div>
@@ -22,6 +23,7 @@
                 <div class="w-full flex">
                     <div class="w-full flex flex-col">
                         <TimelineView
+                            :capacity="capacity"
                             :period="period"
                             :periodBlock="checked_time"
                             :onMouseOver="handleTimelineMouseOver"
@@ -38,17 +40,17 @@
                     </div>
                     <div class="w-80 shrink-0 ml-4 pb-[3.375rem]">
                         <div class="w-full h-full px-4 py-5 shrink-0 rounded-md border border-gray-999 text-black-333">
-                            <h2>파티원{{ states.checkedPartywon.length !== 0 ? " (" + (states.checkedPartywon.length) + '/' + data.partywon.length + ')' : '' }}</h2>
+                            <h2>파티원{{ states.checkedPartywon.length !== 0 ? " (" + (states.checkedPartywon.length) + '/' + capacity + ')' : '' }}</h2>
                             <ul class="mt-4 text-sm font-light flex flex-col gap-3">
                                 <li
-                                    v-for="partywon in data.partywon"
+                                    v-for="thisPartywon in partywon"
                                     v-bind:class="`${
-                                        states.checkedPartywon.length !== 0 && !states.checkedPartywon.includes(partywon.name)
+                                        states.checkedPartywon.length !== 0 && !states.checkedPartywon.includes(thisPartywon.name)
                                         ? 'text-gray-ccc'
                                         : ''
                                     } duration-100`"
                                 >
-                                    {{ partywon.name }}
+                                    {{ thisPartywon.name }}
                                 </li>
                             </ul>
                         </div>
@@ -125,6 +127,10 @@
         popupNameState: string,
         popupTime: number[],
         popupTimeState: string,
+    }
+
+    interface Partywon {
+        name: string,
     }
 
     // States
@@ -227,6 +233,8 @@
     const handlePopupCreate = async () => {
         if (states.popupName === "") {
             states.popupNameState = "empty";
+        } else if (partywon.some((obj: Partywon) => obj.name === states.popupName)) {
+            states.popupNameState = "duplicated";
         } else if (states.popupTime.length === 0) {
             states.popupTimeState = "empty";
         } else {
@@ -252,7 +260,7 @@
                     partyjang: partyjang,
                     partywon: partywon,
                     checked_time: thisCheckedTime,
-                    capacity,
+                    capacity: capacity,
                 });
 
                 // Close popup
@@ -260,6 +268,35 @@
             } catch (err) {
                 console.log(err);
             }
+        }
+    }
+
+    const handleReset = async () => {
+        try {
+            await setDoc(doc(myCollection, routeId), {
+                title: "12/26 풋살하실 분",
+                date: "Tue Dec 26 2023",
+                start_time: 10,
+                end_time: 15,
+                partyjang: { name: "홍길동", email: "partywonguham@gmail.com" },
+                partywon: [],
+                checked_time: [
+                    { time: 10, checked: [] },
+                    { time: 10.5, checked: [] },
+                    { time: 11, checked: [] },
+                    { time: 11.5, checked: [] },
+                    { time: 12, checked: [] },
+                    { time: 12.5, checked: [] },
+                    { time: 13, checked: [] },
+                    { time: 13.5, checked: [] },
+                    { time: 14, checked: [] },
+                    { time: 14.5, checked: [] },
+                ],
+                capacity: 4,
+            });
+            location.reload();
+        } catch (err) {
+            console.log(err);
         }
     }
 </script>
