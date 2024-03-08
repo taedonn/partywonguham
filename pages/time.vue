@@ -50,8 +50,7 @@
                         class="w-full p-2 mt-3 text-sm font-light border-b border-gray-ccc text-black-333 placeholder-gray-999"
                     />
                 </div>
-                <Timeline
-                    blank
+                <TimelineSelect
                     :timeline="data.timeline"
                     :checked_time="data.checked_time"
                 />
@@ -63,7 +62,7 @@
 
 <script>
 // components
-import Timeline from '~/components/Timeline.vue';
+import TimelineSelect from '~/components/TimelineSelect.vue';
 import Popup from '~/components/Popup.vue';
 
 export default {
