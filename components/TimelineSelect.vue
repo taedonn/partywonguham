@@ -23,7 +23,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="state === 'empty'" class="absolute left-12 -bottom-2 translate-y-full text-xs text-red-e">가능한 시간대를 선택해 주세요.</div>
+        <div v-if="state === 'empty'" class="absolute left-12 -bottom-2 translate-y-full text-xs font-light text-red-e">가능한 시간대를 선택해 주세요.</div>
     </div>
 </template>
 

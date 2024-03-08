@@ -23,7 +23,7 @@
                     <div class="w-full flex flex-col">
                         <TimelineView
                             :period="period"
-                            :periodBlock="data.checked_time"
+                            :periodBlock="checked_time"
                             :onMouseOver="handleTimelineMouseOver"
                             :onMouseLeave="handleTimelineMouseLeave"
                         />
@@ -38,7 +38,7 @@
                     </div>
                     <div class="w-80 shrink-0 ml-4 pb-[3.375rem]">
                         <div class="w-full h-full px-4 py-5 shrink-0 rounded-md border border-gray-999 text-black-333">
-                            <h2>파티원{{ states.checkedPartywon.length !== 0 ? " (" + (states.checkedPartywon.length) + '/' + data.capacity + ')' : '' }}</h2>
+                            <h2>파티원{{ states.checkedPartywon.length !== 0 ? " (" + (states.checkedPartywon.length) + '/' + data.partywon.length + ')' : '' }}</h2>
                             <ul class="mt-4 text-sm font-light flex flex-col gap-3">
                                 <li
                                     v-for="partywon in data.partywon"
@@ -79,7 +79,7 @@
                 <h2 class="mt-14 mb-5">시간대 선택</h2>
                 <TimelineSelect
                     :period="period"
-                    :periodBlock="data.checked_time"
+                    :periodBlock="checked_time"
                     :onChange="handlePopupTimeChange"
                     :state="states.popupTimeState"
                     :onStateChange="handlePopupTimeStateChange"
@@ -110,6 +110,13 @@
     import TimelineView from '~/components/TimelineView.vue';
     import TimelineSelect from '~/components/TimelineSelect.vue';
 
+    // Firestore
+    import { collection, setDoc, doc } from 'firebase/firestore';
+
+    // Load firebase collection
+    const { firestore } = useFirebase();
+    const myCollection = collection(firestore, "posts");
+
     // Types
     interface States {
         checkedPartywon: string[],
@@ -132,8 +139,18 @@
 
     // Fetch data
     const route = useRoute();
-    const { data }: any = await useFetch(`/api/p/${route.params.id}`);
-    const { start_time, end_time, date } = data.value;
+    const routeId = route.params.id + "";
+    const { data }: any = await useFetch(`/api/p/${routeId}`);
+    const {
+        title,
+        date,
+        start_time,
+        end_time,
+        partyjang,
+        partywon,
+        checked_time,
+        capacity,
+    } = data.value;
 
     // Format date
     const dateProp = new Date(date);
@@ -154,23 +171,23 @@
         );
     }
 
-    // Trigger timeline mouseover event
+    /** Trigger timeline mouseover event */
     const handleTimelineMouseOver = (checkedPartywon: any) => {
         states.checkedPartywon = checkedPartywon.checked;
     }
 
-    // Trigger timeline mouseleave event
+    /** Trigger timeline mouseleave event */
     const handleTimelineMouseLeave = () => {
         states.checkedPartywon = [];
     }
 
-    // Copy shareable link
+    /** Copy shareable link */
     const copyLink = () => {
         window.navigator.clipboard.writeText(location.toString());
         toastStore.success({ text: "링크가 복사되었어요." });
     }
 
-    // Show/close popup
+    /** Show/close popup */
     const handlePopupShow = () => {
         states.popupShow = !states.popupShow;
 
@@ -183,35 +200,66 @@
         }
     }
 
-    // Trigger popup name change event
+    /** Trigger popup name change event */
     const handlePopupNameChange = (e: Event) => {
         const el = e.target as HTMLInputElement;
         states.popupName = el.value;
         states.popupNameState = "";
     }
 
-    // Trigger popup name change event
+    /** Trigger popup name change event */
     const handlePopupNameStateChange = () => {
         states.popupNameState = "";
     }
 
-    // Trigger popup time change event
+    /** Trigger popup time change event */
     const handlePopupTimeChange = (arr: number[]) => {
         states.popupTime = arr;
         states.popupTimeState = "";
     }
 
-    // Trigger popup time state change event
+    /** Trigger popup time state change event */
     const handlePopupTimeStateChange = () => {
         states.popupTimeState = "";
     }
 
-    // Trigger popup create event
-    const handlePopupCreate = () => {
+    /** Trigger popup create event */
+    const handlePopupCreate = async () => {
         if (states.popupName === "") {
             states.popupNameState = "empty";
         } else if (states.popupTime.length === 0) {
             states.popupTimeState = "empty";
+        } else {
+            try {
+                // Set new partywon
+                const thisPartywon = partywon;
+                thisPartywon.push({ name: states.popupName });
+
+                // Set new time
+                const thisCheckedTime = checked_time;
+                for (let i = 0; i < thisCheckedTime.length; i++) {
+                    if (states.popupTime.includes(thisCheckedTime[i].time)) {
+                        thisCheckedTime[i].checked.push(states.popupName);
+                    }
+                }
+
+                // Update firestore
+                await setDoc(doc(myCollection, routeId), {
+                    title: title,
+                    date: date,
+                    start_time: start_time,
+                    end_time: end_time,
+                    partyjang: partyjang,
+                    partywon: partywon,
+                    checked_time: thisCheckedTime,
+                    capacity,
+                });
+
+                // Close popup
+                handlePopupShow();
+            } catch (err) {
+                console.log(err);
+            }
         }
     }
 </script>
