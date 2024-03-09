@@ -9,6 +9,7 @@ export default {
         'gray-ccc': '#CCCCCC',
         'gray-999': '#999999',
         'gray-666': '#666666',
+        'gray-4': '#404240',
         'black-333': '#333333',
         'blue-1': '#D4EBFD',
         'blue-2': '#AAD8FB',

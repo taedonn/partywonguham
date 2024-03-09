@@ -8,7 +8,7 @@
                         ${
                             color === 'blue' 
                             ? 'border-blue-4 text-blue-4 lg:hover:bg-blue-4 lg:hover:text-white' 
-                            : 'border-gray-666 text-gray-666 lg:hover:bg-gray-666 lg:hover:text-white'
+                            : 'border-gray-4 text-gray-4 lg:hover:bg-gray-4 lg:hover:text-white'
                         }
                     `"
     > 
@@ -45,8 +45,8 @@
             button.classList.remove("lg:hover:bg-blue-4");
             button.classList.add("lg:hover:bg-blue-4-h", "lg:border-blue-4-h");
         } else {
-            button.classList.remove("lg:hover:bg-gray-666");
-            button.classList.add("lg:hover:bg-gray-999", "lg:border-gray-999");
+            button.classList.remove("lg:hover:bg-gray-4");
+            button.classList.add("lg:hover:bg-gray-666", "lg:border-gray-666");
         }
     }
     const handleMouseup = (e: MouseEvent, color: string) => {
@@ -55,8 +55,8 @@
             button.classList.remove("lg:hover:bg-blue-4-h", "lg:border-blue-4-h");
             button.classList.add("lg:hover:bg-blue-4");
         } else {
-            button.classList.remove("lg:hover:bg-gray-999", "lg:border-gray-999");
-            button.classList.add("lg:hover:bg-gray-666");
+            button.classList.remove("lg:hover:bg-gray-666", "lg:border-gray-666");
+            button.classList.add("lg:hover:bg-gray-4");
         }
     }
 </script>
