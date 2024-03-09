@@ -19,6 +19,20 @@
                         class="w-full h-[calc(100%+1px)] group-first:h-full absolute z-10 bottom-0 group-hover:bg-blue-4 opacity-20 cursor-pointer duration-100"
                     ></div>
                     <div class="group-last:hidden w-full h-px absolute bottom-0 bg-gray-999"></div>
+                    <i v-if="checked.checked.length === capacity" class="fa-solid fa-star absolute z-20 left-2 top-1/2 -translate-y-1/2 text-xs text-yellow-f"></i>
+                </div>
+            </div>
+        </div>
+        <div class="w-full mt-4 pl-12">
+            <div class="flex flex-wrap gap-4 p-4 rounded-md border border-gray-999">
+                <div v-for="idx in capacity" class="flex items-center gap-1.5 relative">
+                    <div
+                        v-bind:style="`opacity: ${idx / (capacity + 1)}`"
+                        v-bind:class="`w-4 h-4 rounded-full flex justify-center items-center bg-blue-4`"
+                    >
+                        <i v-if="idx === capacity" class="fa-solid fa-star text-[0.625rem] text-yellow-f"></i>
+                    </div>
+                    <div class="w-8 font-light text-xs text-black-333">{{ idx + "명" }}</div>
                 </div>
             </div>
         </div>

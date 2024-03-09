@@ -1,8 +1,8 @@
 <template>
-    <header class="fixed top-0 w-full flex justify-center">
-        <div class="max-w-[100rem] w-full flex justify-between items-center self-center px-4 lg:px-8 my-7">
+    <header class="fixed z-40 top-0 w-full flex justify-center bg-white">
+        <div class="max-w-[100rem] w-full flex justify-between items-center self-center px-4 lg:px-8 my-6">
             <div class="flex justify-between items-center gap-3.5">
-                <img src="/img/partiwon_logo.svg" />
+                <img src="/img/partiwon_logo.svg" class="w-8"/>
                 <h1 class="text-xl text-black-333"> 
                     <nuxt-link to='/'>파티원 구함</nuxt-link>
                 </h1>

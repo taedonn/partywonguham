@@ -124,13 +124,23 @@
         checkedPartywon: string[],
         popupShow: boolean,
         popupName: string,
-        popupNameState: string,
+        popupNameState: PopupNameState,
         popupTime: number[],
-        popupTimeState: string,
+        popupTimeState: PopupTimeState,
     }
 
     interface Partywon {
         name: string,
+    }
+
+    interface PopupNameState {
+        type: string,
+        msg: string,
+    }
+
+    interface PopupTimeState {
+        type: string,
+        msg: string,
     }
 
     // States
@@ -138,9 +148,9 @@
         checkedPartywon: [],
         popupShow: false,
         popupName: "",
-        popupNameState: "",
+        popupNameState: { type: "", msg: "" },
         popupTime: [],
-        popupTimeState: "",
+        popupTimeState: { type: "", msg: "" },
     });
 
     // Fetch data
@@ -198,11 +208,14 @@
         states.popupShow = !states.popupShow;
 
         // Reset states when popup is closed
-        if (!states.popupShow) {
+        if (states.popupShow) {
+            document.body.classList.add("overflow-hidden");
+        } else {
+            document.body.classList.remove("overflow-hidden");
             states.popupName = "";
-            states.popupNameState = "";
+            states.popupNameState = { type: "", msg: "" };
             states.popupTime = [];
-            states.popupTimeState = "";
+            states.popupTimeState = { type: "", msg: "" };
         }
     }
 
@@ -210,33 +223,42 @@
     const handlePopupNameChange = (e: Event) => {
         const el = e.target as HTMLInputElement;
         states.popupName = el.value;
-        states.popupNameState = "";
+        states.popupNameState = { type: "", msg: "" };
     }
 
     /** Trigger popup name change event */
     const handlePopupNameStateChange = () => {
-        states.popupNameState = "";
+        states.popupNameState = { type: "", msg: "" };
     }
 
     /** Trigger popup time change event */
     const handlePopupTimeChange = (arr: number[]) => {
         states.popupTime = arr;
-        states.popupTimeState = "";
+        states.popupTimeState = { type: "", msg: "" };
     }
 
     /** Trigger popup time state change event */
     const handlePopupTimeStateChange = () => {
-        states.popupTimeState = "";
+        states.popupTimeState = { type: "", msg: "" };
     }
 
     /** Trigger popup create event */
     const handlePopupCreate = async () => {
         if (states.popupName === "") {
-            states.popupNameState = "empty";
+            states.popupNameState = {
+                type: "error",
+                msg: "이름은 빈칸으로 남길 수 없어요.",
+            };
         } else if (partywon.some((obj: Partywon) => obj.name === states.popupName)) {
-            states.popupNameState = "duplicated";
+            states.popupNameState = {
+                type: "error",
+                msg: "중복된 이름은 사용할 수 없어요."
+            };
         } else if (states.popupTime.length === 0) {
-            states.popupTimeState = "empty";
+            states.popupTimeState = {
+                type: "error",
+                msg: "가능한 시간대를 선택해 주세요."
+            };
         } else {
             try {
                 // Set new partywon
@@ -277,7 +299,7 @@
                 title: "12/26 풋살하실 분",
                 date: "Tue Dec 26 2023",
                 start_time: 10,
-                end_time: 15,
+                end_time: 18,
                 partyjang: { name: "홍길동", email: "partywonguham@gmail.com" },
                 partywon: [],
                 checked_time: [
@@ -291,6 +313,12 @@
                     { time: 13.5, checked: [] },
                     { time: 14, checked: [] },
                     { time: 14.5, checked: [] },
+                    { time: 15, checked: [] },
+                    { time: 15.5, checked: [] },
+                    { time: 16, checked: [] },
+                    { time: 16.5, checked: [] },
+                    { time: 17, checked: [] },
+                    { time: 17.5, checked: [] },
                 ],
                 capacity: 4,
             });

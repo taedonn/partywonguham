@@ -1,5 +1,5 @@
 <template>
-    <div v-bind:class="`${state === 'empty' ? 'animate-shake' : ''} w-full relative`">
+    <div v-bind:class="`${state.type === 'error' ? 'animate-shake' : ''} w-full relative`">
         <div class="w-full h-fit flex">
             <div class="flex flex-col shrink-0">
                 <div v-for="time in period" class="w-12 h-14 text-xs font-light pt-0.5">{{ time }}</div>
@@ -14,7 +14,7 @@
                     />
                     <div
                         v-bind:data-id="`time-${checked.time}`"
-                        class="w-full h-[calc(100%+1px)] group-first:h-full absolute z-10 bottom-0 cursor-[row-resize] duration-100 peer-checked:bg-blue-4/40 lg:hover:bg-blue-4/20"
+                        class="w-full h-[calc(100%+1px)] group-first:h-full absolute z-10 bottom-0 cursor-[row-resize] duration-100 peer-checked:bg-blue-4/60 lg:hover:bg-blue-4/40"
                         @mouseover="onMouseOver"
                         @mousedown="onMouseDown"
                         @mouseup="onMouseUp"
@@ -23,7 +23,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="state === 'empty'" class="absolute left-12 -bottom-2 translate-y-full text-xs font-light text-red-e">가능한 시간대를 선택해 주세요.</div>
+        <div v-if="state.type === 'error'" class="absolute left-12 -bottom-2 translate-y-full text-xs font-light text-red-e">{{ state.msg }}</div>
     </div>
 </template>
 
@@ -50,7 +50,7 @@
             default: () => {},
         },
         state: {
-            type: String,
+            type: Object,
             required: false,
             default: ""
         },

@@ -1,5 +1,5 @@
 <template>
-    <div v-bind:class="`${state === 'empty' || state === 'duplicated' ? 'animate-shake' : ''} w-full relative text-black-333`">
+    <div v-bind:class="`${state.type === 'error' ? 'animate-shake' : ''} w-full relative text-black-333`">
         <input
             type="text"
             :placeholder="placeHolder"
@@ -11,19 +11,15 @@
                         ? '' 
                         : 'pl-6'
                 } ${
-                    state === 'empty' || state === 'duplicated'
+                    state.type === 'error'
                         ? 'border-red-e lg:hover:border-red-e focus:border-red-e lg:focus:hover:border-red-e'
                         : 'border-gray-999 lg:hover:border-gray-666 focus:border-blue-4 lg:focus:hover:border-blue-4'
                 } w-full p-2 outline-none border-b duration-100 placeholder-gray-666
             `"
         />
         <i v-bind:class="`${icon} absolute left-0 top-1/2 -translate-y-1/2`"></i>
-        <div v-if="state === 'empty' || state === 'duplicated'" class="absolute left-0 -bottom-2 translate-y-full text-xs text-red-e">
-            {{ 
-                state === 'empty'
-                    ? '이름은 빈칸으로 남길 수 없어요.'
-                    : '중복된 이름은 사용할 수 없어요.'    
-            }}
+        <div v-if="state.type === 'error'" class="absolute left-0 -bottom-2 translate-y-full text-xs text-red-e">
+            {{ state.msg }}
         </div>
     </div>
 </template>
@@ -46,7 +42,7 @@
             default: () => {}
         },
         state: {
-            type: String,
+            type: Object,
             required: false,
             default: ""
         },
