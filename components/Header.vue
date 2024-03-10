@@ -8,13 +8,6 @@
                 </h1>
             </div>
             <ul class="flex items-center gap-4">
-                <li class="w-40 text-sm font-light">
-                    <Input
-                        placeHolder="아이디로 일정 조회"
-                        id="search-id"
-                        icon="bi bi-search"
-                    />
-                </li>
                 <li class="text-base"><NuxtLink to='/' class="lg:hover:text-blue-1 lg:duration-100">일정 생성하기</NuxtLink></li>
                 <li class="text-base"><NuxtLink to='/' class="lg:hover:text-blue-1 lg:duration-100">사용 가이드</NuxtLink></li>
                 <li class="text-base"><NuxtLink to='/' class="lg:hover:text-blue-1 lg:duration-100">프로젝트 정보</NuxtLink></li>

@@ -19,7 +19,7 @@
                         class="w-full h-[calc(100%+1px)] group-first:h-full absolute z-10 bottom-0 group-hover:bg-blue-1 opacity-20 cursor-pointer duration-100"
                     ></div>
                     <div class="group-last:hidden w-full h-px absolute bottom-0 bg-gray-9"></div>
-                    <i v-if="checked.checked.length === capacity" class="fa-solid fa-star absolute z-20 left-2 top-1/2 -translate-y-1/2 text-xs text-yellow-f"></i>
+                    <i v-if="checked.checked.length >= capacity" class="fa-solid fa-star absolute z-20 left-2 top-1/2 -translate-y-1/2 text-xs text-yellow-f"></i>
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
                         v-bind:style="`opacity: ${idx / (capacity + 1)}`"
                         v-bind:class="`w-4 h-4 rounded-full flex justify-center items-center bg-blue-1`"
                     >
-                        <i v-if="idx === capacity" class="fa-solid fa-star text-[0.625rem] text-yellow-f"></i>
+                        <i v-if="idx >= capacity" class="fa-solid fa-star text-[0.625rem] text-yellow-f"></i>
                     </div>
                     <div class="w-8 font-light text-xs text-black-3">{{ idx + "명" }}</div>
                 </div>
