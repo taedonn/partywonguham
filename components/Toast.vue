@@ -10,7 +10,7 @@
                     >
                         <i v-bind:class="`${
                             toast.status === 'success' 
-                                ? 'fa-solid fa-circle-check text-blue-3'
+                                ? 'fa-solid fa-circle-check text-blue-2'
                                 : 'fa-solid fa-circle-exclamation text-white'
                         }`"></i>
                         <span>{{ toast.text }}</span>

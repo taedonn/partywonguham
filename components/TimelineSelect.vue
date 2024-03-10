@@ -4,7 +4,7 @@
             <div class="flex flex-col shrink-0">
                 <div v-for="time in period" class="w-12 h-14 text-xs font-light pt-0.5">{{ time }}</div>
             </div>
-            <div class="w-full flex flex-col rounded-md border border-gray-999 overflow-hidden">
+            <div class="w-full flex flex-col rounded-md border border-gray-9 overflow-hidden">
                 <!-- 선택 화면 -->
                 <div v-for="checked in periodBlock" class="group relative w-full flex flex-col flex-auto">
                     <input
@@ -14,12 +14,12 @@
                     />
                     <div
                         v-bind:data-id="`time-${checked.time}`"
-                        class="w-full h-[calc(100%+1px)] group-first:h-full absolute z-10 bottom-0 cursor-[row-resize] duration-100 peer-checked:bg-blue-4/60 lg:hover:bg-blue-4/40"
+                        class="w-full h-[calc(100%+1px)] group-first:h-full absolute z-10 bottom-0 cursor-[row-resize] duration-100 peer-checked:bg-blue-1/60 lg:hover:bg-blue-1/40"
                         @mouseover="onMouseOver"
                         @mousedown="onMouseDown"
                         @mouseup="onMouseUp"
                     ></div>
-                    <div class="group-last:hidden w-full h-px absolute bottom-0 cursor-[row-resize] bg-gray-999 peer-checked:bg-gray-999/60"></div>
+                    <div class="group-last:hidden w-full h-px absolute bottom-0 cursor-[row-resize] bg-gray-9 peer-checked:bg-gray-9/60"></div>
                 </div>
             </div>
         </div>
@@ -52,7 +52,7 @@
         state: {
             type: Object,
             required: false,
-            default: ""
+            default: {}
         },
         onStateChange: {
             type: Function,

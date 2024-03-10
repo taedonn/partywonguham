@@ -1,24 +1,24 @@
 <template>
-    <main class="w-full px-4 lg:px-16 py-40 flex justify-center">
+    <main class="w-full px-4 lg:px-16 pt-40 pb-20 flex justify-center">
         <div class="max-w-[80rem] w-full">
-            <div class="w-full flex items-end text-black-333">
+            <div class="w-full flex items-end text-black-3">
                 <div class="w-full">
                     <h1 class="mb-3 text-xl leading-none font-medium">타임라인</h1>
-                    <p class="text-sm leading-6 font-light text-gray-666">
+                    <p class="text-sm leading-6 font-light text-gray-6">
                         타임라인은 파티장이 설정한 시간표에요. <br/>
                         시간 선택하기를 눌러 타임라인 내 가능한 시간을 선택해 주세요.
                     </p>
                 </div>
                 <div class="shrink-0 flex gap-2.5 text-base font-light">
-                    <Button :click="handleReset" color="gray" class="text-black-333 lg:hover:text-blue-4">리셋하기</button>
+                    <Button :click="handleReset" color="gray" class="text-black-3 lg:hover:text-blue-2">리셋하기</button>
                     <Button :click="copyLink" :icon="'bi bi-share'" color="gray">링크 복사하기</Button>
                     <Button :click="handlePopupShow" :icon="'bi bi-calendar-week'">시간 선택하기</Button>
                 </div>
             </div>
-            <div class="mt-16 text-black-333">
+            <div class="mt-16 text-black-3">
                 <div class="mb-8">
                     <h2 class="mb-2 text-xl font-medium">{{ data.title }}</h2>
-                    <p class="text-sm font-light text-gray-666">{{ dateDesc }}</p>
+                    <p class="text-sm font-light text-gray-6">{{ dateDesc }}</p>
                 </div>
                 <div class="w-full flex">
                     <div class="w-full flex flex-col">
@@ -29,7 +29,7 @@
                             :onMouseOver="handleTimelineMouseOver"
                             :onMouseLeave="handleTimelineMouseLeave"
                         />
-                        <div class="w-full ml-12 mt-4 text-xs font-light text-gray-666">
+                        <div class="w-full ml-12 mt-4 text-xs font-light text-gray-6">
                             <div class="flex items-center gap-2">
                                 <i class="text-[0.188rem] fa-solid fa-circle"></i> 시간은 30분 단위로 생성되고 중복해서 선택할 수 있어요.
                             </div>
@@ -39,14 +39,14 @@
                         </div>
                     </div>
                     <div class="w-80 shrink-0 ml-4 pb-[3.375rem]">
-                        <div class="w-full h-full px-4 py-5 shrink-0 rounded-md border border-gray-999 text-black-333">
+                        <div class="w-full h-full px-4 py-5 shrink-0 rounded-md border border-gray-9 text-black-3">
                             <h2>파티원{{ states.checkedPartywon.length !== 0 ? " (" + (states.checkedPartywon.length) + '/' + capacity + ')' : '' }}</h2>
                             <ul class="mt-4 text-sm font-light flex flex-col gap-3">
                                 <li
                                     v-for="thisPartywon in partywon"
                                     v-bind:class="`${
                                         states.checkedPartywon.length !== 0 && !states.checkedPartywon.includes(thisPartywon.name)
-                                        ? 'text-gray-ccc'
+                                        ? 'text-gray-c'
                                         : ''
                                     } duration-100`"
                                 >
