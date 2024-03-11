@@ -1,12 +1,13 @@
 <template>
-    <div class="relative min-h-full">
-        <Header/>
-        <slot/>
-        <Footer/>
+    <div class="relative min-h-screen">
+        <Header></Header>
+        <slot></slot>
+        <Footer></Footer>
     </div>
 </template>
 
 <script>
     import '../assets/style.css'
+    import Header from '~/components/Header.vue';
     import Footer from '~/components/Footer.vue';
 </script>
