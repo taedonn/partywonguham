@@ -216,8 +216,9 @@
 ※ 행정심판에 대해 자세한 사항은 중앙행정심판위원회(<NuxtLink href="https://www.simpan.go.kr" target="_blank" class="underline underline-offset-2 lg:hover:text-blue-1">www.simpan.go.kr</NuxtLink>) 홈페이지를 참고하시기 바랍니다.</pre>
         </div>
     </main>
+    <Tooltip></Tooltip>
 </template>
 
 <script setup lang="ts">
-
+    import Tooltip from '~/components/Tooltip.vue';
 </script>

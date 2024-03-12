@@ -8,11 +8,11 @@
         </div>
         <div class="ml-8 flex gap-3 text-sm font-light text-black-3">
             <NuxtLink to='/privacy' class="text-sm lg:hover:text-blue-1 lg:hover:underline">개인정보 처리방침</NuxtLink>
+            <NuxtLink to='/feedback' class="text-sm lg:hover:text-blue-1 lg:hover:underline">피드백 및 문의</NuxtLink>
             <NuxtLink to='https://github.com/taedonn/partywonguham' target="_blank" rel="noopener" class="text-sm lg:hover:text-blue-1 lg:hover:underline">깃허브 프로젝트</NuxtLink>
-            <NuxtLink to='/' target="_blank" class="text-sm lg:hover:text-blue-1 lg:hover:underline">피드백 및 문의</NuxtLink>
         </div>
     </footer>
-    <div class="w-full h-16"></div>
+    <div class="w-full h-20"></div>
 </template>
 
 <script setup lang="ts">

@@ -1,7 +1,7 @@
 <template>
     <Teleport to="body">
         <Transition name="toast">
-            <div v-if="toastStore.toasts.length" class="w-full fixed z-50 bottom-5 flex justify-center">
+            <div v-if="toastStore.toasts.length" class="w-full fixed z-40 bottom-5 flex justify-center">
                 <TransitionGroup name="toast" tag="ul" class="flex flex-col gap-2.5 duration-400">
                     <li
                         v-for="toast in toastStore.toasts"

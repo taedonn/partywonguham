@@ -36,6 +36,10 @@ button {
     overflow: visible;
     cursor: pointer;
 }
+input, textarea {
+    outline: none;
+    resize: none;
+}
 
 @font-face {
     font-family: 'DNFForgedBlade';
