@@ -1,7 +1,7 @@
 <template>
-    <main class="w-full flex justify-center px-4 lg:px-16 py-40 text-black-3">
+    <main class="w-full flex justify-center px-5 lg:px-16 pt-20 lg:pt-40 pb-40 text-black-3">
         <div class="w-[48rem]">
-            <div class="w-full px-8 py-6 rounded-lg bg-gray-f">
+            <div class="w-full px-6 lg:px-8 py-6 rounded-lg bg-gray-f">
                 <div class="text-lg mb-3">개요</div>
                 <div class="text-sm font-light tracking-wider leading-relaxed">
                     태돈('<NuxtLink href="/" class="underline underline-offset-2 lg:hover:text-blue-1">https://partywonguham.vercel.app</NuxtLink>' 이하 '파티원 구함')은 「개인정보 보호법」 제30조에 따라 정보 주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리방침을 수립·공개합니다. <br/>
@@ -10,7 +10,7 @@
                 </div>
             </div>
             <h2 class="text-lg mt-16 underline underline-offset-8">개인정보 처리방침</h2>
-            <div class="w-full flex flex-col lg:flex-row gap-4 mt-6 p-8 text-sm font-light border rounded-lg border-gray-6">
+            <div class="w-full flex flex-col lg:flex-row gap-4 mt-6 p-6 lg:p-8 text-sm font-light border rounded-lg border-gray-6">
                 <div class="w-full lg:w-1/3 flex flex-col gap-4">
                     <NuxtLink href="/privacy#article1" class="lg:hover:underline underline-offset-2">제 1 조 (목적)</NuxtLink>
                     <NuxtLink href="/privacy#article2" class="lg:hover:underline underline-offset-2">제 2 조 (처리 및 보유 기간)</NuxtLink>

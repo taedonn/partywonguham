@@ -1,6 +1,6 @@
 <template>
     <header class="fixed z-40 top-0 w-full h-20 flex justify-center backdrop-blur bg-white/40">
-        <div class="relative z-10 max-w-[100rem] w-full flex justify-between items-center self-center px-4 lg:px-8">
+        <div class="relative z-10 max-w-[100rem] w-full flex justify-between items-center self-center px-5 lg:px-8">
             <div class="flex justify-between items-center gap-3.5">
                 <img src="/img/partiwon_logo.svg" class="w-8"/>
                 <h1 class="text-xl text-black-3"> 
