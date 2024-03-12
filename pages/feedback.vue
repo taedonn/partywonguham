@@ -114,10 +114,10 @@
     import Toast from '~/components/Toast.vue';
 
     // Common
-    import { generateId, emailValidChk } from '~/utils/common';
+    import { emailValidChk } from '~/utils/common';
 
     // Firestore
-    import { collection, setDoc, addDoc, doc } from 'firebase/firestore';
+    import { collection, addDoc } from 'firebase/firestore';
 
     // Load firebase collection
     const { firestore } = useFirebase();
