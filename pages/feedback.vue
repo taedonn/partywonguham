@@ -93,7 +93,7 @@
                     states.agreeState === "disagree" && "약관에 동의해야 문의를 제출할 수 있어요."
                 }}</div>
                 <div class="w-full mt-12 flex justify-end text-base">
-                    <Button :click="onSubmit" fill>문의하기</Button>
+                    <Button :click="onSubmit" :isLoading="states.isLoading" fill>문의하기</Button>
                 </div>
             </div>
         </div>
@@ -135,6 +135,7 @@
         content: string,
         agree: boolean,
         agreeState: string,
+        isLoading: boolean,
     }
 
     // States
@@ -149,6 +150,7 @@
         content: "",
         agree: false,
         agreeState: "",
+        isLoading: false,
     });
 
     /** Email change event */
@@ -209,41 +211,56 @@
         const content = document.getElementById("content") as HTMLTextAreaElement;
         const agree = document.getElementById("check") as HTMLInputElement;
 
-        if (states.email === "") {
-            states.emailState = "empty";
-            window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
-        } else if (!emailValidChk(states.email)) {
-            states.emailState = "invalid";
-            window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
-        } else if (states.category === "카테고리 선택") {
-            states.categoryState = "empty";
-            window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
-        } else if (states.title === "") {
-            states.titleState = "empty";
-            window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
-        } else if (!states.agree) {
-            states.agreeState = "disagree";
-        } else {
-            await addDoc(myCollection, {
-                email: states.email,
-                category: states.category,
-                title: states.title,
-                content: states.content,
-            });
+        // if (states.email === "") {
+        //     states.emailState = "empty";
+        //     window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
+        // } else if (!emailValidChk(states.email)) {
+        //     states.emailState = "invalid";
+        //     window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
+        // } else if (states.category === "카테고리 선택") {
+        //     states.categoryState = "empty";
+        //     window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
+        // } else if (states.title === "") {
+        //     states.titleState = "empty";
+        //     window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
+        // } else if (!states.agree) {
+        //     states.agreeState = "disagree";
+        // } else {
+            // await addDoc(myCollection, {
+            //     email: states.email,
+            //     category: states.category,
+            //     title: states.title,
+            //     content: states.content,
+            // });
+            states.isLoading = true;
 
-            // Reset fields
-            email.value = "";
-            states.email = "";
-            title.value = "";
-            states.title = "";
-            content.value = "";
-            states.content = "";
-            agree.checked = !agree.checked;
+            await $fetch("/api/sendemail", {
+                method: "post",
+                body: {
+                    email: states.email,
+                    category: states.category,
+                    title: states.title,
+                    content: states.content,
+                }
+            })
+            .then(() => {
+                // Reset fields
+                email.value = "";
+                states.email = "";
+                title.value = "";
+                states.title = "";
+                content.value = "";
+                states.content = "";
+                agree.checked = false;
 
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                toastStore.success({ text: "문의가 제출되었어요." });
+            })
+            .catch(err => console.log(err));
 
-            toastStore.success({ text: "문의가 제출되었어요." });
-        }
+            states.isLoading = false;
+        // }
     }
 
     onMounted(() => {

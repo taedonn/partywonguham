@@ -16,7 +16,8 @@
             v-if="icon !== ''"
             v-bind:class="`${icon}`"
         ></i>
-        <slot>{{ text }}</slot>
+        <slot v-if="!isLoading">{{ text }}</slot>
+        <div v-if="isLoading" class="loader w-5 h-5 border-2 border-white"></div>
     </button>
 </template>
 
@@ -33,6 +34,11 @@
             default: "blue"
         },
         fill: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
+        isLoading: {
             type: Boolean,
             required: false,
             default: false,
@@ -66,4 +72,17 @@
     }
 </script>
 
-<style></style>
+<style>
+    .loader {
+        border-style: solid;
+        border-bottom-color: transparent;
+        border-radius: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+    }
+    @keyframes rotation {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    } 
+</style>
