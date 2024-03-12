@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="w-full mt-4 pl-12">
-            <div class="flex flex-wrap gap-4 p-4 rounded-md border border-gray-9">
+            <div class="flex flex-wrap gap-4 px-6 py-4 rounded-md bg-gray-f">
                 <div v-for="idx in capacity" class="flex items-center gap-1.5 relative">
                     <div
                         v-bind:style="`opacity: ${idx / (capacity + 1)}`"

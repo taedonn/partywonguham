@@ -4,11 +4,11 @@
         @mousedown="e => handleMousedown(e, color)"
         @mouseup="e => handleMouseup(e, color)"
         @mouseleave="e => handleMouseup(e, color)"
-        v-bind:class="`px-4 py-1.5 flex items-center gap-3 shrink-0 rounded border-2 outline-none duration-100 
+        v-bind:class="`w-44 h-12 p-2 flex justify-center items-center gap-3 shrink-0 rounded border-2 outline-none duration-100 
                         ${
                             color === 'blue' 
-                            ? 'border-blue-1 text-blue-1 lg:hover:bg-blue-1 lg:hover:text-white' 
-                            : 'border-gray-4 text-gray-4 lg:hover:bg-gray-4 lg:hover:text-white'
+                            ? `${fill ? 'bg-blue-1 text-white': 'text-blue-1 lg:hover:bg-blue-1 lg:hover:text-white'} border-blue-1`
+                            : `${fill ? 'bg-gray-4 text-white' : 'text-gray-4 lg:hover:bg-gray-4 lg:hover:text-white'} border-gray-4`
                         }
                     `"
     > 
@@ -31,6 +31,11 @@
             type: String,
             required: false,
             default: "blue"
+        },
+        fill: {
+            type: Boolean,
+            required: false,
+            default: false,
         },
         text: String,
         click: Function,

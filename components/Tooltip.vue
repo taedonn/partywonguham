@@ -20,7 +20,7 @@
     import { onMounted, onUnmounted } from 'vue';
 
     const goToTop = () => {
-        window.scrollTo({ top:0, behavior:'smooth' });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     const onMouseDown = (e: MouseEvent) => {

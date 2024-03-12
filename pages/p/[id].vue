@@ -1,5 +1,5 @@
 <template>
-    <main class="w-full px-4 lg:px-16 pt-40 pb-20 flex justify-center">
+    <main class="w-full px-4 lg:px-16 pt-40 pb-20 tracking-wide leading-relaxed flex justify-center">
         <div class="max-w-[80rem] w-full">
             <div class="w-full flex items-end text-black-3">
                 <div class="w-full">
@@ -10,9 +10,9 @@
                     </p>
                 </div>
                 <div class="shrink-0 flex gap-2.5 text-base font-light">
-                    <Button :click="handleReset" color="gray" class="text-black-3 lg:hover:text-blue-2">리셋하기</button>
-                    <Button :click="copyLink" :icon="'bi bi-share'" color="gray">링크 복사하기</Button>
-                    <Button :click="handlePopupShow" :icon="'bi bi-calendar-week'">시간 선택하기</Button>
+                    <Button :click="handleReset" color="gray" fill>리셋하기</button>
+                    <Button :click="copyLink" :icon="'bi bi-share'" color="gray" fill>링크 복사하기</Button>
+                    <Button :click="handlePopupShow" :icon="'bi bi-calendar-week'" fill>시간 선택하기</Button>
                 </div>
             </div>
             <div class="mt-16 text-black-3">
@@ -39,7 +39,7 @@
                         </div>
                     </div>
                     <div class="w-80 shrink-0 ml-4 pb-[3.375rem]">
-                        <div class="w-full h-full px-4 py-5 shrink-0 rounded-md border border-gray-9 text-black-3">
+                        <div class="w-full h-full p-6 shrink-0 rounded-md bg-gray-f text-black-3">
                             <h2>파티원{{ states.checkedPartywon.length !== 0 ? " (" + (states.checkedPartywon.length) + '/' + capacity + ')' : '' }}</h2>
                             <ul class="mt-4 text-sm font-light flex flex-col gap-3">
                                 <li
@@ -87,8 +87,8 @@
                     :onStateChange="handlePopupTimeStateChange"
                 />
                 <div class="mt-14 text-base font-light flex gap-2.5">
-                    <Button :click="handlePopupCreate" :icon="'bi bi-check-circle'">추가하기</Button>
-                    <Button :click="handlePopupShow" :icon="'bi bi-x-circle'" color="gray">취소하기</Button>
+                    <Button :click="handlePopupCreate" :icon="'bi bi-check-circle'" fill>추가하기</Button>
+                    <Button :click="handlePopupShow" :icon="'bi bi-x-circle'" color="gray" fill>취소하기</Button>
                 </div>
             </div>
         </Popup>
@@ -162,10 +162,12 @@
         date,
         start_time,
         end_time,
-        partyjang,
+        email,
+        allow_email,
         partywon,
         checked_time,
         capacity,
+        allow_capacity,
     } = data.value;
 
     // Format date
@@ -279,10 +281,12 @@
                     date: date,
                     start_time: start_time,
                     end_time: end_time,
-                    partyjang: partyjang,
+                    email: email,
+                    allow_email: allow_email,
                     partywon: partywon,
                     checked_time: thisCheckedTime,
                     capacity: capacity,
+                    allow_capacity: allow_capacity,
                 });
 
                 // Close popup
@@ -300,7 +304,8 @@
                 date: "Tue Dec 26 2023",
                 start_time: 10,
                 end_time: 18,
-                partyjang: { name: "홍길동", email: "partywonguham@gmail.com" },
+                email: "partywonguham@gmail.com",
+                allow_email: false,
                 partywon: [],
                 checked_time: [
                     { time: 10, checked: [] },
@@ -321,6 +326,7 @@
                     { time: 17.5, checked: [] },
                 ],
                 capacity: 4,
+                allow_capacity: true,
             });
             location.reload();
         } catch (err) {
