@@ -116,13 +116,6 @@
     // Common
     import { emailValidChk } from '~/utils/common';
 
-    // Firestore
-    import { collection, addDoc } from 'firebase/firestore';
-
-    // Load firebase collection
-    const { firestore } = useFirebase();
-    const myCollection = collection(firestore, "feedbacks");
-
     // Types
     interface States {
         email: string,
@@ -211,27 +204,21 @@
         const content = document.getElementById("content") as HTMLTextAreaElement;
         const agree = document.getElementById("check") as HTMLInputElement;
 
-        // if (states.email === "") {
-        //     states.emailState = "empty";
-        //     window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
-        // } else if (!emailValidChk(states.email)) {
-        //     states.emailState = "invalid";
-        //     window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
-        // } else if (states.category === "카테고리 선택") {
-        //     states.categoryState = "empty";
-        //     window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
-        // } else if (states.title === "") {
-        //     states.titleState = "empty";
-        //     window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
-        // } else if (!states.agree) {
-        //     states.agreeState = "disagree";
-        // } else {
-            // await addDoc(myCollection, {
-            //     email: states.email,
-            //     category: states.category,
-            //     title: states.title,
-            //     content: states.content,
-            // });
+        if (states.email === "") {
+            states.emailState = "empty";
+            window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
+        } else if (!emailValidChk(states.email)) {
+            states.emailState = "invalid";
+            window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
+        } else if (states.category === "카테고리 선택") {
+            states.categoryState = "empty";
+            window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
+        } else if (states.title === "") {
+            states.titleState = "empty";
+            window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
+        } else if (!states.agree) {
+            states.agreeState = "disagree";
+        } else {
             states.isLoading = true;
 
             await $fetch("/api/sendemail", {
@@ -260,7 +247,7 @@
             .catch(err => console.log(err));
 
             states.isLoading = false;
-        // }
+        }
     }
 
     onMounted(() => {
