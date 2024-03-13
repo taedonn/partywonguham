@@ -1,5 +1,5 @@
 <template>
-    <div class="relative min-h-screen">
+    <div class="relative min-h-screen overflow-hidden">
         <Header></Header>
         <slot></slot>
         <Footer></Footer>
@@ -7,7 +7,7 @@
 </template>
 
 <script>
-    import '../assets/style.css'
+    import '../assets/style.css';
     import Header from '~/components/Header.vue';
     import Footer from '~/components/Footer.vue';
 </script>

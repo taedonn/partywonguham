@@ -9,10 +9,10 @@
                 </h3>
             </div>
             <div class="mt-12 text-sm font-light">
-                <div class="text-xs font-light text-right">* 필수 입력 사항</div>
+                <div class="text-xs font-light text-right"><span class="text-red-e">*</span> 필수 입력 사항</div>
                 <div class="w-full h-px mt-2 bg-gray-4"></div>
                 <div class="w-full my-5 flex">
-                    <label for="email" class="w-36 h-full mt-3 pl-5 flex items-center shrink-0">이메일 주소 *</label>
+                    <label for="email" class="w-36 h-full mt-3 pl-5 flex items-center shrink-0">이메일 주소 <span class="ml-0.5 text-red-e">*</span></label>
                     <div class="w-full">
                         <input v-on:input="onEmailChange" id="email" type="text" placeholder="example@example.com" class="w-full px-3 py-2.5 border border-gray-9 placeholder-gray-9 focus:border-gray-4"/>
                         <div v-if="states.emailState !== ''" class="w-full mt-2 text-xs text-red-e">{{ 
@@ -24,7 +24,7 @@
                 </div>
                 <div class="w-full h-px bg-gray-4"></div>
                 <div class="w-full my-5 flex">
-                    <div class="w-36 h-full mt-3 pl-5 flex items-center shrink-0">문의 분류 *</div>
+                    <div class="w-36 h-full mt-3 pl-5 flex items-center shrink-0">문의 분류 <span class="ml-0.5 text-red-e">*</span></div>
                     <div class="w-full flex flex-col">
                         <input v-on:change="onCategoryChange" type="checkbox" id="category" class="hidden peer"/>
                         <label for="category" v-on:mousedown="onMouseDown" v-bind:class="`${states.categoryShow ? 'border-gray-4' : 'border-gray-9'} category-select select group relative w-full px-3 py-2.5 cursor-pointer border placeholder-gray-9 focus:border-gray-4`">
@@ -47,7 +47,7 @@
                 </div>
                 <div class="w-full h-px bg-gray-d"></div>
                 <div class="w-full my-5 flex">
-                    <label for="title" class="w-36 h-full mt-3 pl-5 flex items-center shrink-0">문의 제목 *</label>
+                    <label for="title" class="w-36 h-full mt-3 pl-5 flex items-center shrink-0">문의 제목 <span class="ml-0.5 text-red-e">*</span></label>
                     <div class="w-full">
                         <input v-on:input="onTitleChange" id="title" type="text" placeholder="제목을 입력해 주세요 (20자 이내)" maxlength="20" class="w-full px-3 py-2.5 border border-gray-9 placeholder-gray-9 focus:border-gray-4"/>
                         <div v-if="states.titleState !== ''" class="w-full mt-2 text-xs text-red-e">{{ 
@@ -64,7 +64,7 @@
                 <div class="text-base mt-12">개인정보 수집·이용에 대한 안내</div>
                 <div class="font-medium mt-3">(필수) 개인정보 수집·이용에 대한 안내</div>
                 <div class="mt-8 leading-loose text-gray-6">파티원 구함은 이용자 문의를 처리하기 위해 다음과 같이 개인정보를 수집 및 이용하며, 이용자의 개인정보를 안전하게 취급하는데 최선을 다하고 있습니다.</div>
-                <div class="mt-8 border-y-2 border-gray-d text-gray-9">
+                <div class="mt-8 border-y-2 border-gray-d text-gray-6">
                     <div class="w-full flex border-b border-gray-d">
                         <div class="w-1/3 p-4">수집 항목</div>
                         <div class="w-1/3 p-4 border-l border-gray-d">수집 목적</div>

@@ -1,5 +1,5 @@
 <template>
-    <footer class="w-full h-20 absolute left-0 bottom-0 z-40 tracking-wide leading-relaxed flex justify-center items-center bg-white">
+    <footer class="w-full h-20 absolute left-0 bottom-0 z-30 tracking-wide leading-relaxed flex justify-center items-center bg-white">
         <div class="flex justify-between items-center gap-2.5">
             <img src="/img/partiwon_logo.svg" class="w-6"/>
             <div class="text-sm text-gray-4"> 

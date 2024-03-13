@@ -1,7 +1,7 @@
 <template>
     <div
         id="tooltip"
-        class="fixed right-0 bottom-0 pr-5 pb-5"
+        class="fixed z-20 right-0 bottom-0 pr-5 pb-5"
     >
         <button
             v-on:click="goToTop"

@@ -1,5 +1,5 @@
 <template>
-    <main class="w-full px-4 lg:px-16 pt-40 pb-20 tracking-wide leading-relaxed flex justify-center">
+    <main class="w-full px-5 lg:px-16 pt-40 pb-20 tracking-wide leading-relaxed flex justify-center">
         <div class="max-w-[80rem] w-full">
             <div class="w-full flex items-end text-black-3">
                 <div class="w-full">
@@ -48,7 +48,7 @@
                                         states.checkedPartywon.length !== 0 && !states.checkedPartywon.includes(thisPartywon.name)
                                         ? 'text-gray-c'
                                         : ''
-                                    } duration-100`"
+                                    } duration-200`"
                                 >
                                     {{ thisPartywon.name }}
                                 </li>

@@ -1,7 +1,7 @@
 <template>
     <main class="w-full flex justify-center px-5 lg:px-16 pt-20 lg:pt-40 pb-40 tracking-wider leading-relaxed text-black-3">
         <div class="w-[48rem]">
-            
+            <div></div>
         </div>
     </main>
 </template>

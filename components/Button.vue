@@ -4,7 +4,7 @@
         @mousedown="e => handleMousedown(e, color)"
         @mouseup="e => handleMouseup(e, color)"
         @mouseleave="e => handleMouseup(e, color)"
-        v-bind:class="`w-44 h-12 p-2 flex justify-center items-center gap-3 shrink-0 rounded border-2 outline-none duration-100 
+        v-bind:class="`w-44 h-12 p-2 flex justify-center items-center gap-3 shrink-0 rounded border-2 outline-none duration-200 
                         ${
                             color === 'blue' 
                             ? `${fill ? 'bg-blue-1 text-white': 'text-blue-1 lg:hover:bg-blue-1 lg:hover:text-white'} border-blue-1`

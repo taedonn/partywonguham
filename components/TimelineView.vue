@@ -9,14 +9,14 @@
                 <div v-for="checked in periodBlock" class=" group w-full relative flex flex-col flex-auto">
                     <div
                         v-bind:style="`opacity: ${checked.checked.length >= capacity ? capacity / (capacity + 1) : checked.checked.length / (capacity + 1)}`"
-                        v-bind:class="`w-full h-[calc(100%+1px)] group-first:h-full absolute z-10 bottom-0 bg-blue-1 duration-100`"
+                        v-bind:class="`w-full h-[calc(100%+1px)] group-first:h-full absolute z-10 bottom-0 bg-blue-1 duration-200`"
                     >
                     </div>
                     <div
                         v-if="checked.checked.length !== 0"
                         @mouseover="onMouseOver(checked)"
                         @mouseleave="onMouseLeave"
-                        class="w-full h-[calc(100%+1px)] group-first:h-full absolute z-10 bottom-0 group-hover:bg-blue-1 opacity-20 cursor-pointer duration-100"
+                        class="w-full h-[calc(100%+1px)] group-first:h-full absolute z-10 bottom-0 group-hover:bg-blue-1 opacity-20 cursor-pointer duration-200"
                     ></div>
                     <div class="group-last:hidden w-full h-px absolute bottom-0 bg-gray-9"></div>
                     <i v-if="checked.checked.length >= capacity" class="fa-solid fa-star absolute z-20 left-2 top-1/2 -translate-y-1/2 text-xs text-yellow-f"></i>

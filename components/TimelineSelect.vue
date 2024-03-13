@@ -14,7 +14,7 @@
                     />
                     <div
                         v-bind:data-id="`time-${checked.time}`"
-                        class="w-full h-[calc(100%+1px)] group-first:h-full absolute z-10 bottom-0 cursor-[row-resize] duration-100 peer-checked:bg-blue-1/60 lg:hover:bg-blue-1/40"
+                        class="w-full h-[calc(100%+1px)] group-first:h-full absolute z-10 bottom-0 cursor-[row-resize] duration-200 peer-checked:bg-blue-1/60 lg:hover:bg-blue-1/40"
                         @mouseover="onMouseOver"
                         @mousedown="onMouseDown"
                         @mouseup="onMouseUp"

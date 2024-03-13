@@ -6,7 +6,7 @@
                 @mousedown="handleCloseMousedown"
                 @mouseup="handleCloseMouseup"
                 @mouseleave="handleCloseMouseup"
-                class="w-10 h-10 absolute right-5 top-5 flex justify-center items-center rounded-full duration-100 lg:hover:bg-gray-e"
+                class="w-10 h-10 absolute right-5 top-5 flex justify-center items-center rounded-full duration-200 lg:hover:bg-gray-e"
             >
                 <i class="text-3xl leading-none bi bi-x"></i>
             </button>
