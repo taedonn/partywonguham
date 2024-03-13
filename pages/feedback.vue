@@ -3,7 +3,7 @@
         <div class="w-[48rem]">
             <div class="px-6 lg:px-8 py-6 rounded-lg bg-gray-f">
                 <h2 class="text-lg">피드백 및 문의</h2>
-                <h3 class="mt-3 text-sm font-light">
+                <h3 class="mt-3 text-sm font-light leading-relaxed">
                     피드백이나 문의 사항이 있으시면 알려주세요.<br/>
                     최대한 빠른 시일 내에 답변 드릴게요.
                 </h3>
@@ -63,7 +63,7 @@
                 <div class="w-full h-px bg-gray-4"></div>
                 <div class="text-base mt-12">개인정보 수집·이용에 대한 안내</div>
                 <div class="font-medium mt-3">(필수) 개인정보 수집·이용에 대한 안내</div>
-                <div class="mt-8 text-gray-6">파티원 구함은 이용자 문의를 처리하기 위해 다음과 같이 개인정보를 수집 및 이용하며, 이용자의 개인정보를 안전하게 취급하는데 최선을 다하고 있습니다.</div>
+                <div class="mt-8 leading-loose text-gray-6">파티원 구함은 이용자 문의를 처리하기 위해 다음과 같이 개인정보를 수집 및 이용하며, 이용자의 개인정보를 안전하게 취급하는데 최선을 다하고 있습니다.</div>
                 <div class="mt-8 border-y-2 border-gray-d text-gray-9">
                     <div class="w-full flex border-b border-gray-d">
                         <div class="w-1/3 p-4">수집 항목</div>
@@ -76,9 +76,8 @@
                         <div class="w-1/3 p-4 border-l border-gray-d">6개월</div>
                     </div>
                 </div>
-                <div class="mt-8 text-gray-6">
+                <div class="mt-8 leading-loose text-gray-6">
                     위 동의를 거부 할 권리가 있으며, 동의를 거부하실 경우 문의 처리 및 결과 회신이 제한됩니다.<br/>
-                    <br/>
                     더 자세한 내용에 대해서는 <NuxtLink href="/privacy" class="underline underline-offset-2 text-black-3 lg:hover:text-blue-1">개인정보 처리방침</NuxtLink>을 참고하시기 바랍니다.
                 </div>
                 <div class="mt-10 flex items-center gap-2 text-black-3">
