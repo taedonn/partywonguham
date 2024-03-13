@@ -7,7 +7,7 @@
                     파티원 구함
                 </h1>
             </NuxtLink>
-            <ul class="flex items-center gap-5 text-sm font-light">
+            <ul class="flex items-center gap-4 text-sm font-light">
                 <li><NuxtLink to='/' class="lg:hover:text-blue-1 lg:duration-200">일정 생성하기</NuxtLink></li>
                 <li><NuxtLink to='/' class="lg:hover:text-blue-1 lg:duration-200">사용 가이드</NuxtLink></li>
                 <li><NuxtLink to='/info' class="lg:hover:text-blue-1 lg:duration-200">프로젝트 정보</NuxtLink></li>

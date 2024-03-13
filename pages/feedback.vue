@@ -3,9 +3,11 @@
         <div class="w-[48rem]">
             <div class="px-6 lg:px-8 py-6 rounded-lg bg-gray-f">
                 <h2 class="text-lg">피드백 및 문의</h2>
-                <h3 class="mt-3 text-sm font-light leading-relaxed">
+                <h3 class="mt-3 text-sm font-light leading-loose">
                     피드백이나 문의 사항이 있으시면 알려주세요.<br/>
-                    최대한 빠른 시일 내에 답변 드릴게요.
+                    최대한 빠른 시일 내에 답변 드릴게요.<br/>
+                    <br/>
+                    <span class="text-red-e">*</span> 이메일: partywonguham@gmail.com
                 </h3>
             </div>
             <div class="mt-12 text-sm font-light">

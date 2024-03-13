@@ -1,26 +1,26 @@
 <template>
-    <main class="w-full flex justify-center px-5 lg:px-16 pt-20 lg:pt-40 pb-40 tracking-wide leading-loose text-black-3">
+    <main class="w-full flex justify-center px-5 lg:px-16 pt-20 lg:pt-40 pb-40 tracking-wide leading-loose text-black-3 scroll-smooth">
         <div class="w-[48rem]">
             <h2 class="text-lg underline underline-offset-8">개인정보 처리방침</h2>
             <div class="w-full flex flex-col lg:flex-row gap-4 mt-6 p-6 lg:p-8 text-sm font-light border rounded-lg border-gray-6">
-                <div class="w-full lg:w-1/3 flex flex-col gap-4">
-                    <NuxtLink href="/privacy#article1" class="lg:hover:underline underline-offset-2">제 1 조 (목적)</NuxtLink>
-                    <NuxtLink href="/privacy#article2" class="lg:hover:underline underline-offset-2">제 2 조 (처리 및 보유 기간)</NuxtLink>
-                    <NuxtLink href="/privacy#article3" class="lg:hover:underline underline-offset-2">제 3 조 (처리하는 항목)</NuxtLink>
-                    <NuxtLink href="/privacy#article4" class="lg:hover:underline underline-offset-2">제 4 조 (제3자 제공)</NuxtLink>
-                </div>
-                <div class="w-full lg:w-1/3 flex flex-col gap-4">
-                    <NuxtLink href="/privacy#article5" class="lg:hover:underline underline-offset-2">제 5 조 (위탁)</NuxtLink>
-                    <NuxtLink href="/privacy#article6" class="lg:hover:underline underline-offset-2">제 6 조 (파기)</NuxtLink>
-                    <NuxtLink href="/privacy#article7" class="lg:hover:underline underline-offset-2">제 7 조 (권리·의무)</NuxtLink>
-                    <NuxtLink href="/privacy#article8" class="lg:hover:underline underline-offset-2">제 8 조 (안전성 확보)</NuxtLink>
-                </div>
-                <div class="w-full lg:w-1/3 flex flex-col gap-4">
-                    <NuxtLink href="/privacy#article9" class="lg:hover:underline underline-offset-2">제 9 조 (행태정보)</NuxtLink>
-                    <NuxtLink href="/privacy#article10" class="lg:hover:underline underline-offset-2">제 10 조 (개인 정보 보호책임자)</NuxtLink>
-                    <NuxtLink href="/privacy#article11" class="lg:hover:underline underline-offset-2">제 11 조 (접수·처리하는 부서)</NuxtLink>
-                    <NuxtLink href="/privacy#article12" class="lg:hover:underline underline-offset-2">제 12 조 (권익 침해)</NuxtLink>
-                </div>
+                <ul class="w-full lg:w-1/3 flex flex-col gap-4">
+                    <li v-on:click="enableSmoothScroll" data-link="article1" class="lg:hover:underline underline-offset-2 cursor-pointer">제 1 조 (목적)</li>
+                    <li v-on:click="enableSmoothScroll" data-link="article2" class="lg:hover:underline underline-offset-2 cursor-pointer">제 2 조 (처리 및 보유 기간)</li>
+                    <li v-on:click="enableSmoothScroll" data-link="article3" class="lg:hover:underline underline-offset-2 cursor-pointer">제 3 조 (처리하는 항목)</li>
+                    <li v-on:click="enableSmoothScroll" data-link="article4" class="lg:hover:underline underline-offset-2 cursor-pointer">제 4 조 (제3자 제공)</li>
+                </ul>
+                <ul class="w-full lg:w-1/3 flex flex-col gap-4">
+                    <li v-on:click="enableSmoothScroll" data-link="article5" class="lg:hover:underline underline-offset-2 cursor-pointer">제 5 조 (위탁)</li>
+                    <li v-on:click="enableSmoothScroll" data-link="article6" class="lg:hover:underline underline-offset-2 cursor-pointer">제 6 조 (파기)</li>
+                    <li v-on:click="enableSmoothScroll" data-link="article7" class="lg:hover:underline underline-offset-2 cursor-pointer">제 7 조 (권리·의무)</li>
+                    <li v-on:click="enableSmoothScroll" data-link="article8" class="lg:hover:underline underline-offset-2 cursor-pointer">제 8 조 (안전성 확보)</li>
+                </ul>
+                <ul class="w-full lg:w-1/3 flex flex-col gap-4">
+                    <li v-on:click="enableSmoothScroll" data-link="article9" class="lg:hover:underline underline-offset-2 cursor-pointer">제 9 조 (행태정보)</li>
+                    <li v-on:click="enableSmoothScroll" data-link="article10" class="lg:hover:underline underline-offset-2 cursor-pointer">제 10 조 (개인 정보 보호책임자)</li>
+                    <li v-on:click="enableSmoothScroll" data-link="article11" class="lg:hover:underline underline-offset-2 cursor-pointer">제 11 조 (접수·처리하는 부서)</li>
+                    <li v-on:click="enableSmoothScroll" data-link="article12" class="lg:hover:underline underline-offset-2 cursor-pointer">제 12 조 (권익 침해)</li>
+                </ul>
             </div>
             <div class="w-full h-px bg-gray-6 mt-8"></div>
             <div class="w-full mt-8 px-6 lg:px-8 py-6 rounded-lg bg-gray-f">
@@ -220,5 +220,15 @@
 </template>
 
 <script setup lang="ts">
+    // Components
     import Tooltip from '~/components/Tooltip.vue';
+
+    // Anchor smooth scroll
+    const enableSmoothScroll = (e: MouseEvent) => {
+        const ev = e.target as HTMLAnchorElement;
+        const ei = ev.getAttribute("data-link") + "";
+        const el = document.getElementById(ei) as HTMLDivElement;
+        el.scrollIntoView({ behavior: "smooth" });
+        window.history.pushState("privacy", "", `/privacy#${ei}`);
+    }
 </script>
