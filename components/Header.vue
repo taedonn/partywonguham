@@ -17,7 +17,7 @@
                 <ul class="hidden peer-checked:flex absolute lg:static w-full h-[calc(100vh-5rem)] lg:h-auto lg:w-auto left-0 top-20 p-5 pt-0 lg:p-0 lg:flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-4 text-sm font-light bg-white/95 lg:bg-transparent">
                     <li><NuxtLink v-on:click="handleMenuOnClick" to='/' class="lg:hover:text-blue-1 lg:duration-200">일정 생성하기<i class="lg:hidden ml-2 text-xs fa-solid fa-angle-right"></i></NuxtLink></li>
                     <li><NuxtLink v-on:click="handleMenuOnClick" to='/' class="lg:hover:text-blue-1 lg:duration-200">사용 가이드<i class="lg:hidden ml-2 text-xs fa-solid fa-angle-right"></i></NuxtLink></li>
-                    <li><NuxtLink v-on:click="handleMenuOnClick" to='/info' class="lg:hover:text-blue-1 lg:duration-200">프로젝트 정보<i class="lg:hidden ml-2 text-xs fa-solid fa-angle-right"></i></NuxtLink></li>
+                    <li><NuxtLink v-on:click="handleMenuOnClick" to='/info' class="lg:hover:text-blue-1 lg:duration-200">프로젝트 소개<i class="lg:hidden ml-2 text-xs fa-solid fa-angle-right"></i></NuxtLink></li>
                     <li><NuxtLink v-on:click="handleMenuOnClick" to='/feedback' class="lg:hover:text-blue-1 lg:duration-200">피드백 및 문의<i class="lg:hidden ml-2 text-xs fa-solid fa-angle-right"></i></NuxtLink></li>
                 </ul>
             </div>
