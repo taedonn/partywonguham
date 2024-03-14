@@ -93,7 +93,7 @@
                 <div v-if="states.agreeState !== ''" class="w-full mt-2 text-xs text-red-e">{{ 
                     states.agreeState === "disagree" && "약관에 동의해야 문의를 제출할 수 있어요."
                 }}</div>
-                <div class="w-full mt-12 flex justify-end text-base">
+                <div class="w-full mt-12 flex justify-end text-sm lg:text-base">
                     <Button :click="onSubmit" :isLoading="states.isLoading" fill>문의하기</Button>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 <template>
     <header class="fixed z-40 top-0 w-full h-20 px-5 flex justify-center tracking-wide leading-relaxed backdrop-blur-md bg-white/80">
-        <div class="max-w-[88rem] w-full flex justify-between items-center self-center">
+        <div class="max-w-[87.5rem] w-full flex justify-between items-center self-center">
             <NuxtLink v-on:click="handleMenuOnClick" to='/' class="relative z-10">
                 <h1 class="flex justify-between items-center gap-3 text-lg text-black-3"> 
                     <img src="/img/partiwon_logo.svg" class="w-6"/>
@@ -26,6 +26,18 @@
 </template>
 
 <script setup lang="ts">
+    // Vue
+    import { watch } from 'vue';
+
+    // Vue-router
+    import { useRoute } from 'vue-router';
+    const route = useRoute();
+
+    // Watch router params change
+    watch(() => route.params, async () => {
+        handleMenuOnClick();
+    });
+
     const handleMenuOnCheck = (e: Event) => {
         const el = e.target as HTMLInputElement;
         if (el.checked) document.body.classList.add("overflow-hidden");
