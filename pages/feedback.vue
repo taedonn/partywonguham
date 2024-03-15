@@ -1,15 +1,15 @@
 <template>
     <main class="w-full flex justify-center px-5 lg:px-16 p-20 lg:pt-40 font-sans leading-relaxed text-black-3">
         <div class="w-[48rem]">
-            <div class="relative lg:h-52 flex flex-col lg:flex-row items-center lg:justify-end gap-5 lg:gap-0 p-5 rounded-xl bg-blue-f">
-                <div class="lg:absolute left-80 top-10 px-5 py-3 text-sm leading-normal rounded-2xl lg:rounded-ss-none bg-blue-7 text-white">
+            <div class="relative lg:h-52 flex flex-col lg:flex-row items-center lg:justify-end gap-5 lg:gap-0 p-5 rounded-xl bg-gray-f">
+                <div class="lg:absolute left-80 top-10 px-5 py-3 text-sm leading-normal rounded-2xl lg:rounded-ss-none bg-gray-7 text-white">
                     피드백이나 문의 사항이 있으시면 알려주세요.<br/>
                     최대한 빠른 시일 내에 답변 드릴게요.
                 </div>
                 <img src="/img/3d_feedback.png" alt="피드백 이미지" class="max-w-full w-60 lg:w-auto h-full lg:h-64 lg:absolute left-20 bottom-0"/>
             </div>
             <div class="mt-12 text-sm leading-relaxed">
-                <div class="text-xs text-right font-semibold"><span class="text-red-e">*</span> 필수 입력 사항</div>
+                <div class="text-xs text-right"><span class="text-red-e">*</span> 필수 입력 사항</div>
                 <div class="w-full h-px mt-2 bg-gray-4"></div>
                 <div class="w-full my-5 flex">
                     <label for="email" class="w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">이메일 주소 <span class="ml-0.5 text-red-e">*</span></label>
@@ -77,14 +77,14 @@
                     </div>
                 </div>
                 <div class="mt-8 text-gray-6">
-                    위 동의를 거부 할 권리가 있으며, 동의를 거부하실 경우 문의 처리 및 결과 회신이 제한됩니다.<br/>
-                    더 자세한 내용에 대해서는 <NuxtLink href="/privacy" class="underline underline-offset-2 font-semibold text-black-3 lg:hover:text-blue-1">개인정보 처리방침</NuxtLink>을 참고하시기 바랍니다.
+                    위 동의를 거부 할 권리가 있으며, 동의를 거부하실 경우 문의 처리 및 결과 회신이 제한됩니다.<br class="hidden sm:block"/>
+                    더 자세한 내용에 대해서는 <NuxtLink href="/privacy" class="underline underline-offset-2 font-semibold text-black-3 lg:hover:text-blue-5">개인정보 처리방침</NuxtLink>을 참고하시기 바랍니다.
                 </div>
                 <div class="mt-10 flex items-center gap-2 text-black-3">
                     <input v-on:change="onCheck" v-bind:checked="states.agree" id="check" type="checkbox" class="peer hidden"/>
                     <label for="check" class="group w-5 h-5 flex justify-center items-center text-lg cursor-pointer">
                         <i class="peer-checked:group-[]:hidden block fa-regular fa-square-check"></i>
-                        <i class="peer-checked:group-[]:block hidden text-blue-1 fa-solid fa-square-check"></i>
+                        <i class="peer-checked:group-[]:block hidden text-blue-5 fa-solid fa-square-check"></i>
                     </label>
                     <div class="mb-0.5">위 내용에 동의합니다.</div>
                 </div>

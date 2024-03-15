@@ -8,7 +8,7 @@
                         ${
                             color === 'blue' 
                             ? `${fill ? 'bg-blue-5 text-white': 'text-blue-5 lg:hover:bg-blue-5 lg:hover:text-white'} border-blue-5`
-                            : `${fill ? 'bg-blue-7 text-white' : 'text-blue-7 lg:hover:bg-blue-7 lg:hover:text-white'} border-blue-7`
+                            : `${fill ? 'bg-gray-7 text-white' : 'text-gray-7 lg:hover:bg-gray-7 lg:hover:text-white'} border-gray-7`
                         }
                     `"
     > 
@@ -54,20 +54,20 @@
         const button = e.currentTarget as HTMLButtonElement;
         if (color === "blue") {
             button.classList.remove("lg:hover:bg-blue-5");
-            button.classList.add("lg:hover:bg-blue-1", "lg:border-blue-1");
+            button.classList.add("lg:hover:bg-blue-3", "lg:border-blue-3");
         } else {
-            button.classList.remove("lg:hover:bg-blue-7");
-            button.classList.add("lg:hover:bg-blue-a", "lg:border-blue-a");
+            button.classList.remove("lg:hover:bg-gray-7");
+            button.classList.add("lg:hover:bg-gray-68", "lg:border-gray-68");
         }
     }
     const handleMouseup = (e: MouseEvent, color: string) => {
         const button = e.currentTarget as HTMLButtonElement;
         if (color === "blue") {
-            button.classList.remove("lg:hover:bg-blue-1", "lg:border-blue-1");
+            button.classList.remove("lg:hover:bg-blue-3", "lg:border-blue-3");
             button.classList.add("lg:hover:bg-blue-5");
         } else {
-            button.classList.remove("lg:hover:bg-blue-a", "lg:border-blue-a");
-            button.classList.add("lg:hover:bg-blue-7");
+            button.classList.remove("lg:hover:bg-gray-68", "lg:border-gray-68");
+            button.classList.add("lg:hover:bg-gray-7");
         }
     }
 </script>

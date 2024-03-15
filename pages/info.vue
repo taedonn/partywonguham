@@ -10,7 +10,7 @@
             </h3>
             <div class="w-full flex justify-center mt-12">
                 <div class="w-72 h-12">
-                    <Button onClick="onClick" fill>약속 만들기</Button>
+                    <Button :onClick="onClick" fill>약속 만들기</Button>
                 </div>
             </div>
         </div>
@@ -20,4 +20,12 @@
 <script setup lang="ts">
     // Components
     import Button from '~/components/Button.vue';
+
+    // Vue-router
+    import { useRouter } from '#vue-router';
+    const router = useRouter();
+
+    const onClick = () => {
+        router.push("/");
+    }
 </script>

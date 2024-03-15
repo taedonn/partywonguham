@@ -13,7 +13,7 @@
                 } ${
                     state.type === 'error'
                         ? 'border-red-e lg:hover:border-red-e focus:border-red-e lg:focus:hover:border-red-e'
-                        : 'border-gray-9 lg:hover:border-gray-6 focus:border-blue-1 lg:focus:hover:border-blue-1'
+                        : 'border-gray-9 lg:hover:border-gray-6 focus:border-blue-5 lg:focus:hover:border-blue-5'
                 } w-full p-1.5 outline-none border-b duration-200 bg-transparent placeholder-gray-6
             `"
         />

@@ -1,5 +1,5 @@
 <template>
-    <main class="font-sans w-full px-5 lg:px-16 pt-20 lg:pt-40 pb-20 flex justify-center text-black-3">
+    <main class="w-full px-5 lg:px-16 pt-20 lg:pt-40 pb-20 flex justify-center text-black-3">
         <div class="max-w-[48rem] w-full">
             <div>
                 <div>
@@ -16,9 +16,9 @@
                     </div>
                 </div>
                 <div class="w-full mt-2">
-                    <div class="px-6 py-4 flex gap-4 items-center rounded-lg text-sm bg-gray-f text-black-3">
+                    <div class="px-6 py-4 flex gap-4 rounded-lg text-sm bg-gray-f text-black-3">
                         <h2 class="shrink-0">파티원{{ states.checkedPartywon.length !== 0 ? " (" + (states.checkedPartywon.length) + '/' + capacity + ')' : '' }}</h2>
-                        <ul class="font-light flex gap-2">
+                        <ul class="font-light flex flex-wrap gap-2">
                             <li
                                 v-for="thisPartywon, idx in partywon"
                                 v-bind:class="`${
@@ -79,7 +79,7 @@
                     :state="states.popupTimeState"
                     :onStateChange="handlePopupTimeStateChange"
                 />
-                <div class="mt-8 text-sm lg:text-base font-light flex gap-2">
+                <div class="mt-6 text-sm lg:text-base font-light flex gap-2">
                     <div class="w-1/2 h-12">
                         <Button :click="handlePopupShow" :icon="'bi bi-x-circle'" color="gray" fill>취소하기</Button>
                     </div>

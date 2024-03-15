@@ -26,7 +26,7 @@
             <div class="w-full mt-8 px-6 lg:px-8 py-6 rounded-xl bg-gray-f">
                 <div class="text-lg font-bold mb-3">개요</div>
                 <div class="text-sm leading-loose">
-                    태돈('<NuxtLink href="/" class="underline underline-offset-2 lg:hover:text-blue-1">https://partywonguham.vercel.app</NuxtLink>' 이하 '파티원 구함')은 「개인정보 보호법」 제30조에 따라 정보 주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리방침을 수립·공개합니다. <br/>
+                    태돈('<NuxtLink href="/" class="underline underline-offset-2 lg:hover:text-blue-5">https://partywonguham.vercel.app</NuxtLink>' 이하 '파티원 구함')은 「개인정보 보호법」 제30조에 따라 정보 주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리방침을 수립·공개합니다. <br/>
                     <br/>
                     ○ 이 개인정보처리방침은 2023년 12월 1부터 적용됩니다.
                 </div>
@@ -206,14 +206,14 @@
             <pre class="whitespace-pre-wrap mt-3">
 정보주체는 개인정보침해로 인한 구제를 받기 위하여 개인정보분쟁조정위원회, 한국인터넷진흥원 개인정보침해신고센터 등에 분쟁해결이나 상담 등을 신청할 수 있습니다. 이 밖에 기타 개인정보침해의 신고, 상담에 대하여는 아래의 기관에 문의하시기 바랍니다.
 
-1. 개인정보분쟁조정위원회 : (국번없이) 1833-6972 (<NuxtLink href="https://www.kopico.go.kr" target="_blank" class="underline underline-offset-2 lg:hover:text-blue-1">www.kopico.go.kr</NuxtLink>)
-2. 개인정보침해신고센터 : (국번없이) 118 (<NuxtLink href="https://privacy.kisa.or.kr" target="_blank" class="underline underline-offset-2 lg:hover:text-blue-1">privacy.kisa.or.kr</NuxtLink>)
-3. 대검찰청 : (국번없이) 1301 (<NuxtLink href="https://www.spo.go.kr" target="_blank" class="underline underline-offset-2 lg:hover:text-blue-1">www.spo.go.kr</NuxtLink>)
-4. 경찰청 : (국번없이) 182 (<NuxtLink href="https://ecrm.cyber.go.kr" target="_blank" class="underline underline-offset-2 lg:hover:text-blue-1">ecrm.cyber.go.kr</NuxtLink>)
+1. 개인정보분쟁조정위원회 : (국번없이) 1833-6972 (<NuxtLink href="https://www.kopico.go.kr" target="_blank" class="underline underline-offset-2 lg:hover:text-blue-5">www.kopico.go.kr</NuxtLink>)
+2. 개인정보침해신고센터 : (국번없이) 118 (<NuxtLink href="https://privacy.kisa.or.kr" target="_blank" class="underline underline-offset-2 lg:hover:text-blue-5">privacy.kisa.or.kr</NuxtLink>)
+3. 대검찰청 : (국번없이) 1301 (<NuxtLink href="https://www.spo.go.kr" target="_blank" class="underline underline-offset-2 lg:hover:text-blue-5">www.spo.go.kr</NuxtLink>)
+4. 경찰청 : (국번없이) 182 (<NuxtLink href="https://ecrm.cyber.go.kr" target="_blank" class="underline underline-offset-2 lg:hover:text-blue-5">ecrm.cyber.go.kr</NuxtLink>)
 
 「개인정보보호법」제35조(개인정보의 열람), 제36조(개인정보의 정정·삭제), 제37조(개인정보의 처리정지 등)의 규정에 의한 요구에 대 하여 공공기관의 장이 행한 처분 또는 부작위로 인하여 권리 또는 이익의 침해를 받은 자는 행정심판법이 정하는 바에 따라 행정심판을 청구할 수 있습니다.
 
-※ 행정심판에 대해 자세한 사항은 중앙행정심판위원회(<NuxtLink href="https://www.simpan.go.kr" target="_blank" class="underline underline-offset-2 lg:hover:text-blue-1">www.simpan.go.kr</NuxtLink>) 홈페이지를 참고하시기 바랍니다.</pre>
+※ 행정심판에 대해 자세한 사항은 중앙행정심판위원회(<NuxtLink href="https://www.simpan.go.kr" target="_blank" class="underline underline-offset-2 lg:hover:text-blue-5">www.simpan.go.kr</NuxtLink>) 홈페이지를 참고하시기 바랍니다.</pre>
         </div>
     </main>
     <Tooltip/>
