@@ -1,5 +1,5 @@
 <template>
-    <div v-if="show" class="w-full h-full fixed z-50 left-0 top-0 px-4 lg:px-8 flex justify-center overflow-y-auto text-black-3 bg-black-3/20">
+    <div v-if="show" class="w-full h-full fixed z-50 left-0 top-0 px-4 flex justify-center overflow-y-auto text-black-3 bg-black-3/20">
         <div id="popup" class="animate-fade-in w-full max-w-[48rem] h-fit my-20 p-8 lg:p-16 relative rounded-lg drop-shadow bg-white">
             <button
                 @click="handleClick()"
@@ -10,8 +10,8 @@
             >
                 <i class="text-3xl leading-none bi bi-x"></i>
             </button>
-            <h2 class="mb-3 text-xl">{{ title }}</h2>
-            <h3 class="mb-10 text-sm font-light">{{ subtitle }}</h3>
+            <h2 v-if="title !== ''" class="mb-3 text-xl">{{ title }}</h2>
+            <h3 v-if="subtitle !== ''" class="mb-14 text-sm font-light">{{ subtitle }}</h3>
             <slot></slot>
         </div>
     </div>
@@ -21,8 +21,16 @@
     const props = defineProps({
         show: Boolean,
         handleShow: Function,
-        title: String,
-        subtitle: String,
+        title: {
+            type: String,
+            required: false,
+            default: "",
+        },
+        subtitle: {
+            type: String,
+            required: false,
+            default: "",
+        },
     });
 
     const handleClick = props.handleShow ? props.handleShow : () => { return }

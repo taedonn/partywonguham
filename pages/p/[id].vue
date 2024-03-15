@@ -1,26 +1,38 @@
 <template>
-    <main class="w-full px-5 lg:px-16 pt-20 lg:pt-40 pb-20 tracking-wide leading-relaxed flex justify-center">
+    <main class="font-sans w-full px-5 lg:px-16 pt-20 lg:pt-40 pb-20 flex justify-center text-black-3">
         <div class="max-w-[48rem] w-full">
-            <div class="w-full flex flex-col lg:flex-row lg:items-end gap-5 lg:gap-0 text-black-3">
-                <div class="w-full">
-                    <h1 class="mb-2 text-lg lg:text-xl font-medium">타임라인</h1>
-                    <p class="text-sm leading-relaxed font-light text-gray-6">
-                        타임라인은 파티장이 설정한 시간표에요. <br/>
-                        시간 선택하기를 눌러 가능한 시간을 선택해 주세요.
-                    </p>
-                </div>
-                <div class="shrink-0 flex gap-2.5 text-sm lg:text-base font-light">
-                    <!-- <Button :click="handleReset" color="gray" fill>리셋하기</button> -->
-                    <Button :click="copyLink" :icon="'bi bi-share'" color="gray" fill>링크 복사하기</Button>
-                    <Button :click="handlePopupShow" :icon="'bi bi-calendar-week'" fill>시간 선택하기</Button>
-                </div>
-            </div>
-            <div class="mt-16 text-black-3">
-                <div class="mb-5 lg:mb-8">
+            <div>
+                <div>
                     <h2 class="mb-2 text-lg lg:text-xl font-medium">{{ data.title }}</h2>
                     <p class="text-sm font-light text-gray-6">{{ dateDesc }}</p>
                 </div>
-                <div class="w-full flex flex-col-reverse lg:flex-row gap-5 lg:gap-0">
+                <div class="shrink-0 mt-5 lg:mt-8 flex gap-2 text-sm lg:text-base font-light">
+                    <!-- <Button :click="handleReset" color="gray" fill>리셋하기</button> -->
+                    <div class="w-1/2 h-12">
+                        <Button :click="copyLink" :icon="'bi bi-share'" color="gray" fill>링크 복사하기</Button>
+                    </div>
+                    <div class="w-1/2 h-12">
+                        <Button :click="handlePopupShow" :icon="'bi bi-calendar-week'" fill>약속 시간 선택</Button>
+                    </div>
+                </div>
+                <div class="w-full mt-2">
+                    <div class="px-6 py-4 flex gap-4 items-center rounded-lg text-sm bg-gray-f text-black-3">
+                        <h2 class="shrink-0">파티원{{ states.checkedPartywon.length !== 0 ? " (" + (states.checkedPartywon.length) + '/' + capacity + ')' : '' }}</h2>
+                        <ul class="font-light flex gap-2">
+                            <li
+                                v-for="thisPartywon, idx in partywon"
+                                v-bind:class="`${
+                                    states.checkedPartywon.length !== 0 && !states.checkedPartywon.includes(thisPartywon.name)
+                                    ? 'text-gray-c'
+                                    : ''
+                                } duration-200`"
+                            >
+                                {{ idx < partywon.length - 1 ? thisPartywon.name + "," : thisPartywon.name }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="w-full mt-8 flex flex-col-reverse lg:flex-row gap-5 lg:gap-0">
                     <div class="w-full flex flex-col">
                         <TimelineView
                             :capacity="capacity"
@@ -29,7 +41,7 @@
                             :onMouseOver="handleTimelineMouseOver"
                             :onMouseLeave="handleTimelineMouseLeave"
                         />
-                        <div class="w-full pl-12 pt-4 text-xs font-light leading-relaxed text-gray-6">
+                        <div class="w-full pt-4 text-xs font-light leading-relaxed text-gray-6">
                             <div class="w-full flex items-center gap-2">
                                 <i class="text-[0.188rem] fa-solid fa-circle"></i> 시간은 30분 단위로 생성되고 중복해서 선택할 수 있어요.
                             </div>
@@ -38,34 +50,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="w-full lg:w-80 shrink-0 lg:ml-4 lg:pb-[3.375rem]">
-                        <div class="w-full h-full px-5 lg:px-6 p-6 shrink-0 rounded-md bg-gray-f text-black-3">
-                            <h2>파티원{{ states.checkedPartywon.length !== 0 ? " (" + (states.checkedPartywon.length) + '/' + capacity + ')' : '' }}</h2>
-                            <ul class="mt-4 text-sm font-light flex flex-col gap-3">
-                                <li
-                                    v-for="thisPartywon in partywon"
-                                    v-bind:class="`${
-                                        states.checkedPartywon.length !== 0 && !states.checkedPartywon.includes(thisPartywon.name)
-                                        ? 'text-gray-c'
-                                        : ''
-                                    } duration-200`"
-                                >
-                                    {{ thisPartywon.name }}
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
         <Popup
             :show="states.popupShow"
             :handleShow="handlePopupShow"
-            title="시간대 설정"
-            subtitle="가능한 시간을 선택해 주세요."
         >
             <div class="text-lg">
-                <div class="w-full shrink-0 mt-14">
+                <div class="w-full shrink-0">
                     <h2>이름</h2>
                     <div class="text-base font-light mt-3">
                         <Input
@@ -86,9 +79,13 @@
                     :state="states.popupTimeState"
                     :onStateChange="handlePopupTimeStateChange"
                 />
-                <div class="mt-14 text-base font-light flex gap-2.5">
-                    <Button :click="handlePopupCreate" :icon="'bi bi-check-circle'" fill>추가하기</Button>
-                    <Button :click="handlePopupShow" :icon="'bi bi-x-circle'" color="gray" fill>취소하기</Button>
+                <div class="mt-8 text-sm lg:text-base font-light flex gap-2">
+                    <div class="w-1/2 h-12">
+                        <Button :click="handlePopupShow" :icon="'bi bi-x-circle'" color="gray" fill>취소하기</Button>
+                    </div>
+                    <div class="w-1/2 h-12">
+                        <Button :click="handlePopupCreate" :icon="'bi bi-check-circle'" fill>추가하기</Button>
+                    </div>
                 </div>
             </div>
         </Popup>

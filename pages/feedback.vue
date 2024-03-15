@@ -92,7 +92,9 @@
                     states.agreeState === "disagree" && "약관에 동의해야 문의를 제출할 수 있어요."
                 }}</div>
                 <div class="w-full mt-12 flex justify-end text-sm lg:text-base">
-                    <Button :click="onSubmit" :isLoading="states.isLoading" fill>문의하기</Button>
+                    <div class="w-40 lg:w-44 h-12">
+                        <Button :click="onSubmit" :isLoading="states.isLoading" fill>문의하기</Button>
+                    </div>
                 </div>
             </div>
         </div>

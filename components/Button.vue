@@ -4,11 +4,11 @@
         @mousedown="e => handleMousedown(e, color)"
         @mouseup="e => handleMouseup(e, color)"
         @mouseleave="e => handleMouseup(e, color)"
-        v-bind:class="`w-40 lg:w-44 h-11 lg:h-12 p-2 flex justify-center items-center gap-3 shrink-0 rounded border-2 outline-none duration-200 
+        v-bind:class="`w-full h-full p-2 flex justify-center items-center gap-3 shrink-0 rounded-lg border-2 outline-none duration-200 
                         ${
                             color === 'blue' 
-                            ? `${fill ? 'bg-blue-1 text-white': 'text-blue-1 lg:hover:bg-blue-1 lg:hover:text-white'} border-blue-1`
-                            : `${fill ? 'bg-gray-4 text-white' : 'text-gray-4 lg:hover:bg-gray-4 lg:hover:text-white'} border-gray-4`
+                            ? `${fill ? 'bg-blue-5 text-white': 'text-blue-5 lg:hover:bg-blue-5 lg:hover:text-white'} border-blue-5`
+                            : `${fill ? 'bg-blue-7 text-white' : 'text-blue-7 lg:hover:bg-blue-7 lg:hover:text-white'} border-blue-7`
                         }
                     `"
     > 
@@ -53,21 +53,21 @@
     const handleMousedown = (e: MouseEvent, color: string) => {
         const button = e.currentTarget as HTMLButtonElement;
         if (color === "blue") {
-            button.classList.remove("lg:hover:bg-blue-1");
-            button.classList.add("lg:hover:bg-blue-0", "lg:border-blue-0");
+            button.classList.remove("lg:hover:bg-blue-5");
+            button.classList.add("lg:hover:bg-blue-1", "lg:border-blue-1");
         } else {
-            button.classList.remove("lg:hover:bg-gray-4");
-            button.classList.add("lg:hover:bg-gray-6", "lg:border-gray-6");
+            button.classList.remove("lg:hover:bg-blue-7");
+            button.classList.add("lg:hover:bg-blue-a", "lg:border-blue-a");
         }
     }
     const handleMouseup = (e: MouseEvent, color: string) => {
         const button = e.currentTarget as HTMLButtonElement;
         if (color === "blue") {
-            button.classList.remove("lg:hover:bg-blue-0", "lg:border-blue-0");
-            button.classList.add("lg:hover:bg-blue-1");
+            button.classList.remove("lg:hover:bg-blue-1", "lg:border-blue-1");
+            button.classList.add("lg:hover:bg-blue-5");
         } else {
-            button.classList.remove("lg:hover:bg-gray-6", "lg:border-gray-6");
-            button.classList.add("lg:hover:bg-gray-4");
+            button.classList.remove("lg:hover:bg-blue-a", "lg:border-blue-a");
+            button.classList.add("lg:hover:bg-blue-7");
         }
     }
 </script>
