@@ -1,6 +1,6 @@
 <template>
     <main class="w-full px-5 lg:px-16 pt-20 lg:pt-40 pb-20 tracking-wide leading-relaxed flex justify-center">
-        <div class="max-w-[80rem] w-full">
+        <div class="max-w-[48rem] w-full">
             <div class="w-full flex flex-col lg:flex-row lg:items-end gap-5 lg:gap-0 text-black-3">
                 <div class="w-full">
                     <h1 class="mb-2 text-lg lg:text-xl font-medium">타임라인</h1>

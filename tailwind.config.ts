@@ -2,6 +2,10 @@
 export default {
   content: [],
   theme: {
+    fontFamily: {
+      'sans': ['Pretendard', 'sans-serif'],
+      'serif': ['DNFForgedBlade', 'serif'],
+    },
     extend: {
       colors: {
         'gray-f': '#F0F5FA',
@@ -12,13 +16,16 @@ export default {
         'gray-6': '#666666',
         'gray-4': '#404240',
         'black-3': '#333333',
+        'blue-f': '#F5F9FF',
         'blue-d': '#D4EBFD',
-        'blue-a': '#AAD8FB',
-        'blue-7': '#7FC4F8',
+        'blue-c': '#CBDFFF',
+        'blue-a': '#AEC4E6',
+        'blue-7': '#7285A3',
+        'blue-5': '#5194FF',
         'blue-4': '#4EAAEF',
         'blue-2': '#2A9DF4',
         'blue-1': '#1B73E7',
-        'blue-0': '#0160C9',
+        'blue-0': '#003A99',
         'red-e': '#EB4D3E',
         'yellow-f': '#FFD43B',
       },

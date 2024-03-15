@@ -1,9 +1,9 @@
 <template>
     <header class="fixed z-40 top-0 w-full h-20 px-5 flex justify-center tracking-wide leading-relaxed backdrop-blur-md bg-white/80">
-        <div class="max-w-[87.5rem] w-full flex justify-between items-center self-center">
+        <div class="max-w-[48rem] w-full flex justify-between items-center self-center">
             <NuxtLink v-on:click="handleMenuOnClick" to='/' class="relative z-10">
                 <h1 class="flex justify-between items-center gap-3 text-lg text-black-3"> 
-                    <img src="/img/partiwon_logo.svg" class="w-6"/>
+                    <img src="/img/partywon_logo.svg" alt="로고" class="w-6"/>
                     파티원 구함
                 </h1>
             </NuxtLink>
@@ -15,8 +15,7 @@
                     <div class="peer-checked:group-[]:-rotate-45 peer-checked:group-[]:bottom-[42%] relative w-full h-0.5 rounded-full bg-black-3 duration-200"></div>
                 </label>
                 <ul class="hidden peer-checked:flex absolute lg:static w-full h-[calc(100vh-5rem)] lg:h-auto lg:w-auto left-0 top-20 p-5 pt-0 lg:p-0 lg:flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-4 text-sm font-light bg-white/95 lg:bg-transparent">
-                    <li><NuxtLink v-on:click="handleMenuOnClick" to='/' class="lg:hover:text-blue-1 lg:duration-200">일정 생성하기<i class="lg:hidden ml-2 text-xs fa-solid fa-angle-right"></i></NuxtLink></li>
-                    <li><NuxtLink v-on:click="handleMenuOnClick" to='/' class="lg:hover:text-blue-1 lg:duration-200">사용 가이드<i class="lg:hidden ml-2 text-xs fa-solid fa-angle-right"></i></NuxtLink></li>
+                    <li><NuxtLink v-on:click="handleMenuOnClick" to='/' class="lg:hover:text-blue-1 lg:duration-200">약속 만들기<i class="lg:hidden ml-2 text-xs fa-solid fa-angle-right"></i></NuxtLink></li>
                     <li><NuxtLink v-on:click="handleMenuOnClick" to='/info' class="lg:hover:text-blue-1 lg:duration-200">프로젝트 소개<i class="lg:hidden ml-2 text-xs fa-solid fa-angle-right"></i></NuxtLink></li>
                     <li><NuxtLink v-on:click="handleMenuOnClick" to='/feedback' class="lg:hover:text-blue-1 lg:duration-200">피드백 및 문의<i class="lg:hidden ml-2 text-xs fa-solid fa-angle-right"></i></NuxtLink></li>
                 </ul>

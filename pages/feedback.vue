@@ -1,20 +1,18 @@
 <template>
-    <main class="w-full flex justify-center px-5 lg:px-16 p-20 lg:pt-40 tracking-wide leading-relaxed text-black-3">
+    <main class="w-full flex justify-center px-5 lg:px-16 p-20 lg:pt-40 font-sans leading-relaxed text-black-3">
         <div class="w-[48rem]">
-            <div class="px-6 lg:px-8 py-6 rounded-lg bg-gray-f">
-                <h2 class="text-lg">피드백 및 문의</h2>
-                <h3 class="mt-3 text-sm font-light leading-loose">
+            <div class="relative lg:h-52 flex flex-col lg:flex-row items-center lg:justify-end gap-5 lg:gap-0 p-5 rounded-xl bg-blue-f">
+                <div class="lg:absolute left-80 top-10 px-5 py-3 text-sm leading-normal rounded-2xl lg:rounded-ss-none bg-blue-7 text-white">
                     피드백이나 문의 사항이 있으시면 알려주세요.<br/>
-                    최대한 빠른 시일 내에 답변 드릴게요.<br/>
-                    <br/>
-                    <span class="text-red-e">*</span> 이메일: partywonguham@gmail.com
-                </h3>
+                    최대한 빠른 시일 내에 답변 드릴게요.
+                </div>
+                <img src="/img/3d_feedback.png" alt="피드백 이미지" class="max-w-full w-60 lg:w-auto h-full lg:h-64 lg:absolute left-20 bottom-0"/>
             </div>
-            <div class="mt-12 text-sm font-light">
-                <div class="text-xs font-light text-right"><span class="text-red-e">*</span> 필수 입력 사항</div>
+            <div class="mt-12 text-sm leading-relaxed">
+                <div class="text-xs text-right font-semibold"><span class="text-red-e">*</span> 필수 입력 사항</div>
                 <div class="w-full h-px mt-2 bg-gray-4"></div>
                 <div class="w-full my-5 flex">
-                    <label for="email" class="w-36 h-full mt-3 pl-5 flex items-center shrink-0">이메일 주소 <span class="ml-0.5 text-red-e">*</span></label>
+                    <label for="email" class="w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">이메일 주소 <span class="ml-0.5 text-red-e">*</span></label>
                     <div class="w-full">
                         <input v-on:input="onEmailChange" id="email" type="text" placeholder="example@example.com" class="w-full px-3 py-2.5 border border-gray-9 placeholder-gray-9 focus:border-gray-4"/>
                         <div v-if="states.emailState !== ''" class="w-full mt-2 text-xs text-red-e">{{ 
@@ -26,7 +24,7 @@
                 </div>
                 <div class="w-full h-px bg-gray-4"></div>
                 <div class="w-full my-5 flex">
-                    <div class="w-36 h-full mt-3 pl-5 flex items-center shrink-0">문의 분류 <span class="ml-0.5 text-red-e">*</span></div>
+                    <div class="w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">문의 분류 <span class="ml-0.5 text-red-e">*</span></div>
                     <div class="w-full flex flex-col">
                         <input v-on:change="onCategoryChange" type="checkbox" id="category" class="hidden peer"/>
                         <label for="category" v-on:mousedown="onMouseDown" v-bind:class="`${states.categoryShow ? 'border-gray-4' : 'border-gray-9'} category-select select group relative w-full px-3 py-2.5 cursor-pointer border placeholder-gray-9 focus:border-gray-4`">
@@ -49,7 +47,7 @@
                 </div>
                 <div class="w-full h-px bg-gray-d"></div>
                 <div class="w-full my-5 flex">
-                    <label for="title" class="w-36 h-full mt-3 pl-5 flex items-center shrink-0">문의 제목 <span class="ml-0.5 text-red-e">*</span></label>
+                    <label for="title" class="w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">문의 제목 <span class="ml-0.5 text-red-e">*</span></label>
                     <div class="w-full">
                         <input v-on:input="onTitleChange" id="title" type="text" placeholder="제목을 입력해 주세요 (20자 이내)" maxlength="20" class="w-full px-3 py-2.5 border border-gray-9 placeholder-gray-9 focus:border-gray-4"/>
                         <div v-if="states.titleState !== ''" class="w-full mt-2 text-xs text-red-e">{{ 
@@ -59,13 +57,13 @@
                 </div>
                 <div class="w-full h-px bg-gray-d"></div>
                 <div class="w-full my-5 flex">
-                    <label for="content" class="w-36 h-full mt-3 pl-5 flex items-center shrink-0">문의 내용</label>
+                    <label for="content" class="w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">문의 내용</label>
                     <textarea v-on:input="onContentChange" id="content" class="w-full h-60 px-3 py-2.5 border border-gray-9 placeholder-gray-9 focus:border-gray-4"></textarea>
                 </div>
                 <div class="w-full h-px bg-gray-4"></div>
                 <div class="text-base mt-12">개인정보 수집·이용에 대한 안내</div>
-                <div class="font-medium mt-3">(필수) 개인정보 수집·이용에 대한 안내</div>
-                <div class="mt-8 leading-loose text-gray-6">파티원 구함은 이용자 문의를 처리하기 위해 다음과 같이 개인정보를 수집 및 이용하며, 이용자의 개인정보를 안전하게 취급하는데 최선을 다하고 있습니다.</div>
+                <div class="font-semibold mt-3">(필수) 개인정보 수집·이용에 대한 안내</div>
+                <div class="mt-8 text-gray-6">파티원 구함은 이용자 문의를 처리하기 위해 다음과 같이 개인정보를 수집 및 이용하며, 이용자의 개인정보를 안전하게 취급하는데 최선을 다하고 있습니다.</div>
                 <div class="mt-8 border-y-2 border-gray-d text-gray-6">
                     <div class="w-full flex border-b border-gray-d">
                         <div class="w-1/3 p-4">수집 항목</div>
@@ -78,9 +76,9 @@
                         <div class="w-1/3 p-4 border-l border-gray-d">6개월</div>
                     </div>
                 </div>
-                <div class="mt-8 leading-loose text-gray-6">
+                <div class="mt-8 text-gray-6">
                     위 동의를 거부 할 권리가 있으며, 동의를 거부하실 경우 문의 처리 및 결과 회신이 제한됩니다.<br/>
-                    더 자세한 내용에 대해서는 <NuxtLink href="/privacy" class="underline underline-offset-2 text-black-3 lg:hover:text-blue-1">개인정보 처리방침</NuxtLink>을 참고하시기 바랍니다.
+                    더 자세한 내용에 대해서는 <NuxtLink href="/privacy" class="underline underline-offset-2 font-semibold text-black-3 lg:hover:text-blue-1">개인정보 처리방침</NuxtLink>을 참고하시기 바랍니다.
                 </div>
                 <div class="mt-10 flex items-center gap-2 text-black-3">
                     <input v-on:change="onCheck" v-bind:checked="states.agree" id="check" type="checkbox" class="peer hidden"/>
