@@ -8,6 +8,4 @@
 
 <script>
     import '../assets/style.css';
-    import Header from '~/components/Header.vue';
-    import Footer from '~/components/Footer.vue';
 </script>

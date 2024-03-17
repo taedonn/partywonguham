@@ -1,5 +1,5 @@
 <template>
-    <main class="w-full flex justify-center px-5 lg:px-16 p-28 lg:pt-40 leading-relaxed text-black-3">
+    <main class="w-full flex justify-center px-5 lg:px-0 pt-12 lg:pt-24 pb-24 leading-relaxed text-black-3">
         <div class="w-[48rem]">
             <div class="relative lg:h-52 flex flex-col lg:flex-row items-center lg:justify-end gap-5 lg:gap-0 p-5 rounded-xl bg-gray-f">
                 <div class="lg:absolute left-80 top-10 px-5 py-3 text-sm leading-normal rounded-2xl lg:rounded-ss-none bg-blue-7 text-white">
@@ -14,7 +14,7 @@
                 <div class="w-full my-5 flex">
                     <label for="email" class="w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">이메일 주소 <span class="ml-0.5 text-red-e">*</span></label>
                     <div class="w-full">
-                        <input v-on:input="onEmailChange" id="email" type="text" placeholder="example@example.com" class="w-full px-3 py-2.5 border border-gray-9 placeholder-gray-9 focus:border-gray-4"/>
+                        <input v-on:input="onEmailChange" id="email" type="text" placeholder="example@example.com" class="w-full px-3 py-2.5 border border-gray-9 placeholder-gray-9"/>
                         <div v-if="states.emailState !== ''" class="w-full mt-2 text-xs text-red-e">{{ 
                             states.emailState === "empty"
                                 ? "이메일을 입력해 주세요."
@@ -27,12 +27,12 @@
                     <div class="w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">문의 분류 <span class="ml-0.5 text-red-e">*</span></div>
                     <div class="w-full flex flex-col">
                         <input v-on:change="onCategoryChange" type="checkbox" id="category" class="hidden peer"/>
-                        <label for="category" v-on:mousedown="onMouseDown" v-bind:class="`${states.categoryShow ? 'border-gray-4' : 'border-gray-9'} category-select select group relative w-full px-3 py-2.5 cursor-pointer border placeholder-gray-9 focus:border-gray-4`">
+                        <label for="category" v-on:mousedown="onMouseDown" class="border-gray-9 category-select select group relative w-full px-3 py-2.5 cursor-pointer border placeholder-gray-9">
                             <div class="select relative w-full select-none">
                                 {{ states.category }}
                                 <i class="select peer-checked:group-[]:rotate-180 fa-solid fa-angle-down absolute right-1 top-1/2 -translate-y-1/2"></i>
                             </div>
-                            <ul v-if="states.categoryShow" id="category-select" class="select w-[calc(100%+2px)] h-32 overflow-y-auto py-2 absolute z-10 -left-px top-[2.5rem] border border-gray-4 bg-white">
+                            <ul v-if="states.categoryShow" id="category-select" class="select w-[calc(100%+2px)] h-32 overflow-y-auto py-2 absolute z-10 -left-px top-[2.875rem] border border-gray-9 bg-white">
                                 <li v-on:click="onCategoryClick" data-option="일반 문의" class="select select-none w-full px-4 py-1 lg:hover:bg-gray-f">일반 문의</li>
                                 <li v-on:click="onCategoryClick" data-option="오류 제보" class="select select-none w-full px-4 py-1 lg:hover:bg-gray-f">오류 제보</li>
                                 <li v-on:click="onCategoryClick" data-option="알림 수신 불가" class="select select-none w-full px-4 py-1 lg:hover:bg-gray-f">알림 수신 불가</li>
@@ -49,7 +49,7 @@
                 <div class="w-full my-5 flex">
                     <label for="title" class="w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">문의 제목 <span class="ml-0.5 text-red-e">*</span></label>
                     <div class="w-full">
-                        <input v-on:input="onTitleChange" id="title" type="text" placeholder="제목을 입력해 주세요 (20자 이내)" maxlength="20" class="w-full px-3 py-2.5 border border-gray-9 placeholder-gray-9 focus:border-gray-4"/>
+                        <input v-on:input="onTitleChange" id="title" type="text" placeholder="제목을 입력해 주세요 (20자 이내)" maxlength="20" class="w-full px-3 py-2.5 border border-gray-9 placeholder-gray-9"/>
                         <div v-if="states.titleState !== ''" class="w-full mt-2 text-xs text-red-e">{{ 
                             states.titleState === "empty" && "제목을 입력해 주세요."
                         }}</div>
@@ -58,7 +58,7 @@
                 <div class="w-full h-px bg-gray-d"></div>
                 <div class="w-full my-5 flex">
                     <label for="content" class="w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">문의 내용</label>
-                    <textarea v-on:input="onContentChange" id="content" class="w-full h-60 px-3 py-2.5 border border-gray-9 placeholder-gray-9 focus:border-gray-4"></textarea>
+                    <textarea v-on:input="onContentChange" id="content" class="w-full h-60 px-3 py-2.5 border border-gray-9 placeholder-gray-9"></textarea>
                 </div>
                 <div class="w-full h-px bg-gray-4"></div>
                 <div class="text-base mt-12">개인정보 수집·이용에 대한 안내</div>
@@ -103,16 +103,9 @@
 </template>
 
 <script setup lang="ts">
-    // Vue
-    import { reactive, onMounted, onUnmounted } from 'vue';
-
     // Pinia
     import { useToastStore } from '~/stores/toast';
     const toastStore = useToastStore();
-
-    // Components
-    import Button from '~/components/Button.vue';
-    import Toast from '~/components/Toast.vue';
 
     // Common
     import { emailValidChk } from '~/utils/common';

@@ -1,6 +1,6 @@
 <template>
-    <div v-if="show" class="w-full h-full fixed z-50 left-0 bottom-0 flex flex-col items-center overflow-y-auto text-black-3 bg-white">
-        <div id="popup" class="w-full h-fit flex flex-col items-center">
+    <div v-if="show" id="popup" class="w-full h-full fixed z-50 left-0 bottom-0 flex flex-col items-center overflow-y-auto text-black-3 bg-white">
+        <div class="w-full h-fit flex flex-col items-center">
             <div class="w-full h-16 relative flex justify-center items-center border-b-2 border-gray-e">
                 {{ title }}
                 <button
@@ -13,7 +13,7 @@
                     <i class="text-xl mr-0.5 fa-solid fa-angle-left"></i>
                 </button>
             </div>
-            <div class="w-full flex justify-center px-5 lg:px-0 pt-12 lg:pt-24 pb-24">
+            <div class="w-full flex justify-center px-5 lg:px-0 py-24">
                 <slot></slot>
             </div>
         </div>

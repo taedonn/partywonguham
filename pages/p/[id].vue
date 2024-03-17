@@ -1,25 +1,25 @@
 <template>
-    <main class="w-full px-5 lg:px-16 pt-28 lg:pt-40 pb-20 flex justify-center text-black-3">
-        <div class="max-w-[48rem] w-full">
+    <main class="w-full px-5 lg:px-0 py-24 flex justify-center text-black-3">
+        <div class="max-w-[22.5rem] w-full">
             <div>
                 <div>
-                    <h2 class="mb-2 text-lg lg:text-xl font-bold">{{ data.title }}</h2>
-                    <p class="text-sm text-gray-6">{{ dateDesc }}</p>
+                    <h2 class="text-2xl font-bold">{{ data.title }}</h2>
+                    <p class="mt-4 mb-12 text-sm">{{ dateDesc }}</p>
                 </div>
-                <div class="shrink-0 mt-5 lg:mt-8 flex gap-2 text-sm lg:text-base">
-                    <!-- <div class="w-1/2 h-12">
+                <div class="shrink-0 flex flex-col gap-2 text-sm lg:text-base">
+                    <!-- <div class="w-full h-12">
                         <Button :click="handleReset" color="gray" fill>리셋하기</Button>
                     </div> -->
-                    <div class="w-1/2 h-12">
+                    <!-- <div class="w-full h-12">
                         <Button :click="copyLink" :icon="'bi bi-share'" color="gray" fill>링크 복사하기</Button>
-                    </div>
-                    <div class="w-1/2 h-12">
+                    </div> -->
+                    <div class="w-full h-12">
                         <Button :click="handlePopupShow" :icon="'bi bi-calendar-week'" fill>약속 시간 선택</Button>
                     </div>
                 </div>
                 <div class="w-full mt-2">
-                    <div class="px-6 py-4 flex flex-col lg:flex-row gap-3 rounded-lg text-sm bg-gray-f text-black-3">
-                        <h2 class="shrink-0 font-semibold">파티원 {{ states.checkedPartywon.length !== 0 ? `(${states.checkedPartywon.length}/${capacity})` : `(${capacity}/${capacity})` }}</h2>
+                    <div class="px-6 py-4 flex flex-col gap-3 rounded-lg text-sm bg-gray-f text-black-3">
+                        <h2 class="shrink-0 font-semibold">파티원 {{ states.checkedPartywon.length !== 0 ? `(${states.checkedPartywon.length}/${capacity})` : `(${partywon.length}/${capacity})` }}</h2>
                         <ul class="flex flex-wrap gap-2">
                             <li
                                 v-for="thisPartywon, idx in partywon"
@@ -34,24 +34,14 @@
                         </ul>
                     </div>
                 </div>
-                <div class="w-full mt-8 flex flex-col-reverse lg:flex-row gap-5 lg:gap-0">
-                    <div class="w-full flex flex-col">
-                        <TimelineView
-                            :capacity="capacity"
-                            :period="period"
-                            :periodBlock="checked_time"
-                            :onMouseOver="handleTimelineMouseOver"
-                            :onMouseLeave="handleTimelineMouseLeave"
-                        />
-                        <div class="w-full pt-4 text-xs text-gray-6">
-                            <div class="w-full flex items-center gap-2">
-                                <i class="text-[0.188rem] fa-solid fa-circle"></i> 시간은 30분 단위로 생성되고 중복해서 선택할 수 있어요.
-                            </div>
-                            <div class="w-full mt-2 flex items-center gap-2">
-                                <i class="text-[0.188rem] fa-solid fa-circle"></i> 일정은 해당 날짜가 지난 후 30일이 지나면 자동으로 폐기돼요.
-                            </div>
-                        </div>
-                    </div>
+                <div class="w-full mt-8">
+                    <TimelineView
+                        :capacity="capacity"
+                        :period="period"
+                        :periodBlock="checked_time"
+                        :onMouseOver="handleTimelineMouseOver"
+                        :onMouseLeave="handleTimelineMouseLeave"
+                    />
                 </div>
             </div>
         </div>
@@ -64,17 +54,10 @@
                 <div class="w-full shrink-0">
                     <h2 class="font-bold text-2xl">이름이 무엇인가요?</h2>
                     <h3 class="mt-4 mb-12">이름은 20자 내외로 적어주세요</h3>
-                    <!-- <div class="text-base mt-3">
-                        <Input
-                            placeHolder="이름을 입력해 주세요."
-                            :onchange="handlePopupNameChange"
-                            id="user-name"
-                            icon="bi bi-person"
-                            :state="states.popupNameState"
-                            :onStateChange="handlePopupNameStateChange"
-                        />
-                    </div> -->
-                    <input type="text" placeholder="홍길동" v-on:change="handlePopupNameChange" id="user-name" class="w-full px-4 py-2.5 text-sm border rounded-lg border-gray-9 placeholder-gray-9"/>
+                    <input type="text" placeholder="홍길동" v-on:input="handlePopupNameChange" id="user-name" v-bind:class="`${states.popupNameState.type === 'error' ? 'animate-shake' : ''} w-full px-4 py-2.5 text-sm border rounded-lg border-gray-9 placeholder-gray-9`"/>
+                    <div v-if="states.popupNameState.type === 'error'" class="mt-2 text-xs text-left text-red-e">
+                        {{ states.popupNameState.msg }}
+                    </div>
                 </div>
                 <h2 class="mt-24 font-bold text-2xl">언제 약속에 갈 수 있나요?</h2>
                 <h3 class="mt-4 mb-12">시간대는 중복해서 선택할 수 있어요</h3>
@@ -97,20 +80,9 @@
 </template>
 
 <script setup lang="ts">
-    // Vue
-    import { reactive } from 'vue';
-
     // Pinia
     import { useToastStore } from '~/stores/toast';
     const toastStore = useToastStore();
-
-    // Components
-    import Button from '~/components/Button.vue';
-    import Input from '~/components/Input.vue';
-    import Popup from '~/components/Popup.vue';
-    import Toast from '~/components/Toast.vue';
-    import TimelineView from '~/components/TimelineView.vue';
-    import TimelineSelect from '~/components/TimelineSelect.vue';
 
     // Firestore
     import { collection, setDoc, doc } from 'firebase/firestore';
@@ -228,11 +200,6 @@
         states.popupNameState = { type: "", msg: "" };
     }
 
-    /** Trigger popup name change event */
-    const handlePopupNameStateChange = () => {
-        states.popupNameState = { type: "", msg: "" };
-    }
-
     /** Trigger popup time change event */
     const handlePopupTimeChange = (arr: number[]) => {
         states.popupTime = arr;
@@ -246,16 +213,20 @@
 
     /** Trigger popup create event */
     const handlePopupCreate = async () => {
+        const popup = document.getElementById("popup") as HTMLDivElement;
+
         if (states.popupName === "") {
             states.popupNameState = {
                 type: "error",
                 msg: "이름은 빈칸으로 남길 수 없어요.",
             };
+            popup.scrollTo({ top: 0, behavior: "smooth" });
         } else if (partywon.some((obj: Partywon) => obj.name === states.popupName)) {
             states.popupNameState = {
                 type: "error",
                 msg: "중복된 이름은 사용할 수 없어요."
             };
+            popup.scrollTo({ top: 0, behavior: "smooth" });
         } else if (states.popupTime.length === 0) {
             states.popupTimeState = {
                 type: "error",

@@ -18,11 +18,6 @@
 </template>
 
 <script setup lang="ts">
-    // Components
-    import Button from '~/components/Button.vue';
-
-    // Vue-router
-    import { useRouter } from '#vue-router';
     const router = useRouter();
 
     const onClick = () => {

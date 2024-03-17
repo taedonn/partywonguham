@@ -16,9 +16,6 @@
 </template>
 
 <script setup lang="ts">
-    // Vue
-    import { onMounted, onUnmounted } from 'vue';
-
     const goToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
