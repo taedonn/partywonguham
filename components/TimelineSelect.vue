@@ -2,9 +2,9 @@
     <div v-bind:class="`${state.type === 'error' ? 'animate-shake' : ''} w-full relative`">
         <div class="w-full h-fit flex">
             <div class="flex flex-col shrink-0">
-                <div v-for="time in period" class="w-12 h-14 text-xs font-light pt-0.5">{{ time }}</div>
+                <div v-for="time in period" class="w-16 h-14 last:h-[calc(3.5rem+2px)] text-xs text-left pl-2 pt-2 border-l border-t last:border-b border-gray-9">{{ time }}</div>
             </div>
-            <div class="w-full flex flex-col rounded-md border border-gray-9 overflow-hidden">
+            <div class="w-full flex flex-col border border-gray-9 overflow-hidden">
                 <!-- 선택 화면 -->
                 <div v-for="checked in periodBlock" class="group relative w-full flex flex-col flex-auto">
                     <input
@@ -14,7 +14,7 @@
                     />
                     <div
                         v-bind:data-id="`time-${checked.time}`"
-                        class="w-full h-[calc(100%+1px)] group-first:h-full absolute z-10 bottom-0 cursor-[row-resize] duration-100 peer-checked:bg-blue-1/60 lg:hover:bg-blue-1/40"
+                        class="w-full h-[calc(100%+1px)] group-first:h-full absolute z-10 bottom-0 cursor-[row-resize] duration-200 peer-checked:bg-blue-5/80 lg:hover:bg-blue-5/40"
                         @mouseover="onMouseOver"
                         @mousedown="onMouseDown"
                         @mouseup="onMouseUp"
@@ -23,7 +23,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="state.type === 'error'" class="absolute left-12 -bottom-2 translate-y-full text-xs font-light text-red-e">{{ state.msg }}</div>
+        <div v-if="state.type === 'error'" class="absolute left-12 -bottom-2 translate-y-full text-xs text-red-e">{{ state.msg }}</div>
     </div>
 </template>
 

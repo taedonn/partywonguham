@@ -13,8 +13,8 @@
                 } ${
                     state.type === 'error'
                         ? 'border-red-e lg:hover:border-red-e focus:border-red-e lg:focus:hover:border-red-e'
-                        : 'border-gray-9 lg:hover:border-gray-6 focus:border-blue-1 lg:focus:hover:border-blue-1'
-                } w-full p-1.5 outline-none border-b duration-100 bg-transparent placeholder-gray-6
+                        : 'border-gray-9 lg:hover:border-gray-6 focus:border-blue-5 lg:focus:hover:border-blue-5'
+                } w-full p-1.5 outline-none border-b duration-200 bg-transparent placeholder-gray-6
             `"
         />
         <i v-bind:class="`${icon} absolute left-0 top-1/2 -translate-y-1/2`"></i>

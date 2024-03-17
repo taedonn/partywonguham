@@ -1,17 +1,51 @@
 <template>
-    <header class="fixed z-40 top-0 w-full h-20 flex justify-center backdrop-blur bg-white/40">
-        <div class="relative z-10 max-w-[100rem] w-full flex justify-between items-center self-center px-4 lg:px-8">
-            <div class="flex justify-between items-center gap-3.5">
-                <img src="/img/partiwon_logo.svg" class="w-8"/>
-                <h1 class="text-xl text-black-3"> 
-                    <NuxtLink to='/'>파티원 구함</NuxtLink>
+    <header class="fixed z-40 top-0 w-full h-16 px-5 flex justify-center border-b-2 border-gray-e bg-white">
+        <div class="max-w-[48rem] w-full flex justify-between items-center self-center">
+            <NuxtLink v-on:click="handleMenuOnClick" to='/' class="relative z-10">
+                <h1 class="flex justify-between items-center gap-3 text-lg font-bold text-black-3"> 
+                    <img src="/img/partywon_logo.svg" alt="로고" class="w-6"/>
+                    파티원 구함
                 </h1>
+            </NuxtLink>
+            <div>
+                <input v-on:change="handleMenuOnCheck" type="checkbox" id="menu" class="peer hidden"/>
+                <label for="menu" class="group lg:hidden w-6 h-4 relative z-10 flex flex-col justify-between cursor-pointer">
+                    <div class="peer-checked:group-[]:rotate-45 peer-checked:group-[]:top-[44%] relative w-full h-0.5 rounded-full bg-black-3 duration-200"></div>
+                    <div class="peer-checked:group-[]:hidden w-full h-0.5 rounded-full bg-black-3"></div>
+                    <div class="peer-checked:group-[]:-rotate-45 peer-checked:group-[]:bottom-[42%] relative w-full h-0.5 rounded-full bg-black-3 duration-200"></div>
+                </label>
+                <ul class="hidden peer-checked:flex absolute lg:static w-full lg:w-auto h-[calc(100vh-4rem)] lg:h-auto left-0 top-20 px-5 lg:px-0 lg:flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-4 text-sm bg-white lg:bg-transparent">
+                    <li><NuxtLink v-on:click="handleMenuOnClick" to='/' class="lg:hover:text-blue-5 lg:duration-200">약속 만들기<i class="lg:hidden ml-2 text-xs fa-solid fa-angle-right"></i></NuxtLink></li>
+                    <li><NuxtLink v-on:click="handleMenuOnClick" to='/info' class="lg:hover:text-blue-5 lg:duration-200">프로젝트 소개<i class="lg:hidden ml-2 text-xs fa-solid fa-angle-right"></i></NuxtLink></li>
+                    <li><NuxtLink v-on:click="handleMenuOnClick" to='/feedback' class="lg:hover:text-blue-5 lg:duration-200">피드백 및 문의<i class="lg:hidden ml-2 text-xs fa-solid fa-angle-right"></i></NuxtLink></li>
+                </ul>
             </div>
-            <ul class="flex items-center gap-4">
-                <li class="text-base"><NuxtLink to='/' class="lg:hover:text-blue-1 lg:duration-100">일정 생성하기</NuxtLink></li>
-                <li class="text-base"><NuxtLink to='/' class="lg:hover:text-blue-1 lg:duration-100">사용 가이드</NuxtLink></li>
-                <li class="text-base"><NuxtLink to='/' class="lg:hover:text-blue-1 lg:duration-100">프로젝트 정보</NuxtLink></li>
-            </ul>
         </div>
     </header>
 </template>
+
+<script setup lang="ts">
+    // Vue
+    import { watch } from 'vue';
+
+    // Vue-router
+    import { useRoute } from 'vue-router';
+    const route = useRoute();
+
+    // Watch router params change
+    watch(() => route.params, async () => {
+        handleMenuOnClick();
+    });
+
+    const handleMenuOnCheck = (e: Event) => {
+        const el = e.target as HTMLInputElement;
+        if (el.checked) document.body.classList.add("overflow-hidden");
+        else document.body.classList.remove("overflow-hidden");
+    }
+
+    const handleMenuOnClick = () => {
+        const input = document.getElementById("menu") as HTMLInputElement;
+        input.checked = false;
+        document.body.classList.remove("overflow-hidden");
+    }
+</script>
