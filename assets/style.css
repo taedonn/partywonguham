@@ -38,6 +38,7 @@ button {
 input, textarea {
     outline: none;
     resize: none;
+    border-radius: 0;
 }
 
 @font-face {

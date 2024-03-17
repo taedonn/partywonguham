@@ -1,8 +1,8 @@
 <template>
-    <main class="w-full flex justify-center px-5 lg:px-16 p-20 lg:pt-40 font-sans leading-relaxed text-black-3">
+    <main class="w-full flex justify-center px-5 lg:px-16 p-28 lg:pt-40 leading-relaxed text-black-3">
         <div class="w-[48rem]">
             <div class="relative lg:h-52 flex flex-col lg:flex-row items-center lg:justify-end gap-5 lg:gap-0 p-5 rounded-xl bg-gray-f">
-                <div class="lg:absolute left-80 top-10 px-5 py-3 text-sm leading-normal rounded-2xl lg:rounded-ss-none bg-gray-7 text-white">
+                <div class="lg:absolute left-80 top-10 px-5 py-3 text-sm leading-normal rounded-2xl lg:rounded-ss-none bg-blue-7 text-white">
                     피드백이나 문의 사항이 있으시면 알려주세요.<br/>
                     최대한 빠른 시일 내에 답변 드릴게요.
                 </div>

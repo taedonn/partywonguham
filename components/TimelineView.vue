@@ -2,7 +2,7 @@
     <div class="w-full">
         <div class="w-full h-fit flex">
             <div class="flex flex-col shrink-0">
-                <div v-for="time in period" class="w-12 h-14 last:h-[calc(3.5rem+2px)] text-xs font-light pt-2 border-t last:border-b border-gray-9">{{ time }}</div>
+                <div v-for="time in period" class="w-16 h-14 last:h-[calc(3.5rem+2px)] text-xs text-left pl-2 pt-2 border-l border-t last:border-b border-gray-9">{{ time }}</div>
             </div>
             <div class="w-full flex flex-col border border-gray-9 overflow-hidden">
                 <!-- 볼 화면 -->
@@ -32,7 +32,7 @@
                     >
                         <i v-if="idx >= capacity" class="fa-solid fa-star text-[0.625rem] text-yellow-f"></i>
                     </div>
-                    <div class="w-8 font-light text-xs text-black-3">{{ idx + "명" }}</div>
+                    <div class="w-8 text-xs text-black-3">{{ idx + "명" }}</div>
                 </div>
             </div>
         </div>

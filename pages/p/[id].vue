@@ -1,13 +1,15 @@
 <template>
-    <main class="w-full px-5 lg:px-16 pt-20 lg:pt-40 pb-20 flex justify-center text-black-3">
+    <main class="w-full px-5 lg:px-16 pt-28 lg:pt-40 pb-20 flex justify-center text-black-3">
         <div class="max-w-[48rem] w-full">
             <div>
                 <div>
-                    <h2 class="mb-2 text-lg lg:text-xl font-medium">{{ data.title }}</h2>
-                    <p class="text-sm font-light text-gray-6">{{ dateDesc }}</p>
+                    <h2 class="mb-2 text-lg lg:text-xl font-bold">{{ data.title }}</h2>
+                    <p class="text-sm text-gray-6">{{ dateDesc }}</p>
                 </div>
-                <div class="shrink-0 mt-5 lg:mt-8 flex gap-2 text-sm lg:text-base font-light">
-                    <!-- <Button :click="handleReset" color="gray" fill>리셋하기</button> -->
+                <div class="shrink-0 mt-5 lg:mt-8 flex gap-2 text-sm lg:text-base">
+                    <!-- <div class="w-1/2 h-12">
+                        <Button :click="handleReset" color="gray" fill>리셋하기</Button>
+                    </div> -->
                     <div class="w-1/2 h-12">
                         <Button :click="copyLink" :icon="'bi bi-share'" color="gray" fill>링크 복사하기</Button>
                     </div>
@@ -16,9 +18,9 @@
                     </div>
                 </div>
                 <div class="w-full mt-2">
-                    <div class="px-6 py-4 flex gap-4 rounded-lg text-sm bg-gray-f text-black-3">
-                        <h2 class="shrink-0">파티원{{ states.checkedPartywon.length !== 0 ? " (" + (states.checkedPartywon.length) + '/' + capacity + ')' : '' }}</h2>
-                        <ul class="font-light flex flex-wrap gap-2">
+                    <div class="px-6 py-4 flex flex-col lg:flex-row gap-3 rounded-lg text-sm bg-gray-f text-black-3">
+                        <h2 class="shrink-0 font-semibold">파티원 {{ states.checkedPartywon.length !== 0 ? `(${states.checkedPartywon.length}/${capacity})` : `(${capacity}/${capacity})` }}</h2>
+                        <ul class="flex flex-wrap gap-2">
                             <li
                                 v-for="thisPartywon, idx in partywon"
                                 v-bind:class="`${
@@ -41,11 +43,11 @@
                             :onMouseOver="handleTimelineMouseOver"
                             :onMouseLeave="handleTimelineMouseLeave"
                         />
-                        <div class="w-full pt-4 text-xs font-light leading-relaxed text-gray-6">
+                        <div class="w-full pt-4 text-xs text-gray-6">
                             <div class="w-full flex items-center gap-2">
                                 <i class="text-[0.188rem] fa-solid fa-circle"></i> 시간은 30분 단위로 생성되고 중복해서 선택할 수 있어요.
                             </div>
-                            <div class="w-full mt-1.5 flex items-center gap-2">
+                            <div class="w-full mt-2 flex items-center gap-2">
                                 <i class="text-[0.188rem] fa-solid fa-circle"></i> 일정은 해당 날짜가 지난 후 30일이 지나면 자동으로 폐기돼요.
                             </div>
                         </div>
@@ -56,11 +58,13 @@
         <Popup
             :show="states.popupShow"
             :handleShow="handlePopupShow"
+            title="약속 시간 선택"
         >
-            <div class="text-lg">
+            <div class="w-full max-w-[22.5rem] text-sm text-center">
                 <div class="w-full shrink-0">
-                    <h2>이름</h2>
-                    <div class="text-base font-light mt-3">
+                    <h2 class="font-bold text-2xl">이름이 무엇인가요?</h2>
+                    <h3 class="mt-4 mb-12">이름은 20자 내외로 적어주세요</h3>
+                    <!-- <div class="text-base mt-3">
                         <Input
                             placeHolder="이름을 입력해 주세요."
                             :onchange="handlePopupNameChange"
@@ -69,9 +73,11 @@
                             :state="states.popupNameState"
                             :onStateChange="handlePopupNameStateChange"
                         />
-                    </div>
+                    </div> -->
+                    <input type="text" placeholder="홍길동" v-on:change="handlePopupNameChange" id="user-name" class="w-full px-4 py-2.5 text-sm border rounded-lg border-gray-9 placeholder-gray-9"/>
                 </div>
-                <h2 class="mt-14 mb-5">시간대 선택</h2>
+                <h2 class="mt-24 font-bold text-2xl">언제 약속에 갈 수 있나요?</h2>
+                <h3 class="mt-4 mb-12">시간대는 중복해서 선택할 수 있어요</h3>
                 <TimelineSelect
                     :period="period"
                     :periodBlock="checked_time"
@@ -79,12 +85,9 @@
                     :state="states.popupTimeState"
                     :onStateChange="handlePopupTimeStateChange"
                 />
-                <div class="mt-6 text-sm lg:text-base font-light flex gap-2">
-                    <div class="w-1/2 h-12">
-                        <Button :click="handlePopupShow" :icon="'bi bi-x-circle'" color="gray" fill>취소하기</Button>
-                    </div>
-                    <div class="w-1/2 h-12">
-                        <Button :click="handlePopupCreate" :icon="'bi bi-check-circle'" fill>추가하기</Button>
+                <div class="mt-6 text-sm lg:text-base flex gap-2">
+                    <div class="w-full h-12">
+                        <Button :click="handlePopupCreate" :icon="'bi bi-check-circle'" fill>선택하기</Button>
                     </div>
                 </div>
             </div>

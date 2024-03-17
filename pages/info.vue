@@ -1,5 +1,5 @@
 <template>
-    <main class="font-sans w-full flex justify-center px-5 lg:px-16 pt-20 lg:pt-40 pb-40 text-black-3">
+    <main class="w-full flex justify-center px-5 lg:px-16 pt-20 lg:pt-40 pb-40 text-black-3">
         <div class="w-[48rem] text-center">
             <h2 class="text-3xl font-bold leading-normal">
                 약속 시간을 정하는<br/>
