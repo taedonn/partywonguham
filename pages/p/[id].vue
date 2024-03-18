@@ -1,6 +1,6 @@
 <template>
-    <main class="w-full px-5 lg:px-0 py-24 flex justify-center text-black-3">
-        <div v-if="!states.query || states.query !== '1'" class="max-w-[22.5rem] w-full">
+    <main v-if="!states.query || states.query !== '1'" class="w-full px-5 lg:px-0 py-20 lg:py-24 flex justify-center text-black-3">
+        <div class="max-w-[22.5rem] w-full">
             <div>
                 <div>
                     <h2 class="text-2xl font-bold">{{ data.title }}</h2>
@@ -38,7 +38,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="mt-6 pl-14 flex justify-center items-center text-sm">
+                <div class="mt-4 pl-14 flex justify-center items-center text-sm">
                     <div class="flex flex-col items-center gap-0.5">
                         <div v-bind:class="`${dateProp.getDay() === 0 || dateProp.getDay() === 6 ? 'text-red-e' : ''}`">{{ dayIntoWeekday(dateProp.getDay()) }}</div>
                         <div class="font-semibold">{{ (dateProp.getMonth() + 1) + "." + dateProp.getDate() }}</div>
@@ -55,38 +55,38 @@
                 </div>
             </div>
         </div>
-        <div v-else-if="states.query === '1'">
-            <Popup
-                :handleClose="handlePopupClose"
-                title="약속 시간 선택"
-            >
-                <div class="w-full max-w-[22.5rem] text-center">
-                    <div class="w-full shrink-0">
-                        <h2 class="font-bold text-2xl">이름이 무엇인가요?</h2>
-                        <h3 class="mt-4 mb-12">이름은 20자 내외로 적어주세요</h3>
-                        <input type="text" placeholder="ex) 박티원" v-on:input="handlePopupNameChange" id="user-name" maxlength="20" v-bind:class="`${states.popupNameState.type === 'error' ? 'animate-shake' : ''} w-full px-4 py-2.5 text-sm border rounded-lg border-gray-9 placeholder-gray-9`"/>
-                        <div v-if="states.popupNameState.type === 'error'" class="mt-2 text-xs text-left text-red-e">
-                            {{ states.popupNameState.msg }}
-                        </div>
-                    </div>
-                    <h2 class="mt-24 font-bold text-2xl">언제 약속에 갈 수 있나요?</h2>
-                    <h3 class="mt-4 mb-12">시간은 중복해서 선택할 수 있어요</h3>
-                    <TimelineSelect
-                        :period="period"
-                        :periodBlock="checked_time"
-                        :onChange="handlePopupTimeChange"
-                        :state="states.popupTimeState"
-                        :onStateChange="handlePopupTimeStateChange"
-                    />
-                    <div class="mt-6 flex gap-2">
-                        <div class="w-full h-12">
-                            <Button :click="handlePopupCreate" :icon="'bi bi-check-circle'" fill>선택하기</Button>
-                        </div>
+        <Toast/>
+    </main>
+    <main v-else-if="states.query === '1'" class="w-full px-5 lg:px-0 py-20 lg:py-24 text-black-3">
+        <Popup
+            :handleClose="handlePopupClose"
+            title="약속 시간 선택"
+        >
+            <div class="w-full max-w-[22.5rem] text-center">
+                <div class="w-full shrink-0">
+                    <h2 class="font-bold text-2xl">이름이 무엇인가요?</h2>
+                    <h3 class="mt-4 mb-12">이름은 20자 내외로 적어주세요</h3>
+                    <input type="text" placeholder="ex) 박티원" v-on:input="handlePopupNameChange" id="user-name" maxlength="20" v-bind:class="`${states.popupNameState.type === 'error' ? 'animate-shake' : ''} w-full px-4 py-2.5 text-sm border rounded-lg border-gray-9 placeholder-gray-9`"/>
+                    <div v-if="states.popupNameState.type === 'error'" class="mt-2 text-xs text-left text-red-e">
+                        {{ states.popupNameState.msg }}
                     </div>
                 </div>
-            </Popup>
-        </div>
-        <Toast/>
+                <h2 class="mt-24 font-bold text-2xl">언제 약속에 갈 수 있나요?</h2>
+                <h3 class="mt-4 mb-12">시간은 중복해서 선택할 수 있어요</h3>
+                <TimelineSelect
+                    :period="period"
+                    :periodBlock="checked_time"
+                    :onChange="handlePopupTimeChange"
+                    :state="states.popupTimeState"
+                    :onStateChange="handlePopupTimeStateChange"
+                />
+                <div class="mt-6 flex gap-2">
+                    <div class="w-full h-12">
+                        <Button :click="handlePopupCreate" :icon="'bi bi-check-circle'" fill>선택하기</Button>
+                    </div>
+                </div>
+            </div>
+        </Popup>
     </main>
 </template>
 
@@ -244,20 +244,18 @@
 
     /** Trigger popup create event */
     const handlePopupCreate = async () => {
-        const popup = document.getElementById("popup") as HTMLDivElement;
-
         if (states.popupName === "") {
             states.popupNameState = {
                 type: "error",
                 msg: "이름은 빈칸으로 남길 수 없어요.",
             };
-            popup.scrollTo({ top: 0, behavior: "smooth" });
+            window.scrollTo({ top: 0, behavior: "smooth" });
         } else if (partywon.some((obj: Partywon) => obj.name === states.popupName)) {
             states.popupNameState = {
                 type: "error",
                 msg: "중복된 이름은 사용할 수 없어요."
             };
-            popup.scrollTo({ top: 0, behavior: "smooth" });
+            window.scrollTo({ top: 0, behavior: "smooth" });
         } else if (states.popupTime.length === 0) {
             states.popupTimeState = {
                 type: "error",
