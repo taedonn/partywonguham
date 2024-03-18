@@ -1,41 +1,50 @@
 <template>
     <main class="w-full px-5 lg:px-0 py-24 flex justify-center text-black-3">
-        <div class="max-w-[22.5rem] w-full">
+        <div v-if="!states.query || states.query !== '1'" class="max-w-[22.5rem] w-full">
             <div>
                 <div>
                     <h2 class="text-2xl font-bold">{{ data.title }}</h2>
-                    <p class="mt-4 mb-12">{{ dateDesc }}</p>
                 </div>
-                <div class="shrink-0 flex flex-col gap-2">
+                <div class="shrink-0 mt-4 flex gap-4">
                     <!-- <div class="w-full h-12">
                         <Button :click="handleReset" color="gray" fill>리셋하기</Button>
                     </div> -->
-                    <button v-on:click="copyLink" class="w-fit flex items-center gap-2 mb-1 lg:hover:text-blue-5">
-                        <i class="mb-0.5 text-xs bi bi-share"></i>
+                    <button v-on:click="handlePopupShow" class="w-fit flex items-center gap-2 mb-1 lg:hover:text-blue-5 duration-200">
+                        <i class="bi bi-plus-circle text-sm"></i>
+                        시간 선택하기
+                    </button>
+                    <button v-on:click="copyLink" v-bind:class="`${states.copyLink ? 'text-blue-5' : 'text-black-3'} w-fit flex items-center gap-2 mb-1 lg:hover:text-blue-5 duration-200`">
+                        <i v-bind:class="`${states.copyLink ? 'bi bi-check-lg' : 'bi bi-copy'} text-sm`"></i>
                         링크 복사하기
                     </button>
-                    <div class="w-full h-12">
+                    <!-- <div class="w-full h-12">
                         <Button :click="handlePopupShow" :icon="'bi bi-calendar-week'" fill>약속 시간 선택</Button>
-                    </div>
+                    </div> -->
                 </div>
-                <div class="w-full mt-2">
-                    <div class="px-6 py-4 flex flex-col gap-3 rounded-lg text-sm bg-gray-f text-black-3">
+                <div class="w-full mt-10">
+                    <div class="flex flex-col gap-2 text-sm text-black-3">
                         <h2 class="shrink-0 font-semibold">파티원 {{ states.checkedPartywon.length !== 0 ? `(${states.checkedPartywon.length}/${capacity})` : `(${partywon.length}/${capacity})` }}</h2>
-                        <ul v-if="partywon.length > 0" class="flex flex-wrap gap-1">
+                        <ul v-if="partywon.length > 0" class="flex flex-wrap gap-1.5">
                             <li
                                 v-for="thisPartywon in partywon"
                                 v-bind:class="`${
                                     states.checkedPartywon.length !== 0 && !states.checkedPartywon.includes(thisPartywon.name)
-                                    ? 'opacity-40'
-                                    : ''
-                                } px-3 py-1 bg-blue-7 text-white rounded-full duration-200`"
+                                    ? 'border-gray-c text-gray-c'
+                                    : 'border-blue-5 text-blue-5'
+                                } px-3 py-1 border rounded-lg duration-200`"
                             >
                                 {{ thisPartywon.name }}
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div class="w-full mt-8">
+                <div class="mt-6 pl-14 flex justify-center items-center text-sm">
+                    <div class="flex flex-col items-center gap-0.5">
+                        <div v-bind:class="`${dateProp.getDay() === 0 || dateProp.getDay() === 6 ? 'text-red-e' : ''}`">{{ dayIntoWeekday(dateProp.getDay()) }}</div>
+                        <div class="font-semibold">{{ (dateProp.getMonth() + 1) + "." + dateProp.getDate() }}</div>
+                    </div>
+                </div>
+                <div class="w-full mt-2">
                     <TimelineView
                         :capacity="capacity"
                         :period="period"
@@ -46,36 +55,37 @@
                 </div>
             </div>
         </div>
-        <Popup
-            :show="states.popupShow"
-            :handleShow="handlePopupShow"
-            title="약속 시간 선택"
-        >
-            <div class="w-full max-w-[22.5rem] text-center">
-                <div class="w-full shrink-0">
-                    <h2 class="font-bold text-2xl">이름이 무엇인가요?</h2>
-                    <h3 class="mt-4 mb-12">이름은 20자 내외로 적어주세요</h3>
-                    <input type="text" placeholder="홍길동" v-on:input="handlePopupNameChange" id="user-name" v-bind:class="`${states.popupNameState.type === 'error' ? 'animate-shake' : ''} w-full px-4 py-2.5 text-sm border rounded-lg border-gray-9 placeholder-gray-9`"/>
-                    <div v-if="states.popupNameState.type === 'error'" class="mt-2 text-xs text-left text-red-e">
-                        {{ states.popupNameState.msg }}
+        <div v-else-if="states.query === '1'">
+            <Popup
+                :handleClose="handlePopupClose"
+                title="약속 시간 선택"
+            >
+                <div class="w-full max-w-[22.5rem] text-center">
+                    <div class="w-full shrink-0">
+                        <h2 class="font-bold text-2xl">이름이 무엇인가요?</h2>
+                        <h3 class="mt-4 mb-12">이름은 20자 내외로 적어주세요</h3>
+                        <input type="text" placeholder="ex) 박티원" v-on:input="handlePopupNameChange" id="user-name" maxlength="20" v-bind:class="`${states.popupNameState.type === 'error' ? 'animate-shake' : ''} w-full px-4 py-2.5 text-sm border rounded-lg border-gray-9 placeholder-gray-9`"/>
+                        <div v-if="states.popupNameState.type === 'error'" class="mt-2 text-xs text-left text-red-e">
+                            {{ states.popupNameState.msg }}
+                        </div>
+                    </div>
+                    <h2 class="mt-24 font-bold text-2xl">언제 약속에 갈 수 있나요?</h2>
+                    <h3 class="mt-4 mb-12">시간은 중복해서 선택할 수 있어요</h3>
+                    <TimelineSelect
+                        :period="period"
+                        :periodBlock="checked_time"
+                        :onChange="handlePopupTimeChange"
+                        :state="states.popupTimeState"
+                        :onStateChange="handlePopupTimeStateChange"
+                    />
+                    <div class="mt-6 flex gap-2">
+                        <div class="w-full h-12">
+                            <Button :click="handlePopupCreate" :icon="'bi bi-check-circle'" fill>선택하기</Button>
+                        </div>
                     </div>
                 </div>
-                <h2 class="mt-24 font-bold text-2xl">언제 약속에 갈 수 있나요?</h2>
-                <h3 class="mt-4 mb-12">시간대는 중복해서 선택할 수 있어요</h3>
-                <TimelineSelect
-                    :period="period"
-                    :periodBlock="checked_time"
-                    :onChange="handlePopupTimeChange"
-                    :state="states.popupTimeState"
-                    :onStateChange="handlePopupTimeStateChange"
-                />
-                <div class="mt-6 flex gap-2">
-                    <div class="w-full h-12">
-                        <Button :click="handlePopupCreate" :icon="'bi bi-check-circle'" fill>선택하기</Button>
-                    </div>
-                </div>
-            </div>
-        </Popup>
+            </Popup>
+        </div>
         <Toast/>
     </main>
 </template>
@@ -87,19 +97,24 @@
 
     // Firestore
     import { collection, setDoc, doc } from 'firebase/firestore';
+    import type { LocationQuery, LocationQueryValue } from '#vue-router';
 
     // Load firebase collection
     const { firestore } = useFirebase();
     const myCollection = collection(firestore, "posts");
 
+    // Common
+    import { dayIntoWeekday } from '~/utils/common';
+
     // Types
     interface States {
+        query: LocationQueryValue | LocationQueryValue[],
         checkedPartywon: string[],
-        popupShow: boolean,
         popupName: string,
         popupNameState: PopupNameState,
         popupTime: number[],
         popupTimeState: PopupTimeState,
+        copyLink: boolean,
     }
 
     interface Partywon {
@@ -116,18 +131,35 @@
         msg: string,
     }
 
+    // Route
+    const route = useRoute();
+    const router = useRouter();
+
+    // Watch queries
+    watch(() => route.query, async () => {
+        handleQuery(route.query);
+    });
+    
+    const handleQuery = (query: LocationQuery) => {
+        states.query = query.create;
+        states.popupName = "";
+        states.popupNameState = { type: "", msg: "" };
+        states.popupTime = [];
+        states.popupTimeState = { type: "", msg: "" };
+    }
+
     // States
     const states: States = reactive({
+        query: route.query.create,
         checkedPartywon: [],
-        popupShow: false,
         popupName: "",
         popupNameState: { type: "", msg: "" },
         popupTime: [],
         popupTimeState: { type: "", msg: "" },
+        copyLink: false,
     });
 
     // Fetch data
-    const route = useRoute();
     const routeId = route.params.id + "";
     const { data }: any = await useFetch(`/api/p/${routeId}`);
     const {
@@ -145,7 +177,6 @@
 
     // Format date
     const dateProp = new Date(date);
-    const dateDesc = `${dateProp.getFullYear()}년 ${dateProp.getMonth() + 1}월 ${dateProp.getDate()}일`;
 
     // Set timeline period
     const period: string[] = [];
@@ -174,24 +205,23 @@
 
     /** Copy shareable link */
     const copyLink = () => {
-        window.navigator.clipboard.writeText(location.toString());
-        toastStore.success({ text: "링크가 복사되었어요." });
+        if (!states.copyLink) {
+            states.copyLink = true;
+            window.navigator.clipboard.writeText(location.toString());
+            toastStore.success({ text: "링크가 복사되었어요." });
+            setTimeout(() => {
+                states.copyLink = false;
+            }, 2000);
+        }
     }
 
     /** Show/close popup */
     const handlePopupShow = () => {
-        states.popupShow = !states.popupShow;
+        router.push(`/p/${routeId}?create=1`);
+    }
 
-        // Reset states when popup is closed
-        if (states.popupShow) {
-            document.body.classList.add("overflow-hidden");
-        } else {
-            document.body.classList.remove("overflow-hidden");
-            states.popupName = "";
-            states.popupNameState = { type: "", msg: "" };
-            states.popupTime = [];
-            states.popupTimeState = { type: "", msg: "" };
-        }
+    const handlePopupClose = () => {
+        router.push(`/p/${routeId}`);
     }
 
     /** Trigger popup name change event */
@@ -262,7 +292,7 @@
                 });
 
                 // Close popup
-                handlePopupShow();
+                handlePopupClose();
             } catch (err) {
                 console.log(err);
             }

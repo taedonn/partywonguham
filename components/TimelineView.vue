@@ -1,14 +1,14 @@
 <template>
     <div class="w-full">
-        <div class="w-full h-fit flex border rounded-lg border-gray-9 overflow-hidden">
+        <div class="w-full h-fit flex rounded-lg border border-blue-a overflow-hidden">
             <div class="flex flex-col shrink-0">
-                <div v-for="time in period" class="w-14 h-14 text-xs text-left pl-2 pt-2 border-r border-t first:border-t-0 border-gray-9">{{ time }}</div>
+                <div v-for="time in period" class="w-14 h-12 text-xs text-left pl-2 pt-2 border-dashed border-r border-t first:border-t-0 border-blue-c">{{ time }}</div>
             </div>
             <div class="w-full flex flex-col overflow-hidden">
                 <!-- 볼 화면 -->
-                <div v-for="checked in periodBlock" class="group w-full h-7 first:h-[calc(1.75rem+1px)] relative flex flex-col flex-auto overflow-hidden">
+                <div v-for="checked in periodBlock" class="group w-full h-6 first:h-[calc(1.5rem+1px)] last:h-[calc(1.5rem-1px)] relative flex flex-col">
                     <div
-                        v-bind:style="`opacity: ${checked.checked.length >= capacity ? capacity / (capacity + 1) : checked.checked.length / (capacity + 1)}`"
+                        v-bind:style="`opacity: ${checked.checked.length >= capacity ? capacity / capacity : checked.checked.length / capacity}`"
                         v-bind:class="`w-full h-full absolute z-10 bottom-0 bg-blue-5 duration-200`"
                     >
                     </div>
@@ -19,13 +19,13 @@
                         @mousedown="onMouseDown(checked)"
                         class="checked w-full h-full absolute z-10 bottom-0 lg:group-hover:bg-blue-5 opacity-20 cursor-pointer duration-200"
                     ></div>
-                    <div class="group-last:hidden w-full h-px absolute bottom-0 bg-gray-9"></div>
+                    <div class="group-last:hidden w-full h-px absolute z-20 bottom-0 border-b group-odd:border-dashed border-blue-c"></div>
                     <i v-if="checked.checked.length >= capacity" class="fa-solid fa-star absolute z-20 left-2 top-1/2 -translate-y-1/2 text-xs text-yellow-f"></i>
                 </div>
             </div>
         </div>
         <div class="w-full mt-2">
-            <div class="flex flex-wrap gap-2 px-6 py-4 rounded-lg bg-gray-f">
+            <div class="flex flex-wrap gap-2 px-6 py-4 rounded-lg border border-blue-a">
                 <div v-for="idx in capacity" class="flex items-center gap-1.5 relative">
                     <div
                         v-bind:style="`opacity: ${idx / capacity}`"
@@ -80,7 +80,9 @@
     }
 
     const onMouseLeave = () => {
-        props.onMouseLeave();
+        if (window.innerWidth >= 1024) {
+            props.onMouseLeave();
+        }
     }
 
     // 클릭 이벤트

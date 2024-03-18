@@ -1,5 +1,5 @@
 <template>
-    <div v-if="show" id="popup" class="w-full h-full fixed z-50 left-0 bottom-0 flex flex-col items-center overflow-y-auto text-black-3 bg-white">
+    <div id="popup" class="w-full h-full fixed z-50 left-0 bottom-0 flex flex-col items-center overflow-y-auto text-black-3 bg-white">
         <div class="w-full h-fit flex flex-col items-center">
             <div class="w-full h-16 relative flex justify-center items-center border-b-2 border-gray-e">
                 {{ title }}
@@ -22,8 +22,7 @@
 
 <script setup lang="ts">
     const props = defineProps({
-        show: Boolean,
-        handleShow: Function,
+        handleClose: Function,
         title: {
             type: String,
             required: false,
@@ -31,7 +30,7 @@
         },
     });
 
-    const handleClick = props.handleShow ? props.handleShow : () => { return }
+    const handleClick = props.handleClose ? props.handleClose : () => { return }
 
     // 닫기 버튼 이벤트
     const handleCloseMousedown = (e: MouseEvent) => {

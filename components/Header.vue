@@ -19,19 +19,19 @@
                         <div class="lg:hidden w-6 h-6 flex justify-center items-center rounded-lg border border-gray-c">
                             <i class="text-xs mt-px fa-solid fa-wand-magic-sparkles"></i>
                         </div>
-                        <NuxtLink v-on:click="handleMenuOnClick" to='/create' class="lg:hover:text-blue-5 lg:duration-200">약속 만들기</NuxtLink>
+                        <NuxtLink v-on:click="handleMenuOnClick" to='/create' class="lg:hover:text-blue-5">약속 만들기</NuxtLink>
                     </li>
                     <li class="flex gap-2">
                         <div v-bind:class="`${states.path.includes('feedback') ? 'border-blue-5 text-blue-5' : 'border-gray-c'} lg:hidden w-6 h-6 flex justify-center items-center rounded-lg border`">
                             <i class="text-xs mt-px fa-regular fa-comment-dots"></i>
                         </div>
-                        <NuxtLink v-on:click="handleMenuOnClick" to='/feedback' v-bind:class="`${states.path.includes('feedback') ? 'text-blue-5 font-bold lg:font-normal' : ''} lg:hover:text-blue-5`">피드백 및 문의</NuxtLink>
+                        <NuxtLink v-on:click="handleMenuOnClick" to='/feedback' v-bind:class="`${states.path.includes('feedback') ? 'text-blue-5 lg:text-black-3 font-bold lg:font-normal' : ''} lg:hover:text-blue-5`">피드백 및 문의</NuxtLink>
                     </li>
                     <li class="flex lg:hidden gap-2">
                         <div v-bind:class="`${states.path.includes('privacy') ? 'border-blue-5 text-blue-5' : 'border-gray-c'} w-6 h-6 flex justify-center items-center rounded-lg border`">
                             <i class="text-xs mt-px fa-solid fa-shield-halved"></i>
                         </div>
-                        <NuxtLink v-on:click="handleMenuOnClick" to='/privacy' v-bind:class="`${states.path.includes('privacy') ? 'text-blue-5 font-bold lg:font-normal' : ''} lg:hover:text-blue-5`">개인정보 처리방침</NuxtLink>
+                        <NuxtLink v-on:click="handleMenuOnClick" to='/privacy' v-bind:class="`${states.path.includes('privacy') ? 'text-blue-5 lg:text-black-3 font-bold lg:font-normal' : ''} lg:hover:text-blue-5`">개인정보 처리방침</NuxtLink>
                     </li>
                 </ul>
             </div>
