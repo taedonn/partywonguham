@@ -16,3 +16,11 @@
         </div>
     </main>
 </template>
+
+<script setup lang="ts">
+    const router = useRouter();
+
+    const onClick = () => {
+        router.push("/create");
+    }
+</script>

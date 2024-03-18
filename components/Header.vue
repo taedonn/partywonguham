@@ -14,7 +14,7 @@
                     <div class="peer-checked:group-[]:hidden w-full h-0.5 rounded-full bg-black-3"></div>
                     <div class="peer-checked:group-[]:-rotate-45 peer-checked:group-[]:bottom-[42%] relative w-full h-0.5 rounded-full bg-black-3 duration-200"></div>
                 </label>
-                <ul class="hidden peer-checked:flex absolute lg:static w-full lg:w-auto h-[calc(100vh-4rem)] lg:h-auto text-base left-0 top-16 px-5 lg:px-0 py-6 lg:py-0 lg:flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-5 text-black-3 bg-white lg:bg-transparent">
+                <ul class="hidden peer-checked:flex absolute lg:static w-full lg:w-auto h-[calc(100vh-4rem)] lg:h-auto text-base left-0 top-16 px-5 lg:px-0 py-6 lg:py-0 lg:flex flex-col lg:flex-row lg:items-center gap-5 text-black-3 bg-white lg:bg-transparent">
                     <li class="flex gap-2">
                         <div class="lg:hidden w-6 h-6 flex justify-center items-center rounded-lg border border-gray-c">
                             <i class="text-xs mt-px fa-solid fa-wand-magic-sparkles"></i>

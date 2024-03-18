@@ -4,15 +4,16 @@
             <div>
                 <div>
                     <h2 class="text-2xl font-bold">{{ data.title }}</h2>
-                    <p class="mt-4 mb-12 text-sm">{{ dateDesc }}</p>
+                    <p class="mt-4 mb-12">{{ dateDesc }}</p>
                 </div>
-                <div class="shrink-0 flex flex-col gap-2 text-sm lg:text-base">
+                <div class="shrink-0 flex flex-col gap-2">
                     <!-- <div class="w-full h-12">
                         <Button :click="handleReset" color="gray" fill>리셋하기</Button>
                     </div> -->
-                    <!-- <div class="w-full h-12">
-                        <Button :click="copyLink" :icon="'bi bi-share'" color="gray" fill>링크 복사하기</Button>
-                    </div> -->
+                    <button v-on:click="copyLink" class="w-fit flex items-center gap-2 mb-1 lg:hover:text-blue-5">
+                        <i class="mb-0.5 text-xs bi bi-share"></i>
+                        링크 복사하기
+                    </button>
                     <div class="w-full h-12">
                         <Button :click="handlePopupShow" :icon="'bi bi-calendar-week'" fill>약속 시간 선택</Button>
                     </div>
@@ -20,16 +21,16 @@
                 <div class="w-full mt-2">
                     <div class="px-6 py-4 flex flex-col gap-3 rounded-lg text-sm bg-gray-f text-black-3">
                         <h2 class="shrink-0 font-semibold">파티원 {{ states.checkedPartywon.length !== 0 ? `(${states.checkedPartywon.length}/${capacity})` : `(${partywon.length}/${capacity})` }}</h2>
-                        <ul class="flex flex-wrap gap-2">
+                        <ul v-if="partywon.length > 0" class="flex flex-wrap gap-1">
                             <li
-                                v-for="thisPartywon, idx in partywon"
+                                v-for="thisPartywon in partywon"
                                 v-bind:class="`${
                                     states.checkedPartywon.length !== 0 && !states.checkedPartywon.includes(thisPartywon.name)
-                                    ? 'text-gray-c'
+                                    ? 'opacity-40'
                                     : ''
-                                } duration-200`"
+                                } px-3 py-1 bg-blue-7 text-white rounded-full duration-200`"
                             >
-                                {{ idx < partywon.length - 1 ? thisPartywon.name + "," : thisPartywon.name }}
+                                {{ thisPartywon.name }}
                             </li>
                         </ul>
                     </div>
@@ -50,7 +51,7 @@
             :handleShow="handlePopupShow"
             title="약속 시간 선택"
         >
-            <div class="w-full max-w-[22.5rem] text-sm text-center">
+            <div class="w-full max-w-[22.5rem] text-center">
                 <div class="w-full shrink-0">
                     <h2 class="font-bold text-2xl">이름이 무엇인가요?</h2>
                     <h3 class="mt-4 mb-12">이름은 20자 내외로 적어주세요</h3>
@@ -68,7 +69,7 @@
                     :state="states.popupTimeState"
                     :onStateChange="handlePopupTimeStateChange"
                 />
-                <div class="mt-6 text-sm lg:text-base flex gap-2">
+                <div class="mt-6 flex gap-2">
                     <div class="w-full h-12">
                         <Button :click="handlePopupCreate" :icon="'bi bi-check-circle'" fill>선택하기</Button>
                     </div>
