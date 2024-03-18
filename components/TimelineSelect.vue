@@ -1,5 +1,5 @@
 <template>
-    <div v-bind:class="`${state.type === 'error' ? 'animate-shake' : ''} w-full rounded-lg border border-blue-a overflow-hidden`">
+    <div v-bind:class="`${state.type === 'error' ? 'animate-shake' : ''} w-full rounded-lg border border-gray-9 overflow-hidden`">
         <div class="w-full h-fit flex">
             <div class="flex flex-col shrink-0">
                 <div v-for="time in period" class="w-14 h-12 last:h-[calc(3rem+2px)] text-xs text-left pl-2 pt-2 border-dashed border-r border-t first:border-t-0 border-blue-c">{{ time }}</div>

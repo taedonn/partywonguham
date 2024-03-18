@@ -1,5 +1,5 @@
 <template>
-    <main class="leading-loose w-full flex justify-center px-5 lg:px-0 py-24 text-black-3">
+    <main class="leading-loose w-full flex justify-center px-5 lg:px-0 py-20 lg:py-24 text-black-3">
         <div class="w-[48rem]">
             <h2 class="text-2xl font-bold">개인정보 처리방침</h2>
             <div class="w-full flex flex-col lg:flex-row gap-4 mt-6 p-6 lg:p-8 text-sm border rounded-xl border-gray-9">

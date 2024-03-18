@@ -1,6 +1,6 @@
 <template>
     <div class="w-full">
-        <div class="w-full h-fit flex rounded-lg border border-blue-a overflow-hidden">
+        <div class="w-full h-fit flex rounded-lg border border-gray-9 overflow-hidden">
             <div class="flex flex-col shrink-0">
                 <div v-for="time in period" class="w-14 h-12 text-xs text-left pl-2 pt-2 border-dashed border-r border-t first:border-t-0 border-blue-c">{{ time }}</div>
             </div>
@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="w-full mt-2">
-            <div class="flex flex-wrap gap-2 px-6 py-4 rounded-lg border border-blue-a">
+            <div class="flex flex-wrap gap-2 px-6 py-4 rounded-lg border border-gray-9">
                 <div v-for="idx in capacity" class="flex items-center gap-1.5 relative">
                     <div
                         v-bind:style="`opacity: ${idx / capacity}`"

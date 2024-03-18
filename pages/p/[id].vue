@@ -6,9 +6,10 @@
                     <h2 class="text-2xl font-bold">{{ data.title }}</h2>
                 </div>
                 <div class="shrink-0 mt-4 flex gap-4">
-                    <!-- <div class="w-full h-12">
-                        <Button :click="handleReset" color="gray" fill>리셋하기</Button>
-                    </div> -->
+                    <!-- <button v-on:click="handleReset" class="w-fit flex items-center gap-2 mb-1 lg:hover:text-blue-5 duration-200">
+                        <i class="bi bi-plus-circle text-sm"></i>
+                        리셋하기
+                    </button> -->
                     <button v-on:click="handlePopupShow" class="w-fit flex items-center gap-2 mb-1 lg:hover:text-blue-5 duration-200">
                         <i class="bi bi-plus-circle text-sm"></i>
                         시간 선택하기
@@ -38,10 +39,10 @@
                         </ul>
                     </div>
                 </div>
-                <div class="mt-4 pl-14 flex justify-center items-center text-sm">
-                    <div class="flex flex-col items-center gap-0.5">
-                        <div v-bind:class="`${dateProp.getDay() === 0 || dateProp.getDay() === 6 ? 'text-red-e' : ''}`">{{ dayIntoWeekday(dateProp.getDay()) }}</div>
-                        <div class="font-semibold">{{ (dateProp.getMonth() + 1) + "." + dateProp.getDate() }}</div>
+                <div class="mt-4 pl-14 flex justify-center items-center text-xs">
+                    <div v-for="date in dateArr" v-bind:style="`width: ${1 / dateArr.length * 100}%`" class="flex flex-col items-center gap-1">
+                        <div v-bind:class="`${date.getDay() === 0 || date.getDay() === 6 ? 'text-red-e' : ''}`">{{ dayIntoWeekday(date.getDay()) }}</div>
+                        <div class="font-semibold">{{ (date.getMonth() + 1) + "." + date.getDate() }}</div>
                     </div>
                 </div>
                 <div class="w-full mt-2">
@@ -175,8 +176,11 @@
         allow_capacity,
     } = data.value;
 
-    // Format date
-    const dateProp = new Date(date);
+    const dateArr: Date[] = [];
+    date.map((eachDate: string) => {
+        dateArr.push(new Date(eachDate));
+    });
+    console.log(dateArr);
 
     // Set timeline period
     const period: string[] = [];
@@ -301,7 +305,13 @@
         try {
             await setDoc(doc(myCollection, routeId), {
                 title: "12/26 풋살하실 분",
-                date: "Tue Dec 26 2023",
+                date: [
+                    'Tue Dec 26 2023',
+                    'Wed Dec 27 2023',
+                    'Thu Dec 28 2023',
+                    'Fri Dec 29 2023',
+                    'Sat Dec 30 2023',
+                ],
                 start_time: 10,
                 end_time: 18,
                 email: "partywonguham@gmail.com",
