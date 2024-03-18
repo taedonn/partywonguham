@@ -1,5 +1,5 @@
 <template>
-    <main v-if="!states.query || states.query !== '1'" class="w-full px-5 lg:px-0 py-20 lg:py-24 flex justify-center text-black-3">
+    <main v-if="!states.query || states.query !== '1'" class="w-full px-5 lg:px-0 pt-12 lg:pt-24 pb-24 flex justify-center text-black-3">
         <div class="max-w-[22.5rem] w-full">
             <div>
                 <div>
@@ -18,13 +18,10 @@
                         <i v-bind:class="`${states.copyLink ? 'bi bi-check-lg' : 'bi bi-copy'} text-sm`"></i>
                         링크 복사하기
                     </button>
-                    <!-- <div class="w-full h-12">
-                        <Button :click="handlePopupShow" :icon="'bi bi-calendar-week'" fill>약속 시간 선택</Button>
-                    </div> -->
                 </div>
                 <div class="w-full mt-10">
                     <div class="flex flex-col gap-2 text-sm text-black-3">
-                        <h2 class="shrink-0 font-semibold">파티원 {{ states.checkedPartywon.length !== 0 ? `(${states.checkedPartywon.length}/${capacity})` : `(${partywon.length}/${capacity})` }}</h2>
+                        <!-- <h2 class="shrink-0 font-semibold">파티원 {{ states.checkedPartywon.length !== 0 ? `(${states.checkedPartywon.length}/${capacity})` : `(${partywon.length}/${capacity})` }}</h2>
                         <ul v-if="partywon.length > 0" class="flex flex-wrap gap-1.5">
                             <li
                                 v-for="thisPartywon in partywon"
@@ -36,7 +33,7 @@
                             >
                                 {{ thisPartywon.name }}
                             </li>
-                        </ul>
+                        </ul> -->
                     </div>
                 </div>
                 <div class="mt-4 pl-14 flex justify-center items-center text-xs">
@@ -48,8 +45,9 @@
                 <div class="w-full mt-2">
                     <TimelineView
                         :capacity="capacity"
-                        :period="period"
-                        :periodBlock="checked_time"
+                        :dates="dates"
+                        :times="timeArr"
+                        :timeBlocks="timeBlockArr"
                         :onMouseOver="handleTimelineMouseOver"
                         :onMouseLeave="handleTimelineMouseLeave"
                     />
@@ -65,18 +63,17 @@
         >
             <div class="w-full max-w-[22.5rem] text-center">
                 <div class="w-full shrink-0">
-                    <h2 class="font-bold text-2xl">이름이 무엇인가요?</h2>
+                    <h2 class="font-bold text-2xl">파티원님을 어떻게 부르면 되나요?</h2>
                     <h3 class="mt-4 mb-12">이름은 20자 내외로 적어주세요</h3>
                     <input type="text" placeholder="ex) 박티원" v-on:input="handlePopupNameChange" id="user-name" maxlength="20" v-bind:class="`${states.popupNameState.type === 'error' ? 'animate-shake' : ''} w-full px-4 py-2.5 text-sm border rounded-lg border-gray-9 placeholder-gray-9`"/>
                     <div v-if="states.popupNameState.type === 'error'" class="mt-2 text-xs text-left text-red-e">
                         {{ states.popupNameState.msg }}
                     </div>
                 </div>
-                <h2 class="mt-24 font-bold text-2xl">언제 약속에 갈 수 있나요?</h2>
-                <h3 class="mt-4 mb-12">시간은 중복해서 선택할 수 있어요</h3>
+                <h2 class="mt-24 font-bold text-2xl">언제 약속을 잡을까요?</h2>
+                <h3 class="mt-4 mb-12">시간은 드래그해서 선택할 수 있어요</h3>
                 <TimelineSelect
                     :period="period"
-                    :periodBlock="checked_time"
                     :onChange="handlePopupTimeChange"
                     :state="states.popupTimeState"
                     :onStateChange="handlePopupTimeStateChange"
@@ -165,22 +162,44 @@
     const { data }: any = await useFetch(`/api/p/${routeId}`);
     const {
         title,
-        date,
+        dates,
         start_time,
         end_time,
         email,
         allow_email,
-        partywon,
-        checked_time,
+        partywons,
+        // checked_time,
         capacity,
         allow_capacity,
     } = data.value;
 
     const dateArr: Date[] = [];
-    date.map((eachDate: string) => {
+    dates.map((eachDate: string) => {
         dateArr.push(new Date(eachDate));
     });
-    console.log(dateArr);
+
+    const handleTimeArr = (startTime: number, endTime: number) => {
+        let arr: number[] = [];
+        let diff = endTime - startTime;
+        let time = startTime;
+        for (let i = 0; i < diff; i++) {
+            arr.push(time + i);
+        }
+        return arr;
+    }
+    const timeArr: number[] = handleTimeArr(start_time, end_time);
+
+    const handleTimeBlockArr = (startTime: number, endTime: number) => {
+        let arr: number[] = [];
+        let diff = endTime - startTime - 1;
+        let time = startTime;
+        for (let i = 0; i < diff * 2; i++) {
+            time = i === 0 ? startTime : time += 0.5;
+            arr.push(time);
+        }
+        return arr;
+    }
+    const timeBlockArr: number[] = handleTimeBlockArr(start_time, end_time);
 
     // Set timeline period
     const period: string[] = [];
@@ -199,12 +218,12 @@
 
     /** Trigger timeline mouseover event */
     const handleTimelineMouseOver = (checkedPartywon: any) => {
-        states.checkedPartywon = checkedPartywon.checked;
+        // states.checkedPartywon = checkedPartywon.checked;
     }
 
     /** Trigger timeline mouseleave event */
     const handleTimelineMouseLeave = () => {
-        states.checkedPartywon = [];
+        // states.checkedPartywon = [];
     }
 
     /** Copy shareable link */
@@ -254,7 +273,7 @@
                 msg: "이름은 빈칸으로 남길 수 없어요.",
             };
             window.scrollTo({ top: 0, behavior: "smooth" });
-        } else if (partywon.some((obj: Partywon) => obj.name === states.popupName)) {
+        } else if (partywons.some((obj: Partywon) => obj.name === states.popupName)) {
             states.popupNameState = {
                 type: "error",
                 msg: "중복된 이름은 사용할 수 없어요."
@@ -268,16 +287,16 @@
         } else {
             try {
                 // Set new partywon
-                const thisPartywon = partywon;
+                const thisPartywon = partywons;
                 thisPartywon.push({ name: states.popupName });
 
                 // Set new time
-                const thisCheckedTime = checked_time;
-                for (let i = 0; i < thisCheckedTime.length; i++) {
-                    if (states.popupTime.includes(thisCheckedTime[i].time)) {
-                        thisCheckedTime[i].checked.push(states.popupName);
-                    }
-                }
+                // const thisCheckedTime = checked_time;
+                // for (let i = 0; i < thisCheckedTime.length; i++) {
+                //     if (states.popupTime.includes(thisCheckedTime[i].time)) {
+                //         thisCheckedTime[i].checked.push(states.popupName);
+                //     }
+                // }
 
                 // Update firestore
                 await setDoc(doc(myCollection, routeId), {
@@ -287,8 +306,7 @@
                     end_time: end_time,
                     email: email,
                     allow_email: allow_email,
-                    partywon: partywon,
-                    checked_time: thisCheckedTime,
+                    partywon: partywons,
                     capacity: capacity,
                     allow_capacity: allow_capacity,
                 });
@@ -305,7 +323,7 @@
         try {
             await setDoc(doc(myCollection, routeId), {
                 title: "12/26 풋살하실 분",
-                date: [
+                dates: [
                     'Tue Dec 26 2023',
                     'Wed Dec 27 2023',
                     'Thu Dec 28 2023',
@@ -313,27 +331,36 @@
                     'Sat Dec 30 2023',
                 ],
                 start_time: 10,
-                end_time: 18,
+                end_time: 15,
                 email: "partywonguham@gmail.com",
                 allow_email: false,
-                partywon: [],
-                checked_time: [
-                    { time: 10, checked: [] },
-                    { time: 10.5, checked: [] },
-                    { time: 11, checked: [] },
-                    { time: 11.5, checked: [] },
-                    { time: 12, checked: [] },
-                    { time: 12.5, checked: [] },
-                    { time: 13, checked: [] },
-                    { time: 13.5, checked: [] },
-                    { time: 14, checked: [] },
-                    { time: 14.5, checked: [] },
-                    { time: 15, checked: [] },
-                    { time: 15.5, checked: [] },
-                    { time: 16, checked: [] },
-                    { time: 16.5, checked: [] },
-                    { time: 17, checked: [] },
-                    { time: 17.5, checked: [] },
+                partywons: [
+                    {
+                        name: "이말갑",
+                        table: [
+                            {
+                                date: "Tue Dec 26 2023",
+                                time: [10, 11, 11.5]
+                            },
+                            {
+                                date: "Sun Dec 31 2023",
+                                time: [10, 11, 12]
+                            }
+                        ]
+                    },
+                    {
+                        name: "이말을",
+                        table: [
+                            {
+                                date: "Tue Dec 26 2023",
+                                time: [10, 11, 11.5]
+                            },
+                            {
+                                date: "Sun Dec 31 2023",
+                                time: [10, 11, 12]
+                            }
+                        ]
+                    }
                 ],
                 capacity: 4,
                 allow_capacity: true,
