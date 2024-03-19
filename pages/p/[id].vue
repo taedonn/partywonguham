@@ -21,35 +21,30 @@
                 </div>
                 <div class="w-full mt-10">
                     <div class="flex flex-col gap-2 text-sm text-black-3">
-                        <!-- <h2 class="shrink-0 font-semibold">파티원 {{ states.checkedPartywon.length !== 0 ? `(${states.checkedPartywon.length}/${capacity})` : `(${partywon.length}/${capacity})` }}</h2>
-                        <ul v-if="partywon.length > 0" class="flex flex-wrap gap-1.5">
+                        <h2 class="shrink-0 font-semibold">파티원 {{ states.selectedPartywons.length !== 0 ? `(${states.selectedPartywons.length}/${capacity})` : `(${partywons.length}/${capacity})` }}</h2>
+                        <ul v-if="partywons.length > 0" class="flex flex-wrap gap-1.5">
                             <li
-                                v-for="thisPartywon in partywon"
+                                v-for="partywon in partywons"
                                 v-bind:class="`${
-                                    states.checkedPartywon.length !== 0 && !states.checkedPartywon.includes(thisPartywon.name)
+                                    states.selectedPartywons.length !== 0 && !states.selectedPartywons.includes(partywon.name)
                                     ? 'border-gray-c text-gray-c'
                                     : 'border-blue-5 text-blue-5'
                                 } px-3 py-1 border rounded-lg duration-200`"
                             >
-                                {{ thisPartywon.name }}
+                                {{ partywon.name }}
                             </li>
-                        </ul> -->
+                        </ul>
                     </div>
                 </div>
-                <div class="mt-4 pl-14 flex justify-center items-center text-xs">
-                    <div v-for="date in dateArr" v-bind:style="`width: ${1 / dateArr.length * 100}%`" class="flex flex-col items-center gap-1">
-                        <div v-bind:class="`${date.getDay() === 0 || date.getDay() === 6 ? 'text-red-e' : ''}`">{{ dayIntoWeekday(date.getDay()) }}</div>
-                        <div class="font-semibold">{{ (date.getMonth() + 1) + "." + date.getDate() }}</div>
-                    </div>
-                </div>
-                <div class="w-full mt-2">
+                <div class="w-full mt-4">
                     <TimelineView
                         :capacity="capacity"
+                        :datesArr="datesArr"
                         :dates="dates"
-                        :times="timeArr"
-                        :timeBlocks="timeBlockArr"
-                        :onMouseOver="handleTimelineMouseOver"
-                        :onMouseLeave="handleTimelineMouseLeave"
+                        :times="times"
+                        :tables="tables"
+                        :onCheck="handleTimelineCheck"
+                        :onUncheck="handleTimelineUncheck"
                     />
                 </div>
             </div>
@@ -73,7 +68,10 @@
                 <h2 class="mt-24 font-bold text-2xl">언제 약속을 잡을까요?</h2>
                 <h3 class="mt-4 mb-12">시간은 드래그해서 선택할 수 있어요</h3>
                 <TimelineSelect
-                    :period="period"
+                    :datesArr="datesArr"
+                    :dates="dates"
+                    :times="times"
+                    :tables="tables"
                     :onChange="handlePopupTimeChange"
                     :state="states.popupTimeState"
                     :onStateChange="handlePopupTimeStateChange"
@@ -101,32 +99,34 @@
     const { firestore } = useFirebase();
     const myCollection = collection(firestore, "posts");
 
-    // Common
-    import { dayIntoWeekday } from '~/utils/common';
-
     // Types
     interface States {
         query: LocationQueryValue | LocationQueryValue[],
-        checkedPartywon: string[],
+        selectedPartywons: string[],
         popupName: string,
         popupNameState: PopupNameState,
-        popupTime: number[],
+        popupTime: number[][],
         popupTimeState: PopupTimeState,
-        copyLink: boolean,
+        copyLink: boolean
     }
 
-    interface Partywon {
-        name: string,
+    interface Partywons {
+        name: string
+    }
+
+    interface Times {
+        time: number,
+        selected: string[]
     }
 
     interface PopupNameState {
         type: string,
-        msg: string,
+        msg: string
     }
 
     interface PopupTimeState {
         type: string,
-        msg: string,
+        msg: string
     }
 
     // Route
@@ -149,7 +149,7 @@
     // States
     const states: States = reactive({
         query: route.query.create,
-        checkedPartywon: [],
+        selectedPartywons: [],
         popupName: "",
         popupNameState: { type: "", msg: "" },
         popupTime: [],
@@ -168,16 +168,18 @@
         email,
         allow_email,
         partywons,
-        // checked_time,
+        tables,
         capacity,
-        allow_capacity,
+        allow_capacity
     } = data.value;
 
-    const dateArr: Date[] = [];
+    /** Set date array */
+    const datesArr: Date[] = [];
     dates.map((eachDate: string) => {
-        dateArr.push(new Date(eachDate));
+        datesArr.push(new Date(eachDate));
     });
 
+    /** Set time array */
     const handleTimeArr = (startTime: number, endTime: number) => {
         let arr: number[] = [];
         let diff = endTime - startTime;
@@ -187,43 +189,16 @@
         }
         return arr;
     }
-    const timeArr: number[] = handleTimeArr(start_time, end_time);
-
-    const handleTimeBlockArr = (startTime: number, endTime: number) => {
-        let arr: number[] = [];
-        let diff = endTime - startTime - 1;
-        let time = startTime;
-        for (let i = 0; i < diff * 2; i++) {
-            time = i === 0 ? startTime : time += 0.5;
-            arr.push(time);
-        }
-        return arr;
-    }
-    const timeBlockArr: number[] = handleTimeBlockArr(start_time, end_time);
-
-    // Set timeline period
-    const period: string[] = [];
-    const startPeriod = Number(start_time);
-    const endPeriod = Number(end_time);
-    const length = Number(endPeriod) - Number(startPeriod);
-    for (let i = 0; i < length; i++) {
-        period.push(
-            startPeriod + i < 12
-            ? `${startPeriod + i} AM`
-            : startPeriod + i === 12
-                ? `${startPeriod + i} PM`
-                : `${startPeriod + i - 12} PM`
-        );
-    }
+    const times: number[] = handleTimeArr(start_time, end_time);
 
     /** Trigger timeline mouseover event */
-    const handleTimelineMouseOver = (checkedPartywon: any) => {
-        // states.checkedPartywon = checkedPartywon.checked;
+    const handleTimelineCheck = (times: Times) => {
+        states.selectedPartywons = times.selected;
     }
 
     /** Trigger timeline mouseleave event */
-    const handleTimelineMouseLeave = () => {
-        // states.checkedPartywon = [];
+    const handleTimelineUncheck = () => {
+        states.selectedPartywons = [];
     }
 
     /** Copy shareable link */
@@ -255,7 +230,7 @@
     }
 
     /** Trigger popup time change event */
-    const handlePopupTimeChange = (arr: number[]) => {
+    const handlePopupTimeChange = (arr: number[][]) => {
         states.popupTime = arr;
         states.popupTimeState = { type: "", msg: "" };
     }
@@ -273,7 +248,7 @@
                 msg: "이름은 빈칸으로 남길 수 없어요.",
             };
             window.scrollTo({ top: 0, behavior: "smooth" });
-        } else if (partywons.some((obj: Partywon) => obj.name === states.popupName)) {
+        } else if (partywons.some((obj: Partywons) => obj.name === states.popupName)) {
             states.popupNameState = {
                 type: "error",
                 msg: "중복된 이름은 사용할 수 없어요."
@@ -291,22 +266,25 @@
                 thisPartywon.push({ name: states.popupName });
 
                 // Set new time
-                // const thisCheckedTime = checked_time;
-                // for (let i = 0; i < thisCheckedTime.length; i++) {
-                //     if (states.popupTime.includes(thisCheckedTime[i].time)) {
-                //         thisCheckedTime[i].checked.push(states.popupName);
-                //     }
-                // }
+                const thisTables = tables;
+                for (let i = 0; i < thisTables.length; i++) {
+                    for (let j = 0; j < thisTables[i].times.length; j++) {
+                        if (states.popupTime[i].includes(thisTables[i].times[j].time)) {
+                            thisTables[i].times[j].selected.push(states.popupName);
+                        }
+                    }
+                }
 
                 // Update firestore
                 await setDoc(doc(myCollection, routeId), {
                     title: title,
-                    date: date,
+                    dates: dates,
                     start_time: start_time,
                     end_time: end_time,
                     email: email,
                     allow_email: allow_email,
-                    partywon: partywons,
+                    partywons: partywons,
+                    tables: thisTables,
                     capacity: capacity,
                     allow_capacity: allow_capacity,
                 });
@@ -326,39 +304,54 @@
                 dates: [
                     'Tue Dec 26 2023',
                     'Wed Dec 27 2023',
-                    'Thu Dec 28 2023',
-                    'Fri Dec 29 2023',
-                    'Sat Dec 30 2023',
+                    'Wed Dec 28 2023',
                 ],
                 start_time: 10,
                 end_time: 15,
                 email: "partywonguham@gmail.com",
                 allow_email: false,
-                partywons: [
+                partywons: [],
+                tables: [
                     {
-                        name: "이말갑",
-                        table: [
-                            {
-                                date: "Tue Dec 26 2023",
-                                time: [10, 11, 11.5]
-                            },
-                            {
-                                date: "Sun Dec 31 2023",
-                                time: [10, 11, 12]
-                            }
+                        times: [
+                            { time: 10, selected: [] },
+                            { time: 10.5, selected: [] },
+                            { time: 11, selected: [] },
+                            { time: 11.5, selected: [] },
+                            { time: 12, selected: [] },
+                            { time: 12.5, selected: [] },
+                            { time: 13, selected: [] },
+                            { time: 13.5, selected: [] },
+                            { time: 14, selected: [] },
+                            { time: 14.5, selected: [] },
                         ]
                     },
                     {
-                        name: "이말을",
-                        table: [
-                            {
-                                date: "Tue Dec 26 2023",
-                                time: [10, 11, 11.5]
-                            },
-                            {
-                                date: "Sun Dec 31 2023",
-                                time: [10, 11, 12]
-                            }
+                        times: [
+                            { time: 10, selected: [] },
+                            { time: 10.5, selected: [] },
+                            { time: 11, selected: [] },
+                            { time: 11.5, selected: [] },
+                            { time: 12, selected: [] },
+                            { time: 12.5, selected: [] },
+                            { time: 13, selected: [] },
+                            { time: 13.5, selected: [] },
+                            { time: 14, selected: [] },
+                            { time: 14.5, selected: [] },
+                        ]
+                    },
+                    {
+                        times: [
+                            { time: 10, selected: [] },
+                            { time: 10.5, selected: [] },
+                            { time: 11, selected: [] },
+                            { time: 11.5, selected: [] },
+                            { time: 12, selected: [] },
+                            { time: 12.5, selected: [] },
+                            { time: 13, selected: [] },
+                            { time: 13.5, selected: [] },
+                            { time: 14, selected: [] },
+                            { time: 14.5, selected: [] },
                         ]
                     }
                 ],

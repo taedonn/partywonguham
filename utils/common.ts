@@ -10,11 +10,6 @@ export const generateId = (length: number) => {
     return result;
 }
 
-/** 문자열에서 특정 문자 제거 */
-export function removeStr(string: string, target: string) {
-    return string.replace(target, "");
-}
-
 /** 이메일 패턴 */
 export function emailValidChk(email: string) {
     const emailPattern = /^[A-Za-z0-9_.-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-]+/;
