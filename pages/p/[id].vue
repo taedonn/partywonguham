@@ -51,7 +51,7 @@
         </div>
         <Toast/>
     </main>
-    <main v-else-if="states.query === '1'" class="w-full px-5 lg:px-0 py-20 lg:py-24 text-black-3">
+    <main v-else-if="states.query === '1'" class="w-full px-5 lg:px-0 pt-12 lg:pt-24 pb-24 text-black-3">
         <SubPage
             :handleClose="handleSubPageClose"
             title="약속 시간 선택"
