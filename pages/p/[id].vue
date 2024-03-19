@@ -10,7 +10,7 @@
                         <i class="bi bi-plus-circle text-sm"></i>
                         리셋하기
                     </button> -->
-                    <button v-on:click="handlePopupShow" class="w-fit flex items-center gap-2 mb-1 lg:hover:text-blue-5 duration-200">
+                    <button v-on:click="handleSubPageShow" class="w-fit flex items-center gap-2 mb-1 lg:hover:text-blue-5 duration-200">
                         <i class="bi bi-plus-circle text-sm"></i>
                         시간 선택하기
                     </button>
@@ -43,8 +43,8 @@
                         :dates="dates"
                         :times="times"
                         :tables="tables"
-                        :onCheck="handleTimelineCheck"
-                        :onUncheck="handleTimelineUncheck"
+                        :onCheck="handleTimeCheck"
+                        :onUncheck="handleTimeUncheck"
                     />
                 </div>
             </div>
@@ -52,17 +52,17 @@
         <Toast/>
     </main>
     <main v-else-if="states.query === '1'" class="w-full px-5 lg:px-0 py-20 lg:py-24 text-black-3">
-        <Popup
-            :handleClose="handlePopupClose"
+        <SubPage
+            :handleClose="handleSubPageClose"
             title="약속 시간 선택"
         >
             <div class="w-full max-w-[22.5rem] text-center">
                 <div class="w-full shrink-0">
                     <h2 class="font-bold text-2xl">파티원님을 어떻게 부르면 되나요?</h2>
                     <h3 class="mt-4 mb-12">이름은 20자 내외로 적어주세요</h3>
-                    <input type="text" placeholder="ex) 박티원" v-on:input="handlePopupNameChange" id="user-name" maxlength="20" v-bind:class="`${states.popupNameState.type === 'error' ? 'animate-shake' : ''} w-full px-4 py-2.5 text-sm border rounded-lg border-gray-9 placeholder-gray-9`"/>
-                    <div v-if="states.popupNameState.type === 'error'" class="mt-2 text-xs text-left text-red-e">
-                        {{ states.popupNameState.msg }}
+                    <input type="text" placeholder="ex) 박티원" v-on:input="handleSubPageNameChange" id="user-name" maxlength="20" v-bind:class="`${states.subPageNameState.type === 'error' ? 'animate-shake' : ''} w-full px-4 py-2.5 text-sm border rounded-lg border-gray-9 placeholder-gray-9`"/>
+                    <div v-if="states.subPageNameState.type === 'error'" class="mt-2 text-xs text-left text-red-e">
+                        {{ states.subPageNameState.msg }}
                     </div>
                 </div>
                 <h2 class="mt-24 font-bold text-2xl">언제 약속을 잡을까요?</h2>
@@ -72,17 +72,17 @@
                     :dates="dates"
                     :times="times"
                     :tables="tables"
-                    :onChange="handlePopupTimeChange"
-                    :state="states.popupTimeState"
-                    :onStateChange="handlePopupTimeStateChange"
+                    :onChange="handleSubPageTimeChange"
+                    :state="states.subPageTimeState"
+                    :onStateChange="handleSubPageTimeStateChange"
                 />
                 <div class="mt-6 flex gap-2">
                     <div class="w-full h-12">
-                        <Button :click="handlePopupCreate" :icon="'bi bi-check-circle'" fill>선택하기</Button>
+                        <Button :click="handleSubPageCreate" :icon="'bi bi-check-circle'" fill>선택하기</Button>
                     </div>
                 </div>
             </div>
-        </Popup>
+        </SubPage>
     </main>
 </template>
 
@@ -103,10 +103,10 @@
     interface States {
         query: LocationQueryValue | LocationQueryValue[],
         selectedPartywons: string[],
-        popupName: string,
-        popupNameState: PopupNameState,
-        popupTime: number[][],
-        popupTimeState: PopupTimeState,
+        subPageName: string,
+        subPageNameState: SubPageNameState,
+        subPageTime: number[][],
+        subPageTimeState: SubPageTimeState,
         copyLink: boolean
     }
 
@@ -119,12 +119,12 @@
         selected: string[]
     }
 
-    interface PopupNameState {
+    interface SubPageNameState {
         type: string,
         msg: string
     }
 
-    interface PopupTimeState {
+    interface SubPageTimeState {
         type: string,
         msg: string
     }
@@ -140,20 +140,20 @@
     
     const handleQuery = (query: LocationQuery) => {
         states.query = query.create;
-        states.popupName = "";
-        states.popupNameState = { type: "", msg: "" };
-        states.popupTime = [];
-        states.popupTimeState = { type: "", msg: "" };
+        states.subPageName = "";
+        states.subPageNameState = { type: "", msg: "" };
+        states.subPageTime = [];
+        states.subPageTimeState = { type: "", msg: "" };
     }
 
     // States
     const states: States = reactive({
         query: route.query.create,
         selectedPartywons: [],
-        popupName: "",
-        popupNameState: { type: "", msg: "" },
-        popupTime: [],
-        popupTimeState: { type: "", msg: "" },
+        subPageName: "",
+        subPageNameState: { type: "", msg: "" },
+        subPageTime: [],
+        subPageTimeState: { type: "", msg: "" },
         copyLink: false,
     });
 
@@ -191,13 +191,13 @@
     }
     const times: number[] = handleTimeArr(start_time, end_time);
 
-    /** Trigger timeline mouseover event */
-    const handleTimelineCheck = (times: Times) => {
+    /** Trigger time mouseover event */
+    const handleTimeCheck = (times: Times) => {
         states.selectedPartywons = times.selected;
     }
 
-    /** Trigger timeline mouseleave event */
-    const handleTimelineUncheck = () => {
+    /** Trigger time mouseleave event */
+    const handleTimeUncheck = () => {
         states.selectedPartywons = [];
     }
 
@@ -213,49 +213,49 @@
         }
     }
 
-    /** Show/close popup */
-    const handlePopupShow = () => {
+    /** Show/close subpage */
+    const handleSubPageShow = () => {
         router.push(`/p/${routeId}?create=1`);
     }
 
-    const handlePopupClose = () => {
+    const handleSubPageClose = () => {
         router.push(`/p/${routeId}`);
     }
 
-    /** Trigger popup name change event */
-    const handlePopupNameChange = (e: Event) => {
+    /** Trigger subpage name change event */
+    const handleSubPageNameChange = (e: Event) => {
         const el = e.target as HTMLInputElement;
-        states.popupName = el.value;
-        states.popupNameState = { type: "", msg: "" };
+        states.subPageName = el.value;
+        states.subPageNameState = { type: "", msg: "" };
     }
 
-    /** Trigger popup time change event */
-    const handlePopupTimeChange = (arr: number[][]) => {
-        states.popupTime = arr;
-        states.popupTimeState = { type: "", msg: "" };
+    /** Trigger subpage time change event */
+    const handleSubPageTimeChange = (arr: number[][]) => {
+        states.subPageTime = arr;
+        states.subPageTimeState = { type: "", msg: "" };
     }
 
-    /** Trigger popup time state change event */
-    const handlePopupTimeStateChange = () => {
-        states.popupTimeState = { type: "", msg: "" };
+    /** Trigger subpage time state change event */
+    const handleSubPageTimeStateChange = () => {
+        states.subPageTimeState = { type: "", msg: "" };
     }
 
-    /** Trigger popup create event */
-    const handlePopupCreate = async () => {
-        if (states.popupName === "") {
-            states.popupNameState = {
+    /** Trigger subpage create event */
+    const handleSubPageCreate = async () => {
+        if (states.subPageName === "") {
+            states.subPageNameState = {
                 type: "error",
                 msg: "이름은 빈칸으로 남길 수 없어요.",
             };
             window.scrollTo({ top: 0, behavior: "smooth" });
-        } else if (partywons.some((obj: Partywons) => obj.name === states.popupName)) {
-            states.popupNameState = {
+        } else if (partywons.some((obj: Partywons) => obj.name === states.subPageName)) {
+            states.subPageNameState = {
                 type: "error",
                 msg: "중복된 이름은 사용할 수 없어요."
             };
             window.scrollTo({ top: 0, behavior: "smooth" });
-        } else if (states.popupTime.length === 0) {
-            states.popupTimeState = {
+        } else if (states.subPageTime.length === 0) {
+            states.subPageTimeState = {
                 type: "error",
                 msg: "가능한 시간대를 선택해 주세요."
             };
@@ -263,14 +263,14 @@
             try {
                 // Set new partywon
                 const thisPartywon = partywons;
-                thisPartywon.push({ name: states.popupName });
+                thisPartywon.push({ name: states.subPageName });
 
                 // Set new time
                 const thisTables = tables;
                 for (let i = 0; i < thisTables.length; i++) {
                     for (let j = 0; j < thisTables[i].times.length; j++) {
-                        if (states.popupTime[i].includes(thisTables[i].times[j].time)) {
-                            thisTables[i].times[j].selected.push(states.popupName);
+                        if (states.subPageTime[i].includes(thisTables[i].times[j].time)) {
+                            thisTables[i].times[j].selected.push(states.subPageName);
                         }
                     }
                 }
@@ -289,8 +289,8 @@
                     allow_capacity: allow_capacity,
                 });
 
-                // Close popup
-                handlePopupClose();
+                // Close subpage
+                handleSubPageClose();
             } catch (err) {
                 console.log(err);
             }
