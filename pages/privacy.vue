@@ -22,8 +22,7 @@
                     <li v-on:click="enableSmoothScroll" data-link="article12" class="lg:hover:underline underline-offset-2 cursor-pointer">제 12 조 (권익 침해)</li>
                 </ul>
             </div>
-            <div class="w-full h-px bg-gray-9 mt-8"></div>
-            <div class="w-full mt-8 px-6 lg:px-8 py-6 rounded-xl bg-gray-f">
+            <div class="w-full mt-4 px-6 lg:px-8 py-6 rounded-xl bg-blue-e">
                 <div class="text-lg font-bold mb-3">개요</div>
                 <div>
                     태돈('<NuxtLink href="/" class="underline underline-offset-2 lg:hover:text-blue-5">https://partywonguham.vercel.app</NuxtLink>' 이하 '파티원 구함')은 「개인정보 보호법」 제30조에 따라 정보 주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리방침을 수립·공개합니다. <br/>

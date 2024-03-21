@@ -3,8 +3,8 @@
         <div class="max-w-[48rem] w-full flex justify-between items-center self-center">
             <NuxtLink v-on:click="handleMenuOnClick" to='/' class="relative z-10">
                 <h1 class="flex justify-between items-center gap-3 text-lg font-bold text-black-3"> 
-                    <img src="/img/partywon_logo.svg" alt="로고" class="w-6"/>
-                    파티원 구함
+                    <img src="/img/logo_text.svg" alt="로고" class="h-7"/>
+                    <!-- 파티원 구함 -->
                 </h1>
             </NuxtLink>
             <div>
@@ -19,7 +19,7 @@
                         <div class="lg:hidden w-6 h-6 flex justify-center items-center rounded-lg border border-gray-c">
                             <i class="text-xs mt-px fa-solid fa-wand-magic-sparkles"></i>
                         </div>
-                        <NuxtLink v-on:click="handleMenuOnClick" to='/create' class="lg:hover:text-blue-5">약속 만들기</NuxtLink>
+                        <NuxtLink v-on:click="handleMenuOnClick" to='/create' class="lg:hover:text-blue-5">약속 잡기</NuxtLink>
                     </li>
                     <li class="flex gap-2">
                         <div v-bind:class="`${states.path.includes('feedback') ? 'border-blue-5 text-blue-5' : 'border-gray-c'} lg:hidden w-6 h-6 flex justify-center items-center rounded-lg border`">
