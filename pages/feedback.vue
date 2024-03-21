@@ -1,5 +1,5 @@
 <template>
-    <main class="w-full flex justify-center px-5 lg:px-0 pt-12 lg:pt-24 pb-24 leading-relaxed text-black-3">
+    <main class="w-full flex justify-center px-5 lg:px-0 pt-5 lg:pt-24 pb-24 leading-relaxed text-black-3">
         <div class="w-[48rem]">
             <div class="relative lg:h-52 flex flex-col lg:flex-row items-center lg:justify-end gap-5 lg:gap-0 p-5 rounded-xl bg-blue-c">
                 <div class="lg:absolute left-80 top-10 px-5 py-3 text-sm leading-normal rounded-2xl lg:rounded-ss-none bg-blue-5 text-white">
@@ -12,7 +12,7 @@
                 <div class="text-xs text-right"><span class="text-red-e">*</span> 필수 입력 사항</div>
                 <div class="w-full h-px mt-2 bg-gray-4"></div>
                 <div class="w-full my-5 flex">
-                    <label for="email" class="w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">이메일 주소 <span class="ml-0.5 text-red-e">*</span></label>
+                    <label for="email" class="w-28 lg:w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">이메일 주소 <span class="ml-0.5 text-red-e">*</span></label>
                     <div class="w-full">
                         <input v-on:input="onEmailChange" id="email" type="text" placeholder="example@example.com" class="w-full px-3 py-2.5 border border-gray-9 placeholder-gray-9"/>
                         <div v-if="states.emailState !== ''" class="w-full mt-2 text-xs text-red-e">{{ 
@@ -24,7 +24,7 @@
                 </div>
                 <div class="w-full h-px bg-gray-4"></div>
                 <div class="w-full my-5 flex">
-                    <div class="w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">문의 분류 <span class="ml-0.5 text-red-e">*</span></div>
+                    <div class="w-28 lg:w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">문의 분류 <span class="ml-0.5 text-red-e">*</span></div>
                     <div class="w-full flex flex-col">
                         <input v-on:change="onCategoryChange" type="checkbox" id="category" class="hidden peer"/>
                         <label for="category" v-on:mousedown="onMouseDown" class="border-gray-9 category-select select group relative w-full px-3 py-2.5 cursor-pointer border placeholder-gray-9">
@@ -47,7 +47,7 @@
                 </div>
                 <div class="w-full h-px bg-gray-d"></div>
                 <div class="w-full my-5 flex">
-                    <label for="title" class="w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">문의 제목 <span class="ml-0.5 text-red-e">*</span></label>
+                    <label for="title" class="w-28 lg:w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">문의 제목 <span class="ml-0.5 text-red-e">*</span></label>
                     <div class="w-full">
                         <input v-on:input="onTitleChange" id="title" type="text" placeholder="제목을 입력해 주세요 (20자 이내)" maxlength="20" class="w-full px-3 py-2.5 border border-gray-9 placeholder-gray-9"/>
                         <div v-if="states.titleState !== ''" class="w-full mt-2 text-xs text-red-e">{{ 
@@ -57,7 +57,7 @@
                 </div>
                 <div class="w-full h-px bg-gray-d"></div>
                 <div class="w-full my-5 flex">
-                    <label for="content" class="w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">문의 내용</label>
+                    <label for="content" class="w-28 lg:w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">문의 내용</label>
                     <textarea v-on:input="onContentChange" id="content" class="w-full h-60 px-3 py-2.5 border border-gray-9 placeholder-gray-9"></textarea>
                 </div>
                 <div class="w-full h-px bg-gray-4"></div>

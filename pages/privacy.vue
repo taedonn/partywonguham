@@ -2,7 +2,7 @@
     <main class="leading-loose w-full flex justify-center px-5 lg:px-0 pt-12 lg:pt-24 pb-24 text-black-3">
         <div class="w-[48rem]">
             <h2 class="text-2xl font-bold">개인정보 처리방침</h2>
-            <div class="w-full flex flex-col lg:flex-row gap-4 mt-6 p-6 lg:p-8 text-sm border rounded-xl border-gray-9">
+            <div class="w-full flex flex-col lg:flex-row gap-4 mt-6 p-6 lg:p-8 text-sm border rounded-xl border-gray-c">
                 <ul class="w-full lg:w-1/3 flex flex-col gap-4">
                     <li v-on:click="enableSmoothScroll" data-link="article1" class="lg:hover:underline underline-offset-2 cursor-pointer">제 1 조 (목적)</li>
                     <li v-on:click="enableSmoothScroll" data-link="article2" class="lg:hover:underline underline-offset-2 cursor-pointer">제 2 조 (처리 및 보유 기간)</li>
