@@ -10,6 +10,6 @@
     import '../assets/style.css';
 
     useHead({
-        title: "파티원구함 · 약속 일정 잡기"
+        title: "파티원구함 - 단체 약속 시간 정하기"
     });
 </script>
