@@ -6,6 +6,10 @@
     </div>
 </template>
 
-<script>
+<script setup>
     import '../assets/style.css';
+
+    useHead({
+        title: "파티원구함 · 약속 일정 잡기"
+    });
 </script>

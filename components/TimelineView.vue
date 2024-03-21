@@ -31,7 +31,7 @@
                         <label
                             v-if="time.selected.length !== 0"
                             v-bind:for="`time-${idx}-${time.time}`"
-                            class="time-option peer-checked:bg-blue-1 peer-checked:opacity-100 w-full h-full absolute z-10 bottom-0 opacity-20 cursor-pointer group-hover:bg-blue-5 duration-200"
+                            class="time-option peer-checked:bg-blue-3 peer-checked:opacity-100 w-full h-full absolute z-10 bottom-0 opacity-20 cursor-pointer group-hover:bg-blue-5 duration-200"
                         ></label>
                         <div class="group-last:hidden w-full h-px absolute z-20 bottom-0 border-b group-odd:border-dashed border-blue-c"></div>
                         <i v-if="time.selected.length >= capacity" class="fa-solid fa-star relative z-10 mb-0.5 text-[0.625rem] text-yellow-f"></i>

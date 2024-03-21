@@ -52,11 +52,53 @@
                 <h2 class="text-2xl lg:text-3xl font-bold leading-normal">
                     어떻게 사용해요?
                 </h2>
-                <div class="w-full">
-                    
+                <div class="w-full flex flex-col items-center text-center leading-normal mt-12 lg:mt-16">
+                    <div class="w-8 h-8 flex justify-center items-center rounded-full bg-blue-e">1</div>
+                    <div class="mt-8">
+                        인원수, 날짜, 시간대를<br/>
+                        선택해서 일정을 만들어요.
+                    </div>
+                    <div class="w-48 h-48 lg:w-60 lg:h-60 mt-8 relative rounded-full bg-blue-e">
+                        <img src="/img/3d_calendar.png" alt="3D 캘린더" class="w-full scale-[1.2] -translate-x-2"/>
+                    </div>
+                    <div class="w-8 mt-20 h-8 flex justify-center items-center rounded-full bg-blue-e">2</div>
+                    <div class="mt-8">링크를 다른 사람들과 공유해요.</div>
+                    <div class="w-48 h-48 lg:w-60 lg:h-60 mt-8 relative rounded-full bg-blue-e">
+                        <img src="/img/3d_share.png" alt="3D 공유" class="w-full scale-[1.3]  lg:-translate-x-2"/>
+                    </div>
+                    <div class="w-8 mt-20 h-8 flex justify-center items-center rounded-full bg-blue-e">3</div>
+                    <div class="mt-8">
+                        가능한 시간을 선택해요. 선택한<br/>
+                        사람이 많은 시간대는 색이 진해져요.
+                    </div>
+                    <div class="w-48 h-48 lg:w-60 lg:h-60 mt-8 relative rounded-full bg-blue-e">
+                        <img src="/img/3d_check.png" alt="3D 시간 체크" class="w-full scale-[1.4] -translate-x-2"/>
+                    </div>
+                    <div class="w-8 mt-20 h-8 flex justify-center items-center rounded-full bg-blue-e">4</div>
+                    <div class="mt-8">
+                        알림 수신에 동의한 분들에 한해서<br/>
+                        인원수가 채워지면 알림을 보내요.
+                    </div>
+                    <div class="w-48 h-48 lg:w-60 lg:h-60 mt-8 relative rounded-full bg-blue-e">
+                        <img src="/img/3d_alarm.png" alt="3D 알람" class="w-full scale-[1.4] -translate-y-2"/>
+                    </div>
+                </div>
+            </div>
+            <div class="w-full mt-28 flex flex-col items-center">
+                <h2 class="text-2xl lg:text-3xl font-bold leading-normal">
+                    이제 약속을 만들어 보세요
+                </h2>
+                <h3 class="mt-5">
+                    파티원구함은 유료 결제가 없는 무료 서비스에요.
+                </h3>
+                <div class="w-full flex justify-center mt-12">
+                    <div class="w-72 h-12">
+                        <Button :onClick="onClick" fill>약속 잡기</Button>
+                    </div>
                 </div>
             </div>
         </div>
+        <Tooltip/>
     </main>
 </template>
 
