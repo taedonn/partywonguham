@@ -1,18 +1,18 @@
 <template>
     <main class="w-full flex justify-center px-5 lg:px-0 pt-5 lg:pt-24 pb-24 leading-relaxed text-black-3">
         <div class="w-[48rem]">
-            <div class="relative lg:h-52 flex flex-col lg:flex-row items-center lg:justify-end gap-5 lg:gap-0 p-5 rounded-xl bg-blue-c">
-                <div class="lg:absolute left-80 top-10 px-5 py-3 text-sm leading-normal rounded-2xl lg:rounded-ss-none bg-blue-5 text-white">
-                    피드백이나 문의 사항이 있으시면 알려주세요.<br/>
+            <div class="msg-wrap relative lg:h-52 flex flex-col lg:flex-row items-center lg:justify-end gap-4 lg:gap-0 p-5 rounded-xl bg-blue-c">
+                <div class="msg relative lg:absolute lg:left-80 lg:top-10 px-5 py-3 text-sm text-center lg:text-left leading-normal rounded-full text-white bg-blue-5 before:bg-blue-5 after:bg-blue-c">
+                    피드백이나 문의 사항이 있다면 알려주세요.<br/>
                     최대한 빠른 시일 내에 답변 드릴게요.
                 </div>
                 <img src="/img/3d_feedback.png" alt="피드백 이미지" class="max-w-full w-60 lg:w-auto h-full lg:h-64 lg:absolute left-20 bottom-0"/>
             </div>
-            <div class="mt-12 text-sm leading-relaxed">
-                <div class="text-xs text-right"><span class="text-red-e">*</span> 필수 입력 사항</div>
+            <div class="mt-12 leading-relaxed">
+                <div class="text-sm text-right"><span class="text-red-e">*</span> 필수 입력 사항</div>
                 <div class="w-full h-px mt-2 bg-gray-4"></div>
                 <div class="w-full my-5 flex">
-                    <label for="email" class="w-28 lg:w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">이메일 주소 <span class="ml-0.5 text-red-e">*</span></label>
+                    <label for="email" class="w-32 lg:w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">이메일 주소 <span class="ml-0.5 text-red-e">*</span></label>
                     <div class="w-full">
                         <input v-on:input="onEmailChange" id="email" type="text" placeholder="example@example.com" class="w-full px-3 py-2.5 border border-gray-9 placeholder-gray-9"/>
                         <div v-if="states.emailState !== ''" class="w-full mt-2 text-xs text-red-e">{{ 
@@ -24,10 +24,10 @@
                 </div>
                 <div class="w-full h-px bg-gray-4"></div>
                 <div class="w-full my-5 flex">
-                    <div class="w-28 lg:w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">문의 분류 <span class="ml-0.5 text-red-e">*</span></div>
+                    <div class="w-32 lg:w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">문의 분류 <span class="ml-0.5 text-red-e">*</span></div>
                     <div class="w-full flex flex-col">
                         <input v-on:change="onCategoryChange" type="checkbox" id="category" class="hidden peer"/>
-                        <label for="category" v-on:mousedown="onMouseDown" class="border-gray-9 category-select select group relative w-full px-3 py-2.5 cursor-pointer border placeholder-gray-9">
+                        <label for="category" v-on:mousedown="onMouseDown" class="border-gray-9 category-select select group relative w-full px-4 py-2.5 cursor-pointer border placeholder-gray-9">
                             <div class="select relative w-full select-none">
                                 {{ states.category }}
                                 <i class="select peer-checked:group-[]:rotate-180 fa-solid fa-angle-down absolute right-1 top-1/2 -translate-y-1/2"></i>
@@ -47,9 +47,9 @@
                 </div>
                 <div class="w-full h-px bg-gray-d"></div>
                 <div class="w-full my-5 flex">
-                    <label for="title" class="w-28 lg:w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">문의 제목 <span class="ml-0.5 text-red-e">*</span></label>
+                    <label for="title" class="w-32 lg:w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">문의 제목 <span class="ml-0.5 text-red-e">*</span></label>
                     <div class="w-full">
-                        <input v-on:input="onTitleChange" id="title" type="text" placeholder="제목을 입력해 주세요 (20자 이내)" maxlength="20" class="w-full px-3 py-2.5 border border-gray-9 placeholder-gray-9"/>
+                        <input v-on:input="onTitleChange" id="title" type="text" placeholder="제목을 입력해 주세요 (20자 이내)" maxlength="20" class="w-full px-4 py-2.5 border border-gray-9 placeholder-gray-9"/>
                         <div v-if="states.titleState !== ''" class="w-full mt-2 text-xs text-red-e">{{ 
                             states.titleState === "empty" && "제목을 입력해 주세요."
                         }}</div>
@@ -57,8 +57,8 @@
                 </div>
                 <div class="w-full h-px bg-gray-d"></div>
                 <div class="w-full my-5 flex">
-                    <label for="content" class="w-28 lg:w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">문의 내용</label>
-                    <textarea v-on:input="onContentChange" id="content" class="w-full h-60 px-3 py-2.5 border border-gray-9 placeholder-gray-9"></textarea>
+                    <label for="content" class="w-32 lg:w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">문의 내용</label>
+                    <textarea v-on:input="onContentChange" id="content" class="w-full h-60 px-4 py-2.5 border border-gray-9 placeholder-gray-9"></textarea>
                 </div>
                 <div class="w-full h-px bg-gray-4"></div>
                 <div class="text-base mt-12">개인정보 수집·이용에 대한 안내</div>
@@ -91,7 +91,7 @@
                 <div v-if="states.agreeState !== ''" class="w-full mt-2 text-xs text-red-e">{{ 
                     states.agreeState === "disagree" && "약관에 동의해야 문의를 제출할 수 있어요."
                 }}</div>
-                <div class="w-full mt-12 flex justify-end text-sm lg:text-base">
+                <div class="w-full mt-12 flex justify-end">
                     <div class="w-40 lg:w-44 h-12">
                         <Button :click="onSubmit" :isLoading="states.isLoading" fill>문의하기</Button>
                     </div>
@@ -252,3 +252,40 @@
         window.removeEventListener("mousedown", onMouseDown);
     });
 </script>
+
+<style>
+    .msg:before {
+        content: "";
+        position: absolute;
+        z-index: 0;
+        bottom: 0;
+        left: -8px;
+        height: 50%;
+        width: 20px;
+        border-bottom-right-radius: 16px;
+    }
+    .msg:after {
+        content: "";
+        position: absolute;
+        z-index: 1;
+        bottom: 0;
+        left: -10px;
+        width: 10px;
+        height: 50%;
+        border-bottom-right-radius: 10px;
+    }
+    @media screen and (max-width: 1023px) {
+        .msg-wrap .msg:before {
+            height: 20px;
+            left: 70%;
+            bottom: 4px;
+            transform: translate(-50%, 20px);
+        }
+        .msg-wrap .msg:after {
+            height: 17px;
+            left: calc(70% - 6px);
+            bottom: 3px;
+            transform: translate(-50%, 20px);
+        }
+    }
+</style>

@@ -58,14 +58,17 @@
         >
             <div class="w-full max-w-[22.5rem] text-center">
                 <div class="w-full shrink-0">
-                    <h2 class="font-bold text-2xl">파티원님을 어떻게 부르면 되나요?</h2>
+                    <h2 class="font-bold text-2xl leading-normal">
+                        파티원님을 어떻게<br/>
+                        부르면 되나요?
+                    </h2>
                     <h3 class="mt-4 mb-12">이름은 20자 내외로 적어주세요</h3>
-                    <input type="text" placeholder="ex) 박티원" v-on:input="handleSubPageNameChange" id="user-name" maxlength="20" v-bind:class="`${states.subPageNameState.type === 'error' ? 'animate-shake' : ''} w-full px-4 py-2.5 text-sm border rounded-lg border-gray-9 placeholder-gray-9`"/>
+                    <input type="text" placeholder="ex) 박티원" v-on:input="handleSubPageNameChange" id="user-name" maxlength="20" v-bind:class="`${states.subPageNameState.type === 'error' ? 'animate-shake' : ''} w-full px-4 py-2.5 border rounded-lg border-gray-9 placeholder-gray-9`"/>
                     <div v-if="states.subPageNameState.type === 'error'" class="mt-2 text-xs text-left text-red-e">
                         {{ states.subPageNameState.msg }}
                     </div>
                 </div>
-                <h2 class="mt-24 font-bold text-2xl">언제 약속을 잡을까요?</h2>
+                <h2 class="mt-24 font-bold text-2xl leading-normal">언제 약속을 잡을까요?</h2>
                 <h3 class="mt-4 mb-12">시간은 드래그해서 선택할 수 있어요</h3>
                 <TimelineSelect
                     :datesArr="datesArr"

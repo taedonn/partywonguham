@@ -15,7 +15,7 @@
             <div class="w-full flex justify-center">
                 <img class="w-full" src="/img/3d_running.png" alt="3D 남녀 달리기"/>
             </div>
-            <div class="mt-16 lg:mt-0">
+            <div class="mt-10 lg:mt-0">
                 <h2 class="text-2xl lg:text-3xl font-bold leading-normal">
                     언제 사용하면 좋을까요?
                 </h2>
@@ -52,6 +52,9 @@
                 <h2 class="text-2xl lg:text-3xl font-bold leading-normal">
                     어떻게 사용해요?
                 </h2>
+                <div class="w-full">
+                    
+                </div>
             </div>
         </div>
     </main>

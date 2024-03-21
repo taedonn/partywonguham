@@ -2,10 +2,7 @@
     <header class="fixed z-40 top-0 w-full h-16 px-5 flex justify-center border-b-2 border-gray-e bg-white">
         <div class="max-w-[48rem] w-full flex justify-between items-center self-center">
             <NuxtLink v-on:click="handleMenuOnClick" to='/' class="relative z-10">
-                <h1 class="flex justify-between items-center gap-3 text-lg font-bold text-black-3"> 
-                    <img src="/img/logo_text.svg" alt="로고" class="h-7"/>
-                    <!-- 파티원 구함 -->
-                </h1>
+                <img src="/img/logo_text.svg" alt="로고" class="h-6"/>
             </NuxtLink>
             <div>
                 <input v-on:change="handleMenuOnCheck" type="checkbox" id="menu" class="peer hidden"/>
