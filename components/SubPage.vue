@@ -12,6 +12,7 @@
                 >
                     <i class="text-xl mr-0.5 fa-solid fa-angle-left"></i>
                 </button>
+                <div v-if="step !== null" v-bind:style="`width: ${ (step / stepTotal) * 100 }%`" class="absolute z-10 left-0 -bottom-0.5 h-0.5 bg-orange-f6 duration-200"></div>
             </div>
             <div class="w-full flex justify-center">
                 <slot></slot>
@@ -28,6 +29,16 @@
             required: false,
             default: "",
         },
+        step: {
+            type: Number,
+            required: false,
+            default: null,
+        },
+        stepTotal: {
+            type: Number,
+            required: false,
+            default: 1
+        }
     });
 
     const handleClick = props.handleClose ? props.handleClose : () => { return }

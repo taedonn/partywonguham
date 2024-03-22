@@ -3,7 +3,7 @@
         <div class="w-[48rem]">
             <div class="msg-wrap relative lg:h-52 flex flex-col lg:flex-row items-center lg:justify-end gap-4 lg:gap-0 p-5 rounded-xl bg-orange-fe">
                 <div class="msg relative lg:absolute lg:left-80 lg:top-10 px-5 lg:px-6 py-3 text-sm text-center lg:text-left leading-normal rounded-full text-white bg-orange-f6 before:bg-orange-f6 after:bg-orange-fe">
-                    피드백이나 문의 사항이 있다면 알려주세요.<br/>
+                    피드백이나 문의 사항이 있으시면 알려주세요.<br/>
                     최대한 빠른 시일 내에 답변 드릴게요.
                 </div>
                 <img src="/img/3d_feedback.png" alt="피드백 이미지" class="max-w-full w-60 lg:w-auto h-full lg:h-64 lg:absolute left-20 bottom-0"/>
@@ -14,7 +14,7 @@
                 <div class="w-full my-5 flex">
                     <label for="email" class="w-32 lg:w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">이메일 주소 <span class="ml-0.5 text-red-e">*</span></label>
                     <div class="w-full">
-                        <input v-on:input="onEmailChange" id="email" type="text" placeholder="example@example.com" class="w-full px-3 py-2.5 border border-gray-9 placeholder-gray-9"/>
+                        <input v-on:input="onEmailChange" id="email" type="text" placeholder="example@example.com" class="w-full px-3 py-2.5 border border-gray-6 placeholder-gray-9"/>
                         <div v-if="states.emailState !== ''" class="w-full mt-2 text-xs text-red-e">{{ 
                             states.emailState === "empty"
                                 ? "이메일을 입력해 주세요."
@@ -27,12 +27,12 @@
                     <div class="w-32 lg:w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">문의 분류 <span class="ml-0.5 text-red-e">*</span></div>
                     <div class="w-full flex flex-col">
                         <input v-on:change="onCategoryChange" type="checkbox" id="category" class="hidden peer"/>
-                        <label for="category" v-on:mousedown="onMouseDown" class="border-gray-9 category-select select group relative w-full px-4 py-2.5 cursor-pointer border placeholder-gray-9">
+                        <label for="category" v-on:mousedown="onMouseDown" class="category-select select group relative w-full px-4 py-2.5 cursor-pointer border border-gray-6 placeholder-gray-9">
                             <div class="select relative w-full select-none">
                                 {{ states.category }}
                                 <i class="select peer-checked:group-[]:rotate-180 fa-solid fa-angle-down absolute right-1 top-1/2 -translate-y-1/2"></i>
                             </div>
-                            <ul v-if="states.categoryShow" id="category-select" class="select w-[calc(100%+2px)] h-32 overflow-y-auto py-2 absolute z-10 -left-px top-[2.875rem] border border-gray-9 bg-white">
+                            <ul v-if="states.categoryShow" id="category-select" class="select w-[calc(100%+2px)] h-32 overflow-y-auto py-2 absolute z-10 -left-px top-[2.875rem] border border-gray-6 bg-white">
                                 <li v-on:click="onCategoryClick" data-option="일반 문의" class="select select-none w-full px-4 py-1 lg:hover:bg-orange-fe">일반 문의</li>
                                 <li v-on:click="onCategoryClick" data-option="오류 제보" class="select select-none w-full px-4 py-1 lg:hover:bg-orange-fe">오류 제보</li>
                                 <li v-on:click="onCategoryClick" data-option="알림 수신 불가" class="select select-none w-full px-4 py-1 lg:hover:bg-orange-fe">알림 수신 불가</li>
@@ -49,7 +49,7 @@
                 <div class="w-full my-5 flex">
                     <label for="title" class="w-32 lg:w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">문의 제목 <span class="ml-0.5 text-red-e">*</span></label>
                     <div class="w-full">
-                        <input v-on:input="onTitleChange" id="title" type="text" placeholder="제목을 입력해 주세요 (20자 이내)" maxlength="20" class="w-full px-4 py-2.5 border border-gray-9 placeholder-gray-9"/>
+                        <input v-on:input="onTitleChange" id="title" type="text" placeholder="제목을 입력해 주세요 (20자 이내)" maxlength="20" class="w-full px-4 py-2.5 border border-gray-6 placeholder-gray-9"/>
                         <div v-if="states.titleState !== ''" class="w-full mt-2 text-xs text-red-e">{{ 
                             states.titleState === "empty" && "제목을 입력해 주세요."
                         }}</div>
@@ -58,22 +58,24 @@
                 <div class="w-full h-px bg-gray-d"></div>
                 <div class="w-full my-5 flex">
                     <label for="content" class="w-32 lg:w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">문의 내용</label>
-                    <textarea v-on:input="onContentChange" id="content" class="w-full h-60 px-4 py-2.5 border border-gray-9 placeholder-gray-9"></textarea>
+                    <textarea v-on:input="onContentChange" id="content" class="w-full h-60 px-4 py-2.5 border border-gray-6 placeholder-gray-9"></textarea>
                 </div>
                 <div class="w-full h-px bg-gray-4"></div>
                 <div class="text-base mt-12">개인정보 수집·이용에 대한 안내</div>
                 <div class="font-semibold mt-3">(필수) 개인정보 수집·이용에 대한 안내</div>
                 <div class="mt-8 text-gray-6">파티원 구함은 이용자 문의를 처리하기 위해 다음과 같이 개인정보를 수집 및 이용하며, 이용자의 개인정보를 안전하게 취급하는데 최선을 다하고 있습니다.</div>
-                <div class="mt-8 text-sm border-y-2 border-gray-d text-gray-6">
-                    <div class="w-full flex border-b border-gray-d">
-                        <div class="w-1/3 p-4">수집 항목</div>
-                        <div class="w-1/3 p-4 border-l border-gray-d">수집 목적</div>
-                        <div class="w-1/3 p-4 border-l border-gray-d">보유 기간</div>
+                <div class="flex flex-col lg:flex-row mt-8 border-y-2 border-gray-d text-gray-6">
+                    <div class="w-full lg:w-1/3 flex lg:block lg:border-r border-b lg:border-b-0 border-gray-d">
+                        <div class="w-32 lg:w-full p-4 border-r lg:border-r-0 lg:border-b border-gray-d">수집 항목</div>
+                        <div class="w-full p-4">이메일 주소</div>
                     </div>
-                    <div class="w-full flex">
-                        <div class="w-1/3 p-4">이메일 주소</div>
-                        <div class="w-1/3 p-4 border-l border-gray-d">문의・요청・불편 사항 확인 및 처리결과 회신</div>
-                        <div class="w-1/3 p-4 border-l border-gray-d">6개월</div>
+                    <div class="w-full lg:w-1/3 flex lg:block lg:border-r border-b lg:border-b-0 border-gray-d">
+                        <div class="w-32 lg:w-full p-4 border-r lg:border-r-0 lg:border-b border-gray-d">수집 목적</div>
+                        <div class="w-full p-4">문의・요청・불편 사항 확인 및 처리결과 회신</div>
+                    </div>
+                    <div class="w-full lg:w-1/3 flex lg:block border-b lg:border-b-0 border-gray-d">
+                        <div class="w-32 lg:w-full p-4 border-r lg:border-r-0 lg:border-b border-gray-d">보유 기간</div>
+                        <div class="w-full p-4">6개월</div>
                     </div>
                 </div>
                 <div class="mt-8 text-gray-6">

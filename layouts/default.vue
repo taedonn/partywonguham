@@ -3,6 +3,7 @@
         <Header></Header>
         <slot></slot>
         <Footer></Footer>
+        <Tooltip/>
     </div>
 </template>
 

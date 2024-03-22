@@ -98,7 +98,6 @@
                 </div>
             </div>
         </div>
-        <Tooltip/>
     </main>
 </template>
 

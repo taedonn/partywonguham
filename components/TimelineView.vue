@@ -6,7 +6,7 @@
                 <div class="font-semibold">{{ (date.getMonth() + 1) + "." + date.getDate() }}</div>
             </div>
         </div>
-        <div class="w-full h-fit flex rounded-lg border border-gray-9 overflow-hidden">
+        <div class="w-full h-fit flex rounded-lg border border-gray-6 overflow-hidden">
             <div class="flex flex-col shrink-0">
                 <div v-for="time in times" class="w-14 h-12 text-xs text-left pl-2 pt-2 border-dashed border-r border-t first:border-t-0 border-orange-fc">
                     {{

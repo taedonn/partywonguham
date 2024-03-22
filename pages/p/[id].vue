@@ -62,8 +62,8 @@
                         파티원님을 어떻게<br/>
                         부르면 되나요?
                     </h2>
-                    <h3 class="mt-4 mb-12">이름은 20자 내외로 적어주세요</h3>
-                    <input type="text" placeholder="ex) 박티원" v-on:input="handleSubPageNameChange" id="user-name" maxlength="20" v-bind:class="`${states.subPageNameState.type === 'error' ? 'animate-shake' : ''} w-full px-4 py-2.5 border rounded-lg border-gray-9 placeholder-gray-9`"/>
+                    <h3 class="mt-4 mb-12">이름은 20자 이내로 적어주세요</h3>
+                    <input type="text" placeholder="ex) 박티원" v-on:input="handleSubPageNameChange" id="user-name" maxlength="20" v-bind:class="`${states.subPageNameState.type === 'error' ? 'animate-shake' : ''} w-full px-4 py-2.5 border rounded-lg border-gray-6 placeholder-gray-9`"/>
                     <div v-if="states.subPageNameState.type === 'error'" class="mt-2 text-xs text-left text-red-e">
                         {{ states.subPageNameState.msg }}
                     </div>
@@ -79,10 +79,8 @@
                     :state="states.subPageTimeState"
                     :onStateChange="handleSubPageTimeStateChange"
                 />
-                <div class="mt-6 flex gap-2">
-                    <div class="w-full h-12">
-                        <Button :click="handleSubPageCreate" :icon="'bi bi-check-circle'" fill>선택하기</Button>
-                    </div>
+                <div class="w-full h-12 mt-6">
+                    <Button :click="handleSubPageCreate" :icon="'bi bi-check-circle'" fill>선택하기</Button>
                 </div>
             </div>
         </SubPage>
