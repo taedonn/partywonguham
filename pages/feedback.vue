@@ -64,7 +64,7 @@
                 <div class="text-base mt-12">개인정보 수집·이용에 대한 안내</div>
                 <div class="font-semibold mt-3">(필수) 개인정보 수집·이용에 대한 안내</div>
                 <div class="mt-8 text-gray-6">파티원 구함은 이용자 문의를 처리하기 위해 다음과 같이 개인정보를 수집 및 이용하며, 이용자의 개인정보를 안전하게 취급하는데 최선을 다하고 있습니다.</div>
-                <div class="mt-8 border-y-2 border-gray-d text-gray-6">
+                <div class="mt-8 text-sm border-y-2 border-gray-d text-gray-6">
                     <div class="w-full flex border-b border-gray-d">
                         <div class="w-1/3 p-4">수집 항목</div>
                         <div class="w-1/3 p-4 border-l border-gray-d">수집 목적</div>
