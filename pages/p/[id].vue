@@ -6,15 +6,15 @@
                     <h2 class="text-2xl font-bold">{{ data.title }}</h2>
                 </div>
                 <div class="shrink-0 mt-4 flex gap-4">
-                    <!-- <button v-on:click="handleReset" class="w-fit flex items-center gap-2 mb-1 lg:hover:text-blue-5 duration-200">
+                    <!-- <button v-on:click="handleReset" class="w-fit flex items-center gap-2 mb-1 lg:hover:text-orange-f6 duration-200">
                         <i class="bi bi-plus-circle text-sm"></i>
                         리셋하기
                     </button> -->
-                    <button v-on:click="handleSubPageShow" class="w-fit flex items-center gap-2 mb-1 lg:hover:text-blue-5 duration-200">
+                    <button v-on:click="handleSubPageShow" class="w-fit flex items-center gap-2 mb-1 lg:hover:text-orange-f6 duration-200">
                         <i class="bi bi-plus-circle text-sm"></i>
                         시간 선택하기
                     </button>
-                    <button v-on:click="copyLink" v-bind:class="`${states.copyLink ? 'text-blue-5' : 'text-black-3'} w-fit flex items-center gap-2 mb-1 lg:hover:text-blue-5 duration-200`">
+                    <button v-on:click="copyLink" v-bind:class="`${states.copyLink ? 'text-orange-f6' : 'text-black-3'} w-fit flex items-center gap-2 mb-1 lg:hover:text-orange-f6 duration-200`">
                         <i v-bind:class="`${states.copyLink ? 'bi bi-check-lg' : 'bi bi-copy'} text-sm`"></i>
                         링크 복사하기
                     </button>
@@ -28,7 +28,7 @@
                                 v-bind:class="`${
                                     states.selectedPartywons.length !== 0 && !states.selectedPartywons.includes(partywon.name)
                                     ? 'border-gray-c text-gray-c'
-                                    : 'border-blue-5 text-blue-5'
+                                    : 'border-orange-f6 text-orange-f6'
                                 } px-3 py-1 border rounded-lg duration-200`"
                             >
                                 {{ partywon.name }}

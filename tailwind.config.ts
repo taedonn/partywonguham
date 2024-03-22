@@ -23,6 +23,10 @@ export default {
         'blue-1': '#1B73E7',
         'red-e': '#EB4D3E',
         'yellow-f': '#FFD43B',
+        'orange-fe': '#FFE2D9',
+        'orange-fc': '#FFC5B3',
+        'orange-f6': '#FF6E40',
+        'orange-f3': '#FF3D00'
       },
       animation: {
         "fade-in": "fade-in 0.2s 1 both",

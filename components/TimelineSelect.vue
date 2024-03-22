@@ -8,7 +8,7 @@
     <div v-bind:class="`${state.type === 'error' ? 'animate-shake' : ''} w-full rounded-lg border border-gray-9 overflow-hidden`">
         <div class="w-full h-fit flex">
             <div class="flex flex-col shrink-0">
-                <div v-for="time in times" class="w-14 h-12 last:h-[calc(3rem+2px)] text-xs text-left pl-2 pt-2 border-dashed border-r border-t first:border-t-0 border-blue-c">
+                <div v-for="time in times" class="w-14 h-12 last:h-[calc(3rem+2px)] text-xs text-left pl-2 pt-2 border-dashed border-r border-t first:border-t-0 border-orange-fc">
                     {{
                         Number(time) < 12
                             ? time + " AM"
@@ -20,7 +20,7 @@
             </div>
             <div class="w-full flex overflow-hidden">
                 <!-- 선택 화면 -->
-                <div v-for="table, idx in tables" class="w-full h-full flex flex-col border-dashed border-r last:border-r-0 border-blue-c">
+                <div v-for="table, idx in tables" class="w-full h-full flex flex-col border-dashed border-r last:border-r-0 border-orange-fc">
                     <div v-for="time in table.times" class="group w-full h-6 first:h-[calc(1.5rem+1px)] relative flex flex-col">
                         <input
                             type="checkbox"
@@ -29,12 +29,12 @@
                         />
                         <div
                             v-bind:data-time="`time-${idx}-${time.time}`"
-                            class="w-full h-full group-last:h-[calc(100%+1px)] absolute z-10 bottom-0 group-last:-bottom-px cursor-[row-resize] duration-200 peer-checked:bg-blue-5 lg:hover:bg-blue-5/50"
+                            class="w-full h-full group-last:h-[calc(100%+1px)] absolute z-10 bottom-0 group-last:-bottom-px cursor-[row-resize] duration-200 peer-checked:bg-orange-f6 lg:hover:bg-orange-f6/50"
                             @mouseover="onMouseOver"
                             @mousedown="onMouseDown"
                             @mouseup="onMouseUp"
                         ></div>
-                        <div class="group-last:hidden w-full h-px absolute z-20 bottom-0 border-b group-odd:border-dashed cursor-[row-resize] border-blue-c"></div>
+                        <div class="group-last:hidden w-full h-px absolute z-20 bottom-0 border-b group-odd:border-dashed cursor-[row-resize] border-orange-fc"></div>
                     </div>
                 </div>
             </div>

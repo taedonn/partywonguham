@@ -7,8 +7,8 @@
             </div>
         </div>
         <div class="flex gap-2">
-            <NuxtLink to='/privacy' class="lg:hover:text-blue-5 lg:hover:underline">개인정보 처리방침</NuxtLink>
-            <NuxtLink to='https://github.com/taedonn/partywonguham' target="_blank" rel="noopener" class="lg:hover:text-blue-5 lg:hover:underline">깃허브</NuxtLink>
+            <NuxtLink to='/privacy' class="lg:hover:text-orange-f6 lg:hover:underline">개인정보 처리방침</NuxtLink>
+            <NuxtLink to='https://github.com/taedonn/partywonguham' target="_blank" rel="noopener" class="lg:hover:text-orange-f6 lg:hover:underline">깃허브</NuxtLink>
         </div>
     </footer>
     <div class="w-full h-20"></div>

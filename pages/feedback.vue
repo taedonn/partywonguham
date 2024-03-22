@@ -1,8 +1,8 @@
 <template>
     <main class="w-full flex justify-center px-5 lg:px-0 pt-5 lg:pt-24 pb-24 leading-relaxed text-black-3">
         <div class="w-[48rem]">
-            <div class="msg-wrap relative lg:h-52 flex flex-col lg:flex-row items-center lg:justify-end gap-4 lg:gap-0 p-5 rounded-xl bg-blue-c">
-                <div class="msg relative lg:absolute lg:left-80 lg:top-10 px-5 lg:px-6 py-3 text-sm text-center lg:text-left leading-normal rounded-full text-white bg-blue-5 before:bg-blue-5 after:bg-blue-c">
+            <div class="msg-wrap relative lg:h-52 flex flex-col lg:flex-row items-center lg:justify-end gap-4 lg:gap-0 p-5 rounded-xl bg-orange-fe">
+                <div class="msg relative lg:absolute lg:left-80 lg:top-10 px-5 lg:px-6 py-3 text-sm text-center lg:text-left leading-normal rounded-full text-white bg-orange-f6 before:bg-orange-f6 after:bg-orange-fe">
                     피드백이나 문의 사항이 있다면 알려주세요.<br/>
                     최대한 빠른 시일 내에 답변 드릴게요.
                 </div>
@@ -33,11 +33,11 @@
                                 <i class="select peer-checked:group-[]:rotate-180 fa-solid fa-angle-down absolute right-1 top-1/2 -translate-y-1/2"></i>
                             </div>
                             <ul v-if="states.categoryShow" id="category-select" class="select w-[calc(100%+2px)] h-32 overflow-y-auto py-2 absolute z-10 -left-px top-[2.875rem] border border-gray-9 bg-white">
-                                <li v-on:click="onCategoryClick" data-option="일반 문의" class="select select-none w-full px-4 py-1 lg:hover:bg-blue-e">일반 문의</li>
-                                <li v-on:click="onCategoryClick" data-option="오류 제보" class="select select-none w-full px-4 py-1 lg:hover:bg-blue-e">오류 제보</li>
-                                <li v-on:click="onCategoryClick" data-option="알림 수신 불가" class="select select-none w-full px-4 py-1 lg:hover:bg-blue-e">알림 수신 불가</li>
-                                <li v-on:click="onCategoryClick" data-option="개선·제안 사항" class="select select-none w-full px-4 py-1 lg:hover:bg-blue-e">개선·제안 사항</li>
-                                <li v-on:click="onCategoryClick" data-option="이메일 정보 삭제" class="select select-none w-full px-4 py-1 lg:hover:bg-blue-e">이메일 정보 삭제</li>
+                                <li v-on:click="onCategoryClick" data-option="일반 문의" class="select select-none w-full px-4 py-1 lg:hover:bg-orange-fe">일반 문의</li>
+                                <li v-on:click="onCategoryClick" data-option="오류 제보" class="select select-none w-full px-4 py-1 lg:hover:bg-orange-fe">오류 제보</li>
+                                <li v-on:click="onCategoryClick" data-option="알림 수신 불가" class="select select-none w-full px-4 py-1 lg:hover:bg-orange-fe">알림 수신 불가</li>
+                                <li v-on:click="onCategoryClick" data-option="개선·제안 사항" class="select select-none w-full px-4 py-1 lg:hover:bg-orange-fe">개선·제안 사항</li>
+                                <li v-on:click="onCategoryClick" data-option="이메일 정보 삭제" class="select select-none w-full px-4 py-1 lg:hover:bg-orange-fe">이메일 정보 삭제</li>
                             </ul>
                         </label>
                         <div v-if="states.categoryState !== ''" class="w-full mt-2 text-xs text-red-e">{{ 
@@ -78,13 +78,13 @@
                 </div>
                 <div class="mt-8 text-gray-6">
                     위 동의를 거부 할 권리가 있으며, 동의를 거부하실 경우 문의 처리 및 결과 회신이 제한됩니다.<br class="hidden sm:block"/>
-                    더 자세한 내용에 대해서는 <NuxtLink href="/privacy" class="underline underline-offset-2 font-semibold text-black-3 lg:hover:text-blue-5">개인정보 처리방침</NuxtLink>을 참고하시기 바랍니다.
+                    더 자세한 내용에 대해서는 <NuxtLink href="/privacy" class="underline underline-offset-2 font-semibold text-black-3 lg:hover:text-orange-f6">개인정보 처리방침</NuxtLink>을 참고하시기 바랍니다.
                 </div>
                 <div class="mt-10 flex items-center gap-2 text-black-3">
                     <input v-on:change="onCheck" v-bind:checked="states.agree" id="check" type="checkbox" class="peer hidden"/>
                     <label for="check" class="group w-5 h-5 flex justify-center items-center text-lg cursor-pointer">
                         <i class="peer-checked:group-[]:hidden block fa-regular fa-square-check"></i>
-                        <i class="peer-checked:group-[]:block hidden text-blue-5 fa-solid fa-square-check"></i>
+                        <i class="peer-checked:group-[]:block hidden text-orange-f6 fa-solid fa-square-check"></i>
                     </label>
                     <div class="mb-0.5">위 내용에 동의합니다.</div>
                 </div>

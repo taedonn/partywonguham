@@ -8,7 +8,7 @@
         </div>
         <div class="w-full h-fit flex rounded-lg border border-gray-9 overflow-hidden">
             <div class="flex flex-col shrink-0">
-                <div v-for="time in times" class="w-14 h-12 text-xs text-left pl-2 pt-2 border-dashed border-r border-t first:border-t-0 border-blue-c">
+                <div v-for="time in times" class="w-14 h-12 text-xs text-left pl-2 pt-2 border-dashed border-r border-t first:border-t-0 border-orange-fc">
                     {{
                         Number(time) < 12
                             ? time + " AM"
@@ -20,20 +20,20 @@
             </div>
             <div class="w-full flex overflow-hidden">
                 <!-- 볼 화면 -->
-                <div v-for="table, idx in tables" class="w-full h-full flex flex-col border-dashed border-r last:border-r-0 border-blue-c">
+                <div v-for="table, idx in tables" class="w-full h-full flex flex-col border-dashed border-r last:border-r-0 border-orange-fc">
                     <div v-for="time in table.times" class="group w-full h-6 first:h-[calc(1.5rem+1px)] last:h-[calc(1.5rem-1px)] relative flex justify-center items-center">
                         <div
                             v-bind:style="`opacity: ${time.selected.length >= capacity ? capacity / capacity : time.selected.length / capacity}`"
-                            v-bind:class="`w-full h-full absolute z-10 bottom-0 bg-blue-5 duration-200`"
+                            v-bind:class="`w-full h-full absolute z-10 bottom-0 bg-orange-f6 duration-200`"
                         >
                         </div>
                         <input type="radio" name="time-radio" v-bind:id="`time-${idx}-${time.time}`" @change="e => onChange(e, time)" class="time-radio peer hidden">
                         <label
                             v-if="time.selected.length !== 0"
                             v-bind:for="`time-${idx}-${time.time}`"
-                            class="time-option peer-checked:bg-blue-3 peer-checked:opacity-100 w-full h-full absolute z-10 bottom-0 opacity-20 cursor-pointer group-hover:bg-blue-5 duration-200"
+                            class="time-option peer-checked:bg-orange-f3 peer-checked:opacity-100 w-full h-full absolute z-10 bottom-0 opacity-20 cursor-pointer group-hover:bg-orange-f6 duration-200"
                         ></label>
-                        <div class="group-last:hidden w-full h-px absolute z-20 bottom-0 border-b group-odd:border-dashed border-blue-c"></div>
+                        <div class="group-last:hidden w-full h-px absolute z-20 bottom-0 border-b group-odd:border-dashed border-orange-fc"></div>
                         <i v-if="time.selected.length >= capacity" class="fa-solid fa-star relative z-10 mb-0.5 text-[0.625rem] text-yellow-f"></i>
                     </div>
                 </div>
