@@ -1,6 +1,9 @@
 <template>
     <main class="w-full flex justify-center px-5 lg:px-0 py-24 text-black-3">
-        <div v-if="!states.query" class="w-full max-w-[22.5rem]">
+        <div
+            v-if="!states.query && states.query !== '2' && states.query !== '3'"
+            class="w-full max-w-[22.5rem]"
+        >
             <SubPage
                 :handleClose="handleStep"
                 title="약속 잡기"
@@ -90,4 +93,8 @@
         states.title = el.value;
         states.titleState = { type: "", msg: "" };
     }
+
+    onMounted(() => {
+        
+    });
 </script>
