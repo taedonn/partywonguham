@@ -110,7 +110,7 @@
                     <h2 class="font-bold text-2xl leading-normal">
                         알림을 받으시겠어요?
                     </h2>
-                    <h3 class="mt-4 mb-12">인원이 채워지면 알림을 보내요.</h3>
+                    <h3 class="mt-4 mb-12">인원이 채워지면 알림을 보내요</h3>
                     <div class="w-full mt-2 flex items-center gap-2">
                         <input type="radio" name="email" id="allow-email" v-on:change="handleEmail" v-bind:checked="states.allowEmail" class="peer hidden"/>
                         <label for="allow-email" class="group w-full h-11 px-4 gap-2 flex items-center cursor-pointer rounded-lg border border-gray-6 peer-checked:border-orange-f6 selection:bg-transparent">
