@@ -86,7 +86,7 @@
                         <i class="peer-checked:group-[]:hidden block fa-regular fa-square-check"></i>
                         <i class="peer-checked:group-[]:block hidden text-orange-f6 fa-solid fa-square-check"></i>
                     </label>
-                    <div class="mb-0.5">위 내용에 동의합니다.</div>
+                    <div class="mb-px">위 내용에 동의합니다.</div>
                 </div>
                 <div v-if="states.agreeState.type === 'error'" class="w-full mt-2 text-xs text-red-e">
                     {{ states.agreeState.msg }}

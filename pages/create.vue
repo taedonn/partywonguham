@@ -5,12 +5,12 @@
             :total="4"
         />
         <div
-            v-if="!states.query && states.query !== '2' && states.query !== '3'"
+            v-if="!states.query && states.query !== '2' && states.query !== '3' && states.query !== '4' && states.query !== '5'"
             class="w-full max-w-[22.5rem]"
         >
             <SubPage
                 :handleClose="handleStepBack"
-                title="약속 잡기"
+                title="제목 설정"
             >
                 <div class="w-full text-center">
                     <h2 class="font-bold text-2xl leading-normal">
@@ -33,16 +33,26 @@
         >
             <SubPage
                 :handleClose="handleStepBack"
-                title="약속 잡기"
+                title="인원수 설정"
             >
                 <div class="w-full text-center">
                     <h2 class="font-bold text-2xl leading-normal">
                         몇 명이 참석하나요?
                     </h2>
                     <h3 class="mt-4 mb-12">참석할 인원을 숫자로 적어주세요</h3>
-                    <input type="number" placeholder="ex) 4" v-bind:value="states.capacity" v-on:input="handleCapacityChange" id="capacity" ref="capacity" maxlength="4" v-bind:class="`${states.capacityState.type === 'error' ? 'animate-shake' : ''} w-full px-4 py-2.5 border rounded-lg border-gray-6 placeholder-gray-9`"/>
+                    <input type="number" placeholder="ex) 4" v-bind:value="states.capacity" v-bind:disabled="states.allowCapacity" v-on:input="handleCapacityChange" id="capacity" ref="capacity" maxlength="3" v-bind:class="`${states.capacityState.type === 'error' ? 'animate-shake' : ''} w-full px-4 py-2.5 border rounded-lg border-gray-6 disabled:border-gray-c placeholder-gray-9`"/>
                     <div v-if="states.capacityState.type === 'error'" class="mt-2 text-xs text-left text-red-e">
                         {{ states.capacityState.msg }}
+                    </div>
+                    <div class="w-full mt-2 flex items-center gap-2">
+                        <input type="checkbox" id="allow-capacity" v-on:change="handleCapacityCheck" v-bind:checked="states.allowCapacity" class="peer hidden"/>
+                        <label for="allow-capacity" class="group w-full h-11 px-4 gap-2 flex items-center cursor-pointer rounded-lg border border-gray-6 peer-checked:border-orange-f6 selection:bg-transparent">
+                            <div class="text-lg">
+                                <i class="peer-checked:group-[]:hidden block fa-regular fa-square-check"></i>
+                                <i class="peer-checked:group-[]:block hidden text-orange-f6 fa-solid fa-square-check"></i>
+                            </div>
+                            상관 없어요.
+                        </label>
                     </div>
                     <div class="w-full h-12 mt-4">
                         <Button :click="handleStepForward" fill>다음으로</Button>
@@ -56,15 +66,73 @@
         >
             <SubPage
                 :handleClose="handleStepBack"
-                title="약속 잡기"
+                title="날짜 선택"
             >
                 <div class="w-full text-center">
                     <h2 class="font-bold text-2xl leading-normal">
                         캘린더
                     </h2>
-                    <h3 class="mt-4 mb-12">약속할 날짜</h3>
+                    <h3 class="mt-4 mb-12">약속 날짜</h3>
                     <div class="w-full h-12 mt-4">
                         <Button :click="handleStepForward" fill>다음으로</Button>
+                    </div>
+                </div>
+            </SubPage>
+        </div>
+        <div
+            v-if="states.query === '4'"
+            class="w-full max-w-[22.5rem]"
+        >
+            <SubPage
+                :handleClose="handleStepBack"
+                title="시간 선택"
+            >
+                <div class="w-full text-center">
+                    <h2 class="font-bold text-2xl leading-normal">
+                        시간 선택
+                    </h2>
+                    <h3 class="mt-4 mb-12">약속 시간</h3>
+                    <div class="w-full h-12 mt-4">
+                        <Button :click="handleStepForward" fill>다음으로</Button>
+                    </div>
+                </div>
+            </SubPage>
+        </div>
+        <div
+            v-if="states.query === '5'"
+            class="w-full max-w-[22.5rem]"
+        >
+            <SubPage
+                :handleClose="handleStepBack"
+                title="알림 설정"
+            >
+                <div class="w-full text-center">
+                    <h2 class="font-bold text-2xl leading-normal">
+                        알림을 받으시겠어요?
+                    </h2>
+                    <h3 class="mt-4 mb-12">인원이 채워지면 알림을 보내요.</h3>
+                    <div class="w-full mt-2 flex items-center gap-2">
+                        <input type="radio" name="email" id="allow-email" v-on:change="handleEmail" v-bind:checked="states.allowEmail" class="peer hidden"/>
+                        <label for="allow-email" class="group w-full h-11 px-4 gap-2 flex items-center cursor-pointer rounded-lg border border-gray-6 peer-checked:border-orange-f6 selection:bg-transparent">
+                            <div class="text-lg">
+                                <i class="peer-checked:group-[]:hidden block fa-regular fa-square-check"></i>
+                                <i class="peer-checked:group-[]:block hidden text-orange-f6 fa-solid fa-square-check"></i>
+                            </div>
+                            받을래요.
+                        </label>
+                    </div>
+                    <div class="w-full mt-2 flex items-center gap-2">
+                        <input type="radio" name="email" id="disallow-email" v-on:change="handleEmail" class="peer hidden"/>
+                        <label for="disallow-email" class="group w-full h-11 px-4 gap-2 flex items-center cursor-pointer rounded-lg border border-gray-6 peer-checked:border-orange-f6 selection:bg-transparent">
+                            <div class="text-lg">
+                                <i class="peer-checked:group-[]:hidden block fa-regular fa-square-check"></i>
+                                <i class="peer-checked:group-[]:block hidden text-orange-f6 fa-solid fa-square-check"></i>
+                            </div>
+                            안 받을래요.
+                        </label>
+                    </div>
+                    <div class="w-full h-12 mt-4">
+                        <Button :click="handleStepForward" fill>약속 생성</Button>
                     </div>
                 </div>
             </SubPage>
@@ -87,6 +155,8 @@
         titleState: inputState,
         capacity: string,
         capacityState: inputState,
+        allowCapacity: boolean,
+        allowEmail: boolean,
     }
 
     interface inputState {
@@ -105,6 +175,8 @@
         titleState: { type: "", msg: "" },
         capacity: "",
         capacityState: { type: "", msg: "" },
+        allowCapacity: true,
+        allowEmail: true,
     });
 
     // Refs
@@ -140,13 +212,21 @@
                 router.push("/create?step=2");
             }
         } else if (states.query === "2") {
-            if (states.capacity === "") {
-                states.capacityState = { type: "error", msg: "인원수는 빈칸으로 남길 수 없어요." }
-                capacity.value.focus({ preventScroll: true });
-                window.scrollTo({ top: 0, behavior: "smooth" });
+            if (!states.allowCapacity) {
+                if (states.capacity === "") {
+                    states.capacityState = { type: "error", msg: "인원수는 빈칸으로 남길 수 없어요." }
+                    capacity.value.focus({ preventScroll: true });
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                } else {
+                    router.push("/create?step=3");
+                }
             } else {
                 router.push("/create?step=3");
             }
+        } else if (states.query === "3") {
+            router.push("/create?step=4");
+        } else if (states.query === "4") {
+            router.push("/create?step=5");
         }
     }
 
@@ -162,6 +242,21 @@
         const el = e.target as HTMLInputElement;
         states.capacity = el.value;
         states.capacityState = { type: "", msg: "" };
+    }
+
+    /** Trigger capacity check event */
+    const handleCapacityCheck = (e: Event) => {
+        const el = e.target as HTMLInputElement;
+        states.allowCapacity = el.checked;
+        states.capacityState.type = "";
+    }
+
+    /** Trigger email check event */
+    const handleEmail = (e: Event) => {
+        const el = e.target as HTMLInputElement;
+        if (el.id === "allow-email") states.allowEmail = true;
+        else states.allowEmail = false;
+        console.log(states.allowEmail);
     }
 
     const onGlobalStepForward = (e: KeyboardEvent) => {
