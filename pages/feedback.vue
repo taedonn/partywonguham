@@ -15,11 +15,9 @@
                     <label for="email" class="w-32 lg:w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">이메일 주소 <span class="ml-0.5 text-red-e">*</span></label>
                     <div class="w-full">
                         <input v-on:input="onEmailChange" id="email" type="text" placeholder="example@example.com" class="w-full px-3 py-2.5 border border-gray-6 placeholder-gray-9"/>
-                        <div v-if="states.emailState !== ''" class="w-full mt-2 text-xs text-red-e">{{ 
-                            states.emailState === "empty"
-                                ? "이메일을 입력해 주세요."
-                                : "이메일 형식이 올바르지 않아요."
-                        }}</div>
+                        <div v-if="states.emailState.type === 'error'" class="w-full mt-2 text-xs text-red-e">
+                            {{ states.emailState.msg }}
+                        </div>
                     </div>
                 </div>
                 <div class="w-full h-px bg-gray-4"></div>
@@ -40,9 +38,9 @@
                                 <li v-on:click="onCategoryClick" data-option="이메일 정보 삭제" class="select select-none w-full px-4 py-1 lg:hover:bg-orange-fe">이메일 정보 삭제</li>
                             </ul>
                         </label>
-                        <div v-if="states.categoryState !== ''" class="w-full mt-2 text-xs text-red-e">{{ 
-                            states.categoryState === "empty" && "카테고리를 선택해 주세요."
-                        }}</div>
+                        <div v-if="states.categoryState.type === 'error'" class="w-full mt-2 text-xs text-red-e">
+                            {{ states.categoryState.msg }}
+                        </div>
                     </div>
                 </div>
                 <div class="w-full h-px bg-gray-d"></div>
@@ -50,9 +48,9 @@
                     <label for="title" class="w-32 lg:w-36 h-full mt-3 pl-5 flex items-center shrink-0 font-semibold">문의 제목 <span class="ml-0.5 text-red-e">*</span></label>
                     <div class="w-full">
                         <input v-on:input="onTitleChange" id="title" type="text" placeholder="제목을 입력해 주세요 (20자 이내)" maxlength="20" class="w-full px-4 py-2.5 border border-gray-6 placeholder-gray-9"/>
-                        <div v-if="states.titleState !== ''" class="w-full mt-2 text-xs text-red-e">{{ 
-                            states.titleState === "empty" && "제목을 입력해 주세요."
-                        }}</div>
+                        <div v-if="states.titleState.type === 'error'" class="w-full mt-2 text-xs text-red-e">
+                            {{ states.titleState.msg }}
+                        </div>
                     </div>
                 </div>
                 <div class="w-full h-px bg-gray-d"></div>
@@ -90,9 +88,9 @@
                     </label>
                     <div class="mb-0.5">위 내용에 동의합니다.</div>
                 </div>
-                <div v-if="states.agreeState !== ''" class="w-full mt-2 text-xs text-red-e">{{ 
-                    states.agreeState === "disagree" && "약관에 동의해야 문의를 제출할 수 있어요."
-                }}</div>
+                <div v-if="states.agreeState.type === 'error'" class="w-full mt-2 text-xs text-red-e">
+                    {{ states.agreeState.msg }}
+                </div>
                 <div class="w-full mt-12 flex justify-end">
                     <div class="w-40 lg:w-44 h-12">
                         <Button :click="onSubmit" :isLoading="states.isLoading" fill>문의하기</Button>
@@ -115,30 +113,35 @@
     // Types
     interface States {
         email: string,
-        emailState: string,
+        emailState: InputState,
         category: string,
         categoryShow: boolean,
-        categoryState: string,
+        categoryState: InputState,
         title: string,
-        titleState: string,
+        titleState: InputState,
         content: string,
         agree: boolean,
-        agreeState: string,
+        agreeState: InputState,
         isLoading: boolean,
+    }
+
+    interface InputState {
+        type: string,
+        msg: string,
     }
 
     // States
     const states: States = reactive({
         email: "",
-        emailState: "",
+        emailState: { type: "", msg: "" },
         category: "카테고리 선택",
         categoryShow: false,
-        categoryState: "",
+        categoryState: { type: "", msg: "" },
         title: "",
-        titleState: "",
+        titleState: { type: "", msg: "" },
         content: "",
         agree: false,
-        agreeState: "",
+        agreeState: { type: "", msg: "" },
         isLoading: false,
     });
 
@@ -146,7 +149,7 @@
     const onEmailChange = (e: Event) => {
         const el = e.target as HTMLInputElement;
         states.email = el.value;
-        states.emailState = "";
+        states.emailState = { type: "", msg: "" };
     }
 
     /** Show/hide category */
@@ -159,14 +162,14 @@
     const onCategoryClick = (e: Event) => {
         const el = e.target as HTMLLIElement;
         states.category = el.getAttribute("data-option") + "";
-        states.categoryState = "";
+        states.categoryState = { type: "", msg: "" };
     }
 
     /** Title change event */
     const onTitleChange = (e: Event) => {
         const el = e.target as HTMLInputElement;
         states.title = el.value;
-        states.titleState = "";
+        states.titleState = { type: "", msg: "" };
     }
 
     /** Content change event */
@@ -179,7 +182,7 @@
     const onCheck = (e: Event) => {
         const el = e.target as HTMLInputElement;
         states.agree = el.checked;
-        if (el.checked) states.agreeState = "";
+        if (el.checked) states.agreeState = { type: "", msg: "" };
     }
 
     /** Show/hide category on mousedown */
@@ -201,19 +204,23 @@
         const agree = document.getElementById("check") as HTMLInputElement;
 
         if (states.email === "") {
-            states.emailState = "empty";
+            states.emailState = { type: "error", msg: "이메일을 입력해 주세요." };
+            email.focus({ preventScroll: true });
             window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
         } else if (!emailValidChk(states.email)) {
-            states.emailState = "invalid";
+            states.emailState = { type: "error", msg: "이메일 형식이 올바르지 않아요." };
+            email.focus({ preventScroll: true });
             window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
         } else if (states.category === "카테고리 선택") {
-            states.categoryState = "empty";
+            states.categoryState = { type: "error", msg: "카테고리를 선택해 주세요." };
             window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
         } else if (states.title === "") {
-            states.titleState = "empty";
+            states.titleState = { type: "error", msg: "제목을 입력해 주세요." };
+            title.focus({ preventScroll: true });
             window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
         } else if (!states.agree) {
-            states.agreeState = "disagree";
+            states.agreeState = { type: "error", msg: "약관에 동의해야 문의를 제출할 수 있어요." };
+            window.scrollTo({ top: document.body.offsetHeight, behavior: "smooth" });
         } else {
             states.isLoading = true;
 
@@ -246,12 +253,18 @@
         }
     }
 
+    const onGlobalSubmit = (e: KeyboardEvent) => {
+        if (e.key === "Enter") onSubmit();
+    }
+
     onMounted(() => {
         window.addEventListener("mousedown", onMouseDown);
+        window.addEventListener("keydown", onGlobalSubmit);
     });
 
     onUnmounted(() => {
         window.removeEventListener("mousedown", onMouseDown);
+        window.removeEventListener("keydown", onGlobalSubmit);
     });
 </script>
 

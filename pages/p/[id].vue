@@ -63,7 +63,7 @@
                         부르면 되나요?
                     </h2>
                     <h3 class="mt-4 mb-12">이름은 20자 이내로 적어주세요</h3>
-                    <input type="text" placeholder="ex) 박티원" v-on:input="handleSubPageNameChange" id="user-name" maxlength="20" v-bind:class="`${states.subPageNameState.type === 'error' ? 'animate-shake' : ''} w-full px-4 py-2.5 border rounded-lg border-gray-6 placeholder-gray-9`"/>
+                    <input type="text" placeholder="ex) 박티원" v-on:input="handleSubPageNameChange" id="name" ref="name" maxlength="20" v-bind:class="`${states.subPageNameState.type === 'error' ? 'animate-shake' : ''} w-full px-4 py-2.5 border rounded-lg border-gray-6 placeholder-gray-9`"/>
                     <div v-if="states.subPageNameState.type === 'error'" class="mt-2 text-xs text-left text-red-e">
                         {{ states.subPageNameState.msg }}
                     </div>
@@ -134,19 +134,6 @@
     const route = useRoute();
     const router = useRouter();
 
-    // Watch queries
-    watch(() => route.query, async () => {
-        handleQuery(route.query);
-    });
-    
-    const handleQuery = (query: LocationQuery) => {
-        states.query = query.create;
-        states.subPageName = "";
-        states.subPageNameState = { type: "", msg: "" };
-        states.subPageTime = [];
-        states.subPageTimeState = { type: "", msg: "" };
-    }
-
     // States
     const states: States = reactive({
         query: route.query.create,
@@ -157,6 +144,27 @@
         subPageTimeState: { type: "", msg: "" },
         copyLink: false,
     });
+
+    // Refs
+    const name = ref();
+
+    // Watch queries
+    watch(() => route.query, async () => {
+        handleQuery(route.query);
+    });
+
+    // Watch inputs
+    watch(() => name.value, async () => {
+        if (name.value) name.value.focus();
+    });
+    
+    const handleQuery = (query: LocationQuery) => {
+        states.query = query.create;
+        states.subPageName = "";
+        states.subPageNameState = { type: "", msg: "" };
+        states.subPageTime = [];
+        states.subPageTimeState = { type: "", msg: "" };
+    }
 
     // Fetch data
     const routeId = route.params.id + "";
@@ -243,17 +251,21 @@
 
     /** Trigger subpage create event */
     const handleSubPageCreate = async () => {
+        const name = document.getElementById("name") as HTMLInputElement;
+
         if (states.subPageName === "") {
             states.subPageNameState = {
                 type: "error",
                 msg: "이름은 빈칸으로 남길 수 없어요.",
             };
+            name.focus({ preventScroll: true });
             window.scrollTo({ top: 0, behavior: "smooth" });
         } else if (partywons.some((obj: Partywons) => obj.name === states.subPageName)) {
             states.subPageNameState = {
                 type: "error",
                 msg: "중복된 이름은 사용할 수 없어요."
             };
+            name.focus({ preventScroll: true });
             window.scrollTo({ top: 0, behavior: "smooth" });
         } else if (states.subPageTime.length === 0) {
             states.subPageTimeState = {
@@ -297,6 +309,18 @@
             }
         }
     }
+
+    const onGlobalSubPageCreate = (e: KeyboardEvent) => {
+        if (e.key === "Enter") handleSubPageCreate();
+    }
+
+    onMounted(() => {
+        window.addEventListener("keydown", onGlobalSubPageCreate);
+    });
+
+    onBeforeUnmount(() => {
+        window.removeEventListener("keydown", onGlobalSubPageCreate);
+    });
 
     const handleReset = async () => {
         try {
