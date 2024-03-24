@@ -35,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <Popup
+        <SubPage
             :show="show"
             :handleClick="handleShow"
             title="시간대 설정"
@@ -56,14 +56,13 @@
                 />
                 <button @click="handleShow" class="mt-8 px-4 py-2 leading-none rounded-lg border-2 border-blue-4 text-blue-4">타임라인 추가</button>
             </div>
-        </Popup>
+        </SubPage>
     </main>
 </template>
 
 <script>
 // components
 import TimelineSelect from '~/components/TimelineSelect.vue';
-import Popup from '~/components/Popup.vue';
 
 export default {
     data() {

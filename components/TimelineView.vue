@@ -1,38 +1,41 @@
 <template>
     <div class="w-full">
-        <div class="w-full h-fit flex">
-            <div class="flex flex-col shrink-0">
-                <div v-for="time in period" class="w-16 h-14 last:h-[calc(3.5rem+2px)] text-xs text-left pl-2 pt-2 border-l border-t last:border-b border-gray-9">{{ time }}</div>
-            </div>
-            <div class="w-full flex flex-col border border-gray-9 overflow-hidden">
-                <!-- 볼 화면 -->
-                <div v-for="checked in periodBlock" class=" group w-full h-7 relative flex flex-col flex-auto">
-                    <div
-                        v-bind:style="`opacity: ${checked.checked.length >= capacity ? capacity / (capacity + 1) : checked.checked.length / (capacity + 1)}`"
-                        v-bind:class="`w-full h-[calc(100%+1px)] group-first:h-full absolute z-10 bottom-0 bg-blue-5 duration-200`"
-                    >
-                    </div>
-                    <div
-                        v-if="checked.checked.length !== 0"
-                        @mouseover="onMouseOver(checked)"
-                        @mouseleave="onMouseLeave"
-                        class="w-full h-[calc(100%+1px)] group-first:h-full absolute z-10 bottom-0 group-hover:bg-blue-5 opacity-20 cursor-pointer duration-200"
-                    ></div>
-                    <div class="group-last:hidden w-full h-px absolute bottom-0 bg-gray-9"></div>
-                    <i v-if="checked.checked.length >= capacity" class="fa-solid fa-star absolute z-20 left-2 top-1/2 -translate-y-1/2 text-xs text-yellow-f"></i>
-                </div>
+        <div class="mb-2 pl-14 flex justify-center items-center text-xs">
+            <div v-for="date in datesArr" v-bind:style="`width: ${1 / datesArr.length * 100}%`" class="flex flex-col items-center gap-1">
+                <div v-bind:class="`${date.getDay() === 0 || date.getDay() === 6 ? 'text-red-e' : ''}`">{{ dayIntoWeekday(date.getDay()) }}</div>
+                <div class="font-semibold">{{ (date.getMonth() + 1) + "." + date.getDate() }}</div>
             </div>
         </div>
-        <div class="w-full mt-3">
-            <div class="flex flex-wrap gap-4 px-6 py-4 rounded-md bg-gray-f">
-                <div v-for="idx in capacity" class="flex items-center gap-1.5 relative">
-                    <div
-                        v-bind:style="`opacity: ${idx / (capacity + 1)}`"
-                        v-bind:class="`w-4 h-4 rounded-full flex justify-center items-center bg-blue-5`"
-                    >
-                        <i v-if="idx >= capacity" class="fa-solid fa-star text-[0.625rem] text-yellow-f"></i>
+        <div class="w-full h-fit flex rounded-lg border border-gray-6 overflow-hidden">
+            <div class="flex flex-col shrink-0">
+                <div v-for="time in times" class="w-14 h-12 text-xs text-left pl-2 pt-2 border-dashed border-r border-t first:border-t-0 border-orange-fc">
+                    {{
+                        Number(time) < 12
+                            ? time + " AM"
+                            : Number(time) === 12
+                                ? "12 PM"
+                                : (Number(time) - 12) + " PM"
+                    }}
+                </div>
+            </div>
+            <div class="w-full flex overflow-hidden">
+                <!-- 볼 화면 -->
+                <div v-for="table, idx in tables" class="w-full h-full flex flex-col border-dashed border-r last:border-r-0 border-orange-fc">
+                    <div v-for="time in table.times" class="group w-full h-6 first:h-[calc(1.5rem+1px)] last:h-[calc(1.5rem-1px)] relative flex justify-center items-center">
+                        <div
+                            v-bind:style="`opacity: ${time.selected.length >= capacity ? capacity / capacity : time.selected.length / capacity}`"
+                            v-bind:class="`w-full h-full absolute z-10 bottom-0 bg-orange-f6 duration-200`"
+                        >
+                        </div>
+                        <input type="radio" name="time-radio" v-bind:id="`time-${idx}-${time.time}`" @change="e => onChange(e, time)" class="time-radio peer hidden">
+                        <label
+                            v-if="time.selected.length !== 0"
+                            v-bind:for="`time-${idx}-${time.time}`"
+                            class="time-option peer-checked:bg-orange-f3 peer-checked:opacity-100 w-full h-full absolute z-10 bottom-0 opacity-20 cursor-pointer group-hover:bg-orange-f6 duration-200"
+                        ></label>
+                        <div class="group-last:hidden w-full h-px absolute z-20 bottom-0 border-b group-odd:border-dashed border-orange-fc"></div>
+                        <i v-if="time.selected.length >= capacity" class="fa-solid fa-star relative z-10 mb-0.5 text-[0.625rem] text-yellow-f"></i>
                     </div>
-                    <div class="w-8 text-xs text-black-3">{{ idx + "명" }}</div>
                 </div>
             </div>
         </div>
@@ -40,43 +43,68 @@
 </template>
 
 <script setup lang="ts">
-    // Types
-    interface PeriodBlock {
+    interface selectedPartywon {
         time: number,
-        checked: Array<string>
+        selected: string[],
     }
 
-    interface CheckedPartywon {
-        checked: string[],
+    interface Table {
+        times: Time[]
+    }
+
+    interface Time {
         time: number,
+        selected: string[]
     }
 
     // Props
     const props = defineProps({
         capacity: Number,
-        period: Array,
-        periodBlock: Array<PeriodBlock>,
-        onMouseOver: {
+        datesArr: Array,
+        dates: Array,
+        times: Array,
+        tables: Array,
+        onCheck: {
             type: Function,
             required: true,
             default: () => {}
         },
-        onMouseLeave: {
+        onUncheck: {
             type: Function,
             required: true,
             default: () => {}
         }
     });
 
-    const capacity = props.capacity ? props.capacity : 0
-    const periodBlock = props.periodBlock ? props.periodBlock : [];
+    const capacity = props.capacity ? props.capacity : 0;
+    const datesArr = props.datesArr ? props.datesArr as Date[] : [];
+    const times = props.times ? props.times : [];
+    const tables = props.tables ? props.tables as Table[] : [];
 
-    // 호버 이벤트
-    const onMouseOver = (checkedPartywon: CheckedPartywon) => {
-        props.onMouseOver(checkedPartywon);
+    // 클릭 이벤트
+    const onChange = (e: Event, selectedPartywon: selectedPartywon) => {
+        const el = e.target as HTMLInputElement;
+        if (el.checked) {
+            props.onCheck(selectedPartywon);
+        }
     }
 
-    const onMouseLeave = () => {
-        props.onMouseLeave();
+    const onUnchange = (e: Event) => {
+        const el = e.target as HTMLElement;
+        if (!el.classList.contains("time-option")) {
+            const radio = document.getElementsByClassName("time-radio") as HTMLCollectionOf<HTMLInputElement>;
+            for (let i = 0; i < radio.length; i++) {
+                radio[i].checked = false;
+            }
+            props.onUncheck();
+        }
     }
+
+    onMounted(() => {
+        window.addEventListener("mousedown", onUnchange);
+    });
+
+    onUnmounted(() => {
+        window.removeEventListener("mousedown", onUnchange);
+    });
 </script>

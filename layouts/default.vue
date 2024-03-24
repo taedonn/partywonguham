@@ -3,11 +3,14 @@
         <Header></Header>
         <slot></slot>
         <Footer></Footer>
+        <Tooltip/>
     </div>
 </template>
 
-<script>
+<script setup>
     import '../assets/style.css';
-    import Header from '~/components/Header.vue';
-    import Footer from '~/components/Footer.vue';
+
+    useHead({
+        title: "파티원구함 - 단체 약속 시간 정하기"
+    });
 </script>

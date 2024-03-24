@@ -40,24 +40,13 @@ input, textarea {
     resize: none;
     border-radius: 0;
 }
-
-@font-face {
-    font-family: 'DNFForgedBlade';
-    font-style: normal;
-    font-weight: 300;
-    src: url('/fonts/DNFForgedBlade-Light.otf')format('opentype');
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
-@font-face {
-    font-family: 'DNFForgedBlade';
-    font-style: normal;
-    font-weight: 500;
-    src: url('/fonts/DNFForgedBlade-Medium.otf')format('opentype');
-}
-@font-face {
-    font-family: 'DNFForgedBlade';
-    font-style: normal;
-    font-weight: 700;
-    src: url('/fonts/DNFForgedBlade-Bold.otf')format('opentype');
+input[type=number] {
+    -moz-appearance: textfield;
 }
 
 @font-face {

@@ -8,7 +8,7 @@
             v-on:mousedown="onMouseDown"
             v-on:mouseup="onMouseUp"
             id="go-up-btn"
-            class="w-10 h-10 flex justify-center items-center rounded-full text-lg translate-x-16 opacity-0 duration-200 bg-black-3 lg:hover:bg-gray-4 text-white"
+            class="w-10 h-10 flex justify-center items-center rounded-full text-lg translate-x-16 opacity-0 duration-200 bg-orange-f6 lg:bg-orange-f6 text-white"
         >
             <i class="fa-solid fa-angle-up"></i>
         </button>
@@ -16,29 +16,26 @@
 </template>
 
 <script setup lang="ts">
-    // Vue
-    import { onMounted, onUnmounted } from 'vue';
-
     const goToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     const onMouseDown = (e: MouseEvent) => {
         const el = e.currentTarget as HTMLButtonElement;
-        el.classList.remove("lg:hover:bg-gray-4");
-        el.classList.add("lg:hover:bg-gray-6");
+        el.classList.remove("lg:bg-orange-f6");
+        el.classList.add("lg:bg-orange-f3");
     }
 
     const onMouseUp = (e: MouseEvent) => {
         const el = e.currentTarget as HTMLButtonElement;
-        el.classList.remove("lg:hover:bg-gray-6");
-        el.classList.add("lg:hover:bg-gray-4");
+        el.classList.remove("lg:bg-orange-f3");
+        el.classList.add("lg:bg-orange-f6");
     }
 
     const onGlobalMouseUp = () => {
         const el = document.getElementById("go-up-btn") as HTMLButtonElement;
-        el.classList.remove("lg:hover:bg-gray-6");
-        el.classList.add("lg:hover:bg-gray-4");
+        el.classList.remove("lg:bg-orange-f3");
+        el.classList.add("lg:bg-orange-f6");
     }
 
     const onGlobalScroll = () => {
