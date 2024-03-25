@@ -6,10 +6,10 @@
                     <h2 class="text-2xl font-bold">{{ data.title }}</h2>
                 </div>
                 <div class="shrink-0 mt-4 flex gap-4">
-                    <!-- <button v-on:click="handleReset" class="w-fit flex items-center gap-2 mb-1 lg:hover:text-orange-f6 duration-200">
+                    <button v-on:click="handleReset" class="w-fit flex items-center gap-2 mb-1 lg:hover:text-orange-f6 duration-200">
                         <i class="bi bi-plus-circle text-sm"></i>
                         리셋하기
-                    </button> -->
+                    </button>
                     <button v-on:click="handleSubPageShow" class="w-fit flex items-center gap-2 mb-1 lg:hover:text-orange-f6 duration-200">
                         <i class="bi bi-plus-circle text-sm"></i>
                         시간 선택하기
@@ -39,10 +39,8 @@
                 <div class="w-full mt-4">
                     <TimelineView
                         :capacity="capacity"
-                        :datesArr="datesArr"
-                        :dates="dates"
                         :times="times"
-                        :tables="tables"
+                        :tables="newTables"
                         :onCheck="handleTimeCheck"
                         :onUncheck="handleTimeUncheck"
                     />
@@ -93,7 +91,7 @@
     const toastStore = useToastStore();
 
     // Firestore
-    import { collection, setDoc, doc } from 'firebase/firestore';
+    import { collection, setDoc, doc, onSnapshot } from 'firebase/firestore';
     import type { LocationQuery, LocationQueryValue } from '#vue-router';
 
     // Load firebase collection
@@ -116,6 +114,16 @@
     }
 
     interface Times {
+        time: number,
+        selected: string[]
+    }
+
+    interface Table {
+        date: string | Date,
+        times: Time[]
+    }
+
+    interface Time {
         time: number,
         selected: string[]
     }
@@ -181,6 +189,24 @@
         capacity,
         allow_capacity
     } = data.value;
+
+    /** 테이블 나누기 */
+    const divideTables = (table: Table[], number: number) => {
+        const length = table.length;
+        const divide = Math.floor(length / number) + (Math.floor( length % number ) > 0 ? 1 : 0);
+        const arr = [];
+        for (let i = 0; i < divide; i++) {
+            arr.push(table.splice(0, number)); 
+        }
+        return arr;
+    }
+
+    /** 테이블 문자열을 날짜 객체로 변경 */
+    const tablesWithDate: Table[] = [];
+    tables.map((table: Table) => {
+        tablesWithDate.push({ date: new Date(table.date), times: table.times });
+    });
+    const newTables = divideTables(tablesWithDate, 7);
 
     /** Set date array */
     const datesArr: Date[] = [];
@@ -327,7 +353,13 @@
         if (e.key === "Enter") handleSubPageCreate();
     }
 
-    onMounted(() => {
+    onMounted(async () => {
+        // 데이터 업데이트
+        const docRef = doc(firestore, "posts", routeId);
+        onSnapshot(docRef, (snap) => {
+            data.value = snap.data();
+        });
+
         window.addEventListener("keydown", onGlobalSubPageCreate);
     });
 
@@ -347,6 +379,9 @@
                     'Sat Dec 30 2023',
                     'Sun Dec 31 2023',
                     'Mon Jan 01 2024',
+                    'Tue Jan 02 2024',
+                    'Wed Jan 03 2024',
+                    'Thu Jan 04 2024',
                 ],
                 start_time: 10,
                 end_time: 15,
@@ -355,6 +390,7 @@
                 partywons: [],
                 tables: [
                     {
+                        date: "Tue Dec 26 2023",
                         times: [
                             { time: 10, selected: [] },
                             { time: 10.5, selected: [] },
@@ -369,6 +405,7 @@
                         ]
                     },
                     {
+                        date: "Wed Dec 27 2023",
                         times: [
                             { time: 10, selected: [] },
                             { time: 10.5, selected: [] },
@@ -383,6 +420,7 @@
                         ]
                     },
                     {
+                        date: "Thu Dec 28 2023",
                         times: [
                             { time: 10, selected: [] },
                             { time: 10.5, selected: [] },
@@ -397,6 +435,7 @@
                         ]
                     },
                     {
+                        date: "Fri Dec 29 2023",
                         times: [
                             { time: 10, selected: [] },
                             { time: 10.5, selected: [] },
@@ -411,6 +450,7 @@
                         ]
                     },
                     {
+                        date: "Sat Dec 30 2023",
                         times: [
                             { time: 10, selected: [] },
                             { time: 10.5, selected: [] },
@@ -425,6 +465,7 @@
                         ]
                     },
                     {
+                        date: "Sun Dec 31 2023",
                         times: [
                             { time: 10, selected: [] },
                             { time: 10.5, selected: [] },
@@ -439,6 +480,52 @@
                         ]
                     },
                     {
+                        date: "Mon Jan 1 2024",
+                        times: [
+                            { time: 10, selected: [] },
+                            { time: 10.5, selected: [] },
+                            { time: 11, selected: [] },
+                            { time: 11.5, selected: [] },
+                            { time: 12, selected: [] },
+                            { time: 12.5, selected: [] },
+                            { time: 13, selected: [] },
+                            { time: 13.5, selected: [] },
+                            { time: 14, selected: [] },
+                            { time: 14.5, selected: [] },
+                        ]
+                    },
+                    {
+                        date: "Tue Jan 2 2024",
+                        times: [
+                            { time: 10, selected: [] },
+                            { time: 10.5, selected: [] },
+                            { time: 11, selected: [] },
+                            { time: 11.5, selected: [] },
+                            { time: 12, selected: [] },
+                            { time: 12.5, selected: [] },
+                            { time: 13, selected: [] },
+                            { time: 13.5, selected: [] },
+                            { time: 14, selected: [] },
+                            { time: 14.5, selected: [] },
+                        ]
+                    },
+                    {
+                        date: "Wed Jan 3 2024",
+                        times: [
+                            { time: 10, selected: [] },
+                            { time: 10.5, selected: [] },
+                            { time: 11, selected: [] },
+                            { time: 11.5, selected: [] },
+                            { time: 12, selected: [] },
+                            { time: 12.5, selected: [] },
+                            { time: 13, selected: [] },
+                            { time: 13.5, selected: [] },
+                            { time: 14, selected: [] },
+                            { time: 14.5, selected: [] },
+                        ]
+                    },
+                    {
+                        date: "Thu Jan 4 2024",
                         times: [
                             { time: 10, selected: [] },
                             { time: 10.5, selected: [] },

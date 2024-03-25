@@ -131,8 +131,8 @@
                             받을래요.
                         </label>
                     </div>
-                    <div v-if="states.allowEmail" class="w-full mt-2">
-                        <h3 class="mt-10 mb-4 leading-normal">이메일을 적어주세요</h3>
+                    <div v-if="states.allowEmail" class="w-full mt-10">
+                        <h3 class="mb-4 leading-normal">이메일을 적어주세요</h3>
                         <input type="text" placeholder="ex) example@example.com" v-bind:value="states.email" v-on:input="handleEmailChange" id="email" ref="email" v-bind:class="`${states.emailState.type === 'error' ? 'animate-shake' : ''} w-full px-4 py-2.5 border rounded-lg border-gray-6 placeholder-gray-9`"/>
                         <div v-if="states.emailState.type === 'error'" class="mt-2 text-xs text-left text-red-e">
                             {{ states.emailState.msg }}
@@ -163,6 +163,9 @@
         capacity: string,
         capacityState: inputState,
         allowCapacity: boolean,
+        dates: string[],
+        start_time: number,
+        end_time: number,
         allowEmail: boolean,
         email: string,
         emailState: inputState,
@@ -185,6 +188,13 @@
         capacity: "",
         capacityState: { type: "", msg: "" },
         allowCapacity: true,
+        dates: [
+            'Tue Dec 26 2023',
+            'Wed Dec 27 2023',
+            'Thu Dec 28 2023',
+        ],
+        start_time: 10,
+        end_time: 15,
         allowEmail: false,
         email: "",
         emailState: { type: "", msg: "" },
@@ -215,7 +225,7 @@
         router.go(-1);
     }
 
-    const handleStepForward = () => {
+    const handleStepForward = async () => {
         const width = window.innerWidth;
 
         if (!states.query) {
@@ -257,6 +267,7 @@
                 router.push("/create?step=5");
             } else {
                 // Init creation
+                await handleCreate();
             }
         } else if (states.query === "5") {
             if (states.allowEmail) {
@@ -272,9 +283,11 @@
                     }
                 } else {
                     // Init creation
+                    await handleCreate();
                 }
             } else {
                 // Init creation
+                await handleCreate();
             }
         }
     }
@@ -321,8 +334,20 @@
         states.emailState = { type: "", msg: "" };
     }
 
-    const onGlobalStepForward = (e: KeyboardEvent) => {
-        if (e.key === "Enter") handleStepForward();
+    const onGlobalStepForward = async (e: KeyboardEvent) => {
+        if (e.key === "Enter") await handleStepForward();
+    }
+
+    /** Trigger create event */
+    const handleCreate = async () => {
+        console.log("title: " + states.title);
+        console.log("dates: " + states.dates);
+        console.log("start_time: " + states.start_time);
+        console.log("end_time: " + states.end_time);
+        console.log("email: " + states.email);
+        console.log("allow_email: " + states.allowEmail);
+        console.log("capacity: " + states.capacity);
+        console.log("allow_capacity: " + states.allowCapacity);
     }
 
     onMounted(() => {
