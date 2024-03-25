@@ -114,11 +114,6 @@
         name: string
     }
 
-    interface Times {
-        time: number,
-        selected: string[]
-    }
-
     interface Table {
         date: string | Date,
         times: Time[]
@@ -228,8 +223,8 @@
     const times: number[] = handleTimeArr(start_time, end_time);
 
     /** Trigger time mouseover event */
-    const handleTimeCheck = (times: Times) => {
-        states.selectedPartywons = times.selected;
+    const handleTimeCheck = (time: Time) => {
+        states.selectedPartywons = time.selected;
     }
 
     /** Trigger time mouseleave event */
