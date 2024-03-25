@@ -23,8 +23,8 @@
     "firebase": "^10.9.0",
     "firebase-admin": "^12.0.0",
     "nodemailer": "^6.9.12",
-    "nuxt-swiper": "^1.2.2",
     "pinia": "^2.1.7",
+    "swiper": "^11.0.7",
     "vite": "^5.1.6"
   }
 }

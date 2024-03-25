@@ -40,6 +40,7 @@
                     <TimelineView
                         :capacity="capacity"
                         :times="times"
+                        :dates="datesArr"
                         :tables="newTables"
                         :onCheck="handleTimeCheck"
                         :onUncheck="handleTimeUncheck"
@@ -70,8 +71,8 @@
                 <h3 class="mt-4 mb-10 leading-normal">시간은 드래그해서 선택할 수 있어요</h3>
                 <TimelineSelect
                     :datesArr="datesArr"
-                    :dates="dates"
                     :times="times"
+                    :dates="dates"
                     :tables="tables"
                     :onChange="handleSubPageTimeChange"
                     :state="states.subPageTimeState"

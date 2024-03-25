@@ -9,7 +9,6 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxt/image',
     '@pinia/nuxt',
-    'nuxt-swiper'
   ],
   pinia: { // pinia store 경로
     storesDirs: ['./stores/**']

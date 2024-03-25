@@ -1,12 +1,21 @@
 <template>
-    <Swiper
-        :modules="[SwiperPagination]"
+    <div class="w-full h-8 mb-2 lg:mb-4 flex justify-between items-center">
+        <button v-on:click="swiperPrevSlide" class="w-8 h-full rounded-full lg:hover:bg-gray-f">
+            <i class="fa-solid fa-angle-left"></i>
+        </button>
+        <div class="font-semibold">{{ `${dates[0].getFullYear()}년 ${dates[0].getMonth() + 1}월 ~ ${dates[dates.length-1].getFullYear()}년 ${dates[dates.length-1].getMonth() + 1}월` }}</div>
+        <button v-on:click="swiperNextSlide" class="w-8 h-full rounded-full lg:hover:bg-gray-f">
+            <i class="fa-solid fa-angle-right"></i>
+        </button>
+    </div>
+    <swiper
         :slides-per-view="1"
         :speed="1"
         :loop="true"
-        :pagination="{ clickable: true }"
+        :allow-touch-move="false"
+        @swiper="onSwiper"
     >
-        <SwiperSlide v-for="table, idx in tables" :key="idx" class="w-full">
+        <swiper-slide v-for="table, idx in tables" :key="idx" class="w-full">
             <div class="mb-2 pl-14 flex justify-center items-center text-xs">
                 <div v-for="column in table" v-bind:style="`width: ${1 / table.length * 100}%`" class="flex flex-col items-center gap-1">
                     <div v-bind:class="`${column.date.getDay() === 0 || column.date.getDay() === 6 ? 'text-red-e' : ''} selection:bg-transparent`">{{ dayIntoWeekday(column.date.getDay()) }}</div>
@@ -46,11 +55,26 @@
                     </div>
                 </div>
             </div>
-        </SwiperSlide>
-    </Swiper>
+        </swiper-slide>
+    </swiper>
 </template>
 
 <script setup lang="ts">
+    // Swiper
+    import { Swiper, SwiperSlide } from 'swiper/vue';
+    import 'swiper/css';
+
+    const swiperInstance = ref();
+    function onSwiper(swiper: any) {
+        swiperInstance.value = swiper;
+    }
+    const swiperNextSlide = () => {
+        swiperInstance.value.slideNext();
+    };
+    const swiperPrevSlide = () => {
+        swiperInstance.value.slidePrev();
+    };
+
     // Types
     interface selectedPartywon {
         time: number,
@@ -71,6 +95,7 @@
     const props = defineProps({
         capacity: Number,
         times: Array,
+        dates: Array,
         tables: Array,
         onCheck: {
             type: Function,
@@ -86,6 +111,7 @@
 
     const capacity = props.capacity ? props.capacity : 0;
     const times = props.times ? props.times : [];
+    const dates = props.dates ? props.dates as Date[] : [];
     const tables = props.tables ? props.tables as Table[][] : [];
 
     // 클릭 이벤트
