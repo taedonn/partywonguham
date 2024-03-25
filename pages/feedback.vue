@@ -93,7 +93,7 @@
                 </div>
                 <div class="w-full mt-12 flex justify-end">
                     <div class="w-40 lg:w-44 h-12">
-                        <Button :click="onSubmit" :isLoading="states.isLoading" fill>문의하기</Button>
+                        <Button :click="onSubmit" :isLoading="states.isLoading">문의하기</Button>
                     </div>
                 </div>
             </div>
@@ -205,22 +205,52 @@
 
         if (states.email === "") {
             states.emailState = { type: "error", msg: "이메일을 입력해 주세요." };
-            email.focus({ preventScroll: true });
-            window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
+            
+            // Trigger scroll event
+            if (width >= 1024) {
+                email.focus({ preventScroll: true });
+                window.scrollTo({ top: 160, behavior: 'smooth' });
+            } else {
+                email.focus();
+            }
         } else if (!emailValidChk(states.email)) {
             states.emailState = { type: "error", msg: "이메일 형식이 올바르지 않아요." };
-            email.focus({ preventScroll: true });
-            window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
+            
+            // Trigger scroll event
+            if (width >= 1024) {
+                email.focus({ preventScroll: true });
+                window.scrollTo({ top: 160, behavior: 'smooth' });
+            } else {
+                email.focus();
+            }
         } else if (states.category === "카테고리 선택") {
             states.categoryState = { type: "error", msg: "카테고리를 선택해 주세요." };
-            window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
+
+            // Trigger scroll event
+            if (width >= 1024) {
+                window.scrollTo({ top: 240, behavior: 'smooth' });
+            } else {
+                window.scrollTo({ top: 240 });
+            }
         } else if (states.title === "") {
             states.titleState = { type: "error", msg: "제목을 입력해 주세요." };
-            title.focus({ preventScroll: true });
-            window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
+
+            // Trigger scroll event
+            if (width >= 1024) {
+                title.focus({ preventScroll: true });
+                window.scrollTo({ top: 320, behavior: 'smooth' });
+            } else {
+                title.focus();
+            }
         } else if (!states.agree) {
             states.agreeState = { type: "error", msg: "약관에 동의해야 문의를 제출할 수 있어요." };
-            window.scrollTo({ top: document.body.offsetHeight, behavior: "smooth" });
+
+            // Trigger scroll event
+            if (width >= 1024) {
+                window.scrollTo({ top: document.body.offsetHeight, behavior: "smooth" });
+            } else {
+                window.scrollTo({ top: document.body.offsetHeight });
+            }
         } else {
             states.isLoading = true;
 

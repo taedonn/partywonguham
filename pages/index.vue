@@ -9,7 +9,7 @@
             </h3>
             <div class="w-full flex justify-center mt-12">
                 <div class="w-72 h-12">
-                    <Button :onClick="onClick" fill>약속 잡기</Button>
+                    <Button :onClick="onClick">약속 잡기</Button>
                 </div>
             </div>
             <div class="w-full flex justify-center">
@@ -93,7 +93,7 @@
                 </h3>
                 <div class="w-full flex justify-center mt-12">
                     <div class="w-72 h-12">
-                        <Button :onClick="onClick" fill>약속 잡기</Button>
+                        <Button :onClick="onClick">약속 잡기</Button>
                     </div>
                 </div>
             </div>

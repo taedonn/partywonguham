@@ -1,6 +1,6 @@
 <template>
     <main v-if="!states.query || states.query !== '1'" class="w-full px-5 lg:px-0 pt-12 lg:pt-24 pb-24 flex justify-center text-black-3">
-        <div class="max-w-[22.5rem] w-full">
+        <div class="max-w-[48rem] w-full">
             <div>
                 <div>
                     <h2 class="text-2xl font-bold">{{ data.title }}</h2>
@@ -56,20 +56,20 @@
             :handleClose="handleSubPageClose"
             title="약속 시간 선택"
         >
-            <div class="w-full max-w-[22.5rem] text-center">
-                <div class="w-full shrink-0">
+            <div class="w-full max-w-[48rem] text-center flex flex-col items-center">
+                <div class="w-full max-w-[22.5rem] shrink-0">
                     <h2 class="font-bold text-2xl leading-normal">
                         파티원님을 어떻게<br/>
                         부르면 되나요?
                     </h2>
-                    <h3 class="mt-4 mb-12">이름은 20자 이내로 적어주세요</h3>
+                    <h3 class="mt-4 mb-10 leading-normal">이름은 20자 이내로 적어주세요</h3>
                     <input type="text" placeholder="ex) 박티원" v-on:input="handleSubPageNameChange" id="name" ref="name" maxlength="20" v-bind:class="`${states.subPageNameState.type === 'error' ? 'animate-shake' : ''} w-full px-4 py-2.5 border rounded-lg border-gray-6 placeholder-gray-9`"/>
                     <div v-if="states.subPageNameState.type === 'error'" class="mt-2 text-xs text-left text-red-e">
                         {{ states.subPageNameState.msg }}
                     </div>
                 </div>
                 <h2 class="mt-24 font-bold text-2xl leading-normal">언제 약속을 잡을까요?</h2>
-                <h3 class="mt-4 mb-12">시간은 드래그해서 선택할 수 있어요</h3>
+                <h3 class="mt-4 mb-10 leading-normal">시간은 드래그해서 선택할 수 있어요</h3>
                 <TimelineSelect
                     :datesArr="datesArr"
                     :dates="dates"
@@ -251,6 +251,7 @@
 
     /** Trigger subpage create event */
     const handleSubPageCreate = async () => {
+        const width = window.innerWidth;
         const name = document.getElementById("name") as HTMLInputElement;
 
         if (states.subPageName === "") {
@@ -258,15 +259,27 @@
                 type: "error",
                 msg: "이름은 빈칸으로 남길 수 없어요.",
             };
-            name.focus({ preventScroll: true });
-            window.scrollTo({ top: 0, behavior: "smooth" });
+
+            // Trigger scroll event
+            if (width >= 1024) {
+                name.focus({ preventScroll: true });
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            } else {
+                name.focus();
+            }
         } else if (partywons.some((obj: Partywons) => obj.name === states.subPageName)) {
             states.subPageNameState = {
                 type: "error",
                 msg: "중복된 이름은 사용할 수 없어요."
             };
-            name.focus({ preventScroll: true });
-            window.scrollTo({ top: 0, behavior: "smooth" });
+
+            // Trigger scroll event
+            if (width >= 1024) {
+                name.focus({ preventScroll: true });
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            } else {
+                name.focus();
+            }
         } else if (states.subPageTime.length === 0) {
             states.subPageTimeState = {
                 type: "error",
@@ -329,7 +342,11 @@
                 dates: [
                     'Tue Dec 26 2023',
                     'Wed Dec 27 2023',
-                    'Wed Dec 28 2023',
+                    'Thu Dec 28 2023',
+                    'Fri Dec 29 2023',
+                    'Sat Dec 30 2023',
+                    'Sun Dec 31 2023',
+                    'Mon Jan 01 2024',
                 ],
                 start_time: 10,
                 end_time: 15,
@@ -337,6 +354,62 @@
                 allow_email: false,
                 partywons: [],
                 tables: [
+                    {
+                        times: [
+                            { time: 10, selected: [] },
+                            { time: 10.5, selected: [] },
+                            { time: 11, selected: [] },
+                            { time: 11.5, selected: [] },
+                            { time: 12, selected: [] },
+                            { time: 12.5, selected: [] },
+                            { time: 13, selected: [] },
+                            { time: 13.5, selected: [] },
+                            { time: 14, selected: [] },
+                            { time: 14.5, selected: [] },
+                        ]
+                    },
+                    {
+                        times: [
+                            { time: 10, selected: [] },
+                            { time: 10.5, selected: [] },
+                            { time: 11, selected: [] },
+                            { time: 11.5, selected: [] },
+                            { time: 12, selected: [] },
+                            { time: 12.5, selected: [] },
+                            { time: 13, selected: [] },
+                            { time: 13.5, selected: [] },
+                            { time: 14, selected: [] },
+                            { time: 14.5, selected: [] },
+                        ]
+                    },
+                    {
+                        times: [
+                            { time: 10, selected: [] },
+                            { time: 10.5, selected: [] },
+                            { time: 11, selected: [] },
+                            { time: 11.5, selected: [] },
+                            { time: 12, selected: [] },
+                            { time: 12.5, selected: [] },
+                            { time: 13, selected: [] },
+                            { time: 13.5, selected: [] },
+                            { time: 14, selected: [] },
+                            { time: 14.5, selected: [] },
+                        ]
+                    },
+                    {
+                        times: [
+                            { time: 10, selected: [] },
+                            { time: 10.5, selected: [] },
+                            { time: 11, selected: [] },
+                            { time: 11.5, selected: [] },
+                            { time: 12, selected: [] },
+                            { time: 12.5, selected: [] },
+                            { time: 13, selected: [] },
+                            { time: 13.5, selected: [] },
+                            { time: 14, selected: [] },
+                            { time: 14.5, selected: [] },
+                        ]
+                    },
                     {
                         times: [
                             { time: 10, selected: [] },

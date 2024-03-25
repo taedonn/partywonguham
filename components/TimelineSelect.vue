@@ -1,5 +1,5 @@
 <template>
-    <div class="mb-2 pl-14 flex justify-center items-center text-xs">
+    <div class="w-full mb-2 pl-14 flex justify-center items-center text-xs">
         <div v-for="date in datesArr" v-bind:style="`width: ${1 / datesArr.length * 100}%`" class="flex flex-col items-center gap-1">
             <div v-bind:class="`${date.getDay() === 0 || date.getDay() === 6 ? 'text-red-e' : ''}`">{{ dayIntoWeekday(date.getDay()) }}</div>
             <div class="font-semibold">{{ (date.getMonth() + 1) + "." + date.getDate() }}</div>
@@ -40,7 +40,7 @@
             </div>
         </div>
     </div>
-    <div v-if="state.type === 'error'" class="mt-2 text-xs text-left text-red-e">{{ state.msg }}</div>
+    <div v-if="state.type === 'error'" class="w-full mt-2 text-xs text-left text-red-e">{{ state.msg }}</div>
 </template>
 
 <script setup lang="ts">
@@ -107,6 +107,7 @@
     const onMouseUp = () => {
         const option = document.getElementsByClassName("select-time");
         const result: number[][] = [];
+        let length = 0;
 
         for (let i = 0; i < datesArr.length; i++) {
             result.push([]);
@@ -117,9 +118,12 @@
             let split = input.id.split("-");
             let date = Number(split[1]);
             let time = Number(split[2]);
-            if (input.checked) result[date].push(time);
+            if (input.checked) {
+                result[date].push(time);
+                length++;
+            }
         }
-        props.onChange(result);
+        props.onChange(length === 0 ? [] : result);
     }
 
     const onGlobalMouseDown = () => { isMouseDown = true; }
