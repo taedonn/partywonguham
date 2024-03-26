@@ -1,11 +1,11 @@
 <template>
-    <div class="w-full h-8 mb-2 lg:mb-4 flex justify-between items-center">
+    <div class="w-full h-8 mb-2 flex justify-between items-center">
         <button
             v-if="tables.length > 1"
             v-on:click="swiperPrevSlide"
             @mousedown="handleSlideBtnMouseDown"
             @mouseup="handleSlideBtnMouseUp"
-            class="w-8 h-full rounded-full lg:hover:bg-gray-e duration-200"
+            class="w-8 h-full shrink-0 rounded-full lg:hover:bg-gray-e duration-200"
         >
             <i class="fa-solid fa-angle-left"></i>
         </button>
@@ -15,7 +15,7 @@
             v-on:click="swiperNextSlide"
             @mousedown="handleSlideBtnMouseDown"
             @mouseup="handleSlideBtnMouseUp"
-            class="w-8 h-full rounded-full lg:hover:bg-gray-e duration-200"
+            class="w-8 h-full shrink-0 rounded-full lg:hover:bg-gray-e duration-200"
         >
             <i class="fa-solid fa-angle-right"></i>
         </button>

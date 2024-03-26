@@ -1,21 +1,21 @@
 <template>
-    <div class="w-full h-8 mb-2 lg:mb-4 flex justify-between items-center">
+    <div class="w-full h-8 mb-2 flex justify-between items-center">
         <button
             v-if="tables.length > 1"
             v-on:click="swiperPrevSlide"
             @mousedown="handleSlideBtnMouseDown"
             @mouseup="handleSlideBtnMouseUp"
-            class="w-8 h-full rounded-full lg:hover:bg-gray-e duration-200"
+            class="w-8 h-full shrink-0 rounded-full lg:hover:bg-gray-e duration-200"
         >
             <i class="fa-solid fa-angle-left"></i>
         </button>
-        <div class="font-semibold">{{ `${states.start_date.getFullYear()}년 ${states.start_date.getMonth() + 1}월${states.start_date.getFullYear() === states.end_date.getFullYear() && states.start_date.getMonth() === states.end_date.getMonth() ? "" : ` ~ ${states.end_date.getFullYear()}년 ${states.end_date.getMonth() + 1}월`}` }}</div>
+        <div class="w-full font-semibold text-center">{{ `${states.start_date.getFullYear()}년 ${states.start_date.getMonth() + 1}월${states.start_date.getFullYear() === states.end_date.getFullYear() && states.start_date.getMonth() === states.end_date.getMonth() ? "" : ` ~ ${states.end_date.getFullYear()}년 ${states.end_date.getMonth() + 1}월`}` }}</div>
         <button
             v-if="tables.length > 1"
             v-on:click="swiperNextSlide"
             @mousedown="handleSlideBtnMouseDown"
             @mouseup="handleSlideBtnMouseUp"
-            class="w-8 h-full rounded-full lg:hover:bg-gray-e duration-200"
+            class="w-8 h-full shrink-0 rounded-full lg:hover:bg-gray-e duration-200"
         >
             <i class="fa-solid fa-angle-right"></i>
         </button>
