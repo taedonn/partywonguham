@@ -26,3 +26,26 @@ export function dayIntoWeekday(day: number) {
     else if (day === 5) return "금";
     else if (day === 6) return "토";
 }
+
+/** 시간 배열에 저장(1시간 단위) */
+export function handleTimeArr (startTime: number, endTime: number) {
+    let arr: number[] = [];
+    let diff = endTime - startTime;
+    let time = startTime;
+    for (let i = 0; i < diff; i++) {
+        arr.push(time + i);
+    }
+    return arr;
+}
+
+/** 시간 배열에 저장(30분 단위) */
+export function handleTimeBlockArr (startTime: number, endTime: number) {
+    let arr: number[] = [];
+    let diff = endTime - startTime;
+    let time = startTime;
+    for (let i = 0; i < diff; i++) {
+        arr.push(time + i);
+        arr.push(time + i + 0.5);
+    }
+    return arr;
+}

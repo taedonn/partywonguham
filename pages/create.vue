@@ -93,7 +93,7 @@
                     </h2>
                     <h3 class="mt-4 mb-10 leading-normal">약속 시간</h3>
                     <div class="w-full h-12 mt-4">
-                        <Button :click="handleStepForward">{{ states.allowCapacity ? '다음으로' : '약속 생성' }}</Button>
+                        <Button :click="handleStepForward" :isLoading="states.isLoading">{{ states.allowCapacity ? '다음으로' : '약속 생성' }}</Button>
                     </div>
                 </div>
             </SubPage>
@@ -131,7 +131,7 @@
                             받을래요.
                         </label>
                     </div>
-                    <div v-if="states.allowEmail" class="w-full mt-10">
+                    <div v-if="states.allowEmail" class="w-full mt-8">
                         <h3 class="mb-4 leading-normal">이메일을 적어주세요</h3>
                         <input type="text" placeholder="ex) example@example.com" v-bind:value="states.email" v-on:input="handleEmailChange" id="email" ref="email" v-bind:class="`${states.emailState.type === 'error' ? 'animate-shake' : ''} w-full px-4 py-2.5 border rounded-lg border-gray-6 placeholder-gray-9`"/>
                         <div v-if="states.emailState.type === 'error'" class="mt-2 text-xs text-left text-red-e">
@@ -139,7 +139,7 @@
                         </div>
                     </div>
                     <div class="w-full h-12 mt-4">
-                        <Button :click="handleStepForward">약속 생성</Button>
+                        <Button :click="handleStepForward" :isLoading="states.isLoading">약속 생성</Button>
                     </div>
                 </div>
             </SubPage>
@@ -152,28 +152,36 @@
         middleware: ["create"],
     });
 
+    // Firestore
+    import { collection, addDoc } from 'firebase/firestore';
+
+    // Load firebase collection
+    const { firestore } = useFirebase();
+    const myCollection = collection(firestore, "posts");
+
+    // Common
+    import { handleTimeBlockArr } from '~/utils/common';
+
     // Query
     import type { LocationQuery, LocationQueryValue } from '#vue-router';
 
     // Types
+    import type { Table, State } from '~/utils/global.d';
+
     interface States {
         query: LocationQueryValue | LocationQueryValue[],
         title: string,
-        titleState: inputState,
+        titleState: State,
         capacity: string,
-        capacityState: inputState,
+        capacityState: State,
         allowCapacity: boolean,
         dates: string[],
         start_time: number,
         end_time: number,
         allowEmail: boolean,
         email: string,
-        emailState: inputState,
-    }
-
-    interface inputState {
-        type: string,
-        msg: string,
+        emailState: State,
+        isLoading: boolean,
     }
 
     // Route
@@ -198,6 +206,7 @@
         allowEmail: false,
         email: "",
         emailState: { type: "", msg: "" },
+        isLoading: false,
     });
 
     // Refs
@@ -340,14 +349,43 @@
 
     /** Trigger create event */
     const handleCreate = async () => {
-        console.log("title: " + states.title);
-        console.log("dates: " + states.dates);
-        console.log("start_time: " + states.start_time);
-        console.log("end_time: " + states.end_time);
-        console.log("email: " + states.email);
-        console.log("allow_email: " + states.allowEmail);
-        console.log("capacity: " + states.capacity);
-        console.log("allow_capacity: " + states.allowCapacity);
+        states.isLoading = true;
+        
+        // 테이블 생성
+        const thisTable = [];
+        const thisTime = handleTimeBlockArr(states.start_time, states.end_time);
+        for (let i = 0; i < states.dates.length; i++) {
+            let obj: Table = { date: new Date(states.dates[i]), times: [] };
+            for (let j = 0; j < thisTime.length; j++) {
+                obj.times.push({
+                    time: thisTime[j],
+                    selected: []
+                });
+            }
+            thisTable.push(obj);
+        }
+
+        // 데이터 생성
+        const data = {
+            title: states.title === "" ? "제목없음" : states.title,
+            dates: states.dates,
+            start_time: states.start_time,
+            end_time: states.end_time,
+            email: states.email,
+            allow_email: states.email === "" ? false : states.allowEmail,
+            partywons: [],
+            tables: thisTable,
+            capacity: Number(states.capacity),
+            allow_capacity: states.capacity === "" ? false : states.allowCapacity
+        }
+
+        try {
+            const docRef = await addDoc(myCollection, data);
+            router.push(`/p/${docRef.id}`);
+        } catch (err) {
+            console.log(err);
+            states.isLoading = false;
+        }
     }
 
     onMounted(() => {

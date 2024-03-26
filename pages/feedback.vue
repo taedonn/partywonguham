@@ -111,23 +111,20 @@
     import { emailValidChk } from '~/utils/common';
 
     // Types
+    import type { State } from '~/utils/global.d';
+
     interface States {
         email: string,
-        emailState: InputState,
+        emailState: State,
         category: string,
         categoryShow: boolean,
-        categoryState: InputState,
+        categoryState: State,
         title: string,
-        titleState: InputState,
+        titleState: State,
         content: string,
         agree: boolean,
-        agreeState: InputState,
+        agreeState: State,
         isLoading: boolean,
-    }
-
-    interface InputState {
-        type: string,
-        msg: string,
     }
 
     // States
@@ -254,30 +251,33 @@
         } else {
             states.isLoading = true;
 
-            await $fetch("/api/sendemail", {
-                method: "post",
-                body: {
-                    email: states.email,
-                    category: states.category,
-                    title: states.title,
-                    content: states.content,
-                }
-            })
-            .then(() => {
-                // Reset fields
-                email.value = "";
-                states.email = "";
-                title.value = "";
-                states.title = "";
-                content.value = "";
-                states.content = "";
-                agree.checked = false;
+            try {
+                await $fetch("/api/sendemail", {
+                    method: "post",
+                    body: {
+                        email: states.email,
+                        category: states.category,
+                        title: states.title,
+                        content: states.content,
+                    }
+                })
+                .then(() => {
+                    // Reset fields
+                    email.value = "";
+                    states.email = "";
+                    title.value = "";
+                    states.title = "";
+                    content.value = "";
+                    states.content = "";
+                    agree.checked = false;
 
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                
-                toastStore.success({ text: "문의가 제출되었어요." });
-            })
-            .catch(err => console.log(err));
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    
+                    toastStore.success({ text: "문의가 제출되었어요." });
+                });
+            } catch (err) {
+                console.log(err);
+            }
 
             states.isLoading = false;
         }

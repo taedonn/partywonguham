@@ -1,17 +1,29 @@
 <template>
     <div class="w-full h-8 mb-2 lg:mb-4 flex justify-between items-center">
-        <button v-on:click="swiperPrevSlide" class="w-8 h-full rounded-full lg:hover:bg-gray-f">
+        <button
+            v-if="tables.length > 1"
+            v-on:click="swiperPrevSlide"
+            @mousedown="handleSlideBtnMouseDown"
+            @mouseup="handleSlideBtnMouseUp"
+            class="w-8 h-full rounded-full lg:hover:bg-gray-e duration-200"
+        >
             <i class="fa-solid fa-angle-left"></i>
         </button>
         <div class="font-semibold">{{ `${states.start_date.getFullYear()}년 ${states.start_date.getMonth() + 1}월${states.start_date.getFullYear() === states.end_date.getFullYear() && states.start_date.getMonth() === states.end_date.getMonth() ? "" : ` ~ ${states.end_date.getFullYear()}년 ${states.end_date.getMonth() + 1}월`}` }}</div>
-        <button v-on:click="swiperNextSlide" class="w-8 h-full rounded-full lg:hover:bg-gray-f">
+        <button
+            v-if="tables.length > 1"
+            v-on:click="swiperNextSlide"
+            @mousedown="handleSlideBtnMouseDown"
+            @mouseup="handleSlideBtnMouseUp"
+            class="w-8 h-full rounded-full lg:hover:bg-gray-e duration-200"
+        >
             <i class="fa-solid fa-angle-right"></i>
         </button>
     </div>
     <swiper
         :slides-per-view="1"
         :speed="1"
-        :loop="true"
+        :loop="tables.length > 1 ? true : false"
         :allow-touch-move="false"
         @swiper="onSwiper"
     >
@@ -88,15 +100,8 @@
     // Common
     import { dayIntoWeekday } from '~/utils/common';
 
-    interface Table {
-        date: Date,
-        times: Time[]
-    }
-
-    interface Time {
-        time: number,
-        selected: string[]
-    }
+    // Types
+    import type { Table } from '~/utils/global.d';
 
     interface States {
         start_date: Date,
@@ -134,6 +139,18 @@
         start_date: tables[0][0].date,
         end_date: tables[0][tables[0].length-1].date
     });
+
+    /** 슬라이더 버튼 이벤트 */
+    const handleSlideBtnMouseDown = (e: MouseEvent) => {
+        const button = e.currentTarget as HTMLButtonElement;
+        button.classList.remove("lg:hover:bg-gray-e");
+        button.classList.add("lg:hover:bg-gray-d");
+    }
+    const handleSlideBtnMouseUp = (e: MouseEvent) => {
+        const button = e.currentTarget as HTMLButtonElement;
+        button.classList.remove("lg:hover:bg-gray-d");
+        button.classList.add("lg:hover:bg-gray-e");
+    }
 
     // 드래그 이벤트
     let isChecked = false;

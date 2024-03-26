@@ -13,7 +13,7 @@
                     `"
     > 
         <i
-            v-if="icon !== ''"
+            v-if="!isLoading && icon !== ''"
             v-bind:class="`${icon}`"
         ></i>
         <slot v-if="!isLoading">{{ text }}</slot>

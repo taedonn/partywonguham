@@ -3,7 +3,7 @@
         <div class="max-w-[48rem] w-full">
             <div>
                 <div>
-                    <h2 class="text-2xl font-bold">{{ data.title }}</h2>
+                    <h2 class="text-2xl font-bold">{{ title }}</h2>
                 </div>
                 <div class="shrink-0 mt-4 flex gap-4">
                     <button v-on:click="handleReset" class="w-fit flex items-center gap-2 mb-1 lg:hover:text-orange-f6 duration-200">
@@ -21,7 +21,15 @@
                 </div>
                 <div class="w-full mt-10">
                     <div class="flex flex-col gap-2 text-sm text-black-3">
-                        <h2 class="shrink-0 font-semibold">파티원 {{ states.selectedPartywons.length !== 0 ? `(${states.selectedPartywons.length}/${capacity})` : `(${partywons.length}/${capacity})` }}</h2>
+                        <h2 class="shrink-0 font-semibold">파티원 
+                            {{
+                                allow_capacity
+                                    ? states.selectedPartywons.length !== 0
+                                        ? `(${states.selectedPartywons.length}/${capacity})`
+                                        : `(${partywons.length}/${capacity})`
+                                    : ''
+                            }}
+                        </h2>
                         <ul v-if="partywons.length > 0" class="flex flex-wrap gap-1.5">
                             <li
                                 v-for="partywon in partywons"
@@ -38,6 +46,8 @@
                 </div>
                 <div class="w-full mt-6">
                     <TimelineView
+                        :partywons="partywons"
+                        :allowCapacity="allow_capacity"
                         :capacity="capacity"
                         :times="times"
                         :tables="newTables"
@@ -79,7 +89,7 @@
                     />
                 </div>
                 <div class="w-full h-12 mt-6">
-                    <Button :click="handleSubPageCreate" :icon="'bi bi-check-circle'" fill>선택하기</Button>
+                    <Button :click="handleSubPageCreate" :isLoading="states.isLoading" :icon="'bi bi-check-circle'">선택하기</Button>
                 </div>
             </div>
         </SubPage>
@@ -92,46 +102,28 @@
     const toastStore = useToastStore();
 
     // Firestore
-    import { collection, setDoc, doc, onSnapshot } from 'firebase/firestore';
+    import { collection, updateDoc, doc, onSnapshot } from 'firebase/firestore';
     import type { LocationQuery, LocationQueryValue } from '#vue-router';
 
     // Load firebase collection
     const { firestore } = useFirebase();
     const myCollection = collection(firestore, "posts");
 
+    // Common
+    import { handleTimeArr } from '~/utils/common';
+
     // Types
+    import type { Partywon, Table, Time, State } from '~/utils/global.d';
+
     interface States {
         query: LocationQueryValue | LocationQueryValue[],
         selectedPartywons: string[],
         subPageName: string,
-        subPageNameState: SubPageNameState,
+        subPageNameState: State,
         subPageTime: number[][],
-        subPageTimeState: SubPageTimeState,
-        copyLink: boolean
-    }
-
-    interface Partywons {
-        name: string
-    }
-
-    interface Table {
-        date: string | Date,
-        times: Time[]
-    }
-
-    interface Time {
-        time: number,
-        selected: string[]
-    }
-
-    interface SubPageNameState {
-        type: string,
-        msg: string
-    }
-
-    interface SubPageTimeState {
-        type: string,
-        msg: string
+        subPageTimeState: State,
+        copyLink: boolean,
+        isLoading: boolean,
     }
 
     // Route
@@ -147,6 +139,7 @@
         subPageTime: [],
         subPageTimeState: { type: "", msg: "" },
         copyLink: false,
+        isLoading: false,
     });
 
     // Refs
@@ -205,15 +198,6 @@
     const newTables = divideTables(tablesWithDate, 7);
 
     /** Set time array */
-    const handleTimeArr = (startTime: number, endTime: number) => {
-        let arr: number[] = [];
-        let diff = endTime - startTime;
-        let time = startTime;
-        for (let i = 0; i < diff; i++) {
-            arr.push(time + i);
-        }
-        return arr;
-    }
     const times: number[] = handleTimeArr(start_time, end_time);
 
     /** Trigger time mouseover event */
@@ -283,7 +267,7 @@
             } else {
                 name.focus();
             }
-        } else if (partywons.some((obj: Partywons) => obj.name === states.subPageName)) {
+        } else if (partywons.some((obj: Partywon) => obj.name === states.subPageName)) {
             states.subPageNameState = {
                 type: "error",
                 msg: "중복된 이름은 사용할 수 없어요."
@@ -302,10 +286,12 @@
                 msg: "가능한 시간대를 선택해 주세요."
             };
         } else {
+            states.isLoading = true;
+
             try {
                 // Set new partywon
-                const thisPartywon = partywons;
-                thisPartywon.push({ name: states.subPageName });
+                const thisPartywons = partywons;
+                thisPartywons.push({ name: states.subPageName });
 
                 // Set new time
                 const thisTables = tables;
@@ -318,17 +304,9 @@
                 }
 
                 // Update firestore
-                await setDoc(doc(myCollection, routeId), {
-                    title: title,
-                    dates: dates,
-                    start_time: start_time,
-                    end_time: end_time,
-                    email: email,
-                    allow_email: allow_email,
-                    partywons: partywons,
+                await updateDoc(doc(myCollection, routeId), {
+                    partywons: thisPartywons,
                     tables: thisTables,
-                    capacity: capacity,
-                    allow_capacity: allow_capacity,
                 });
 
                 // Close subpage
@@ -336,6 +314,8 @@
             } catch (err) {
                 console.log(err);
             }
+
+            states.isLoading = false;
         }
     }
 
@@ -359,7 +339,7 @@
 
     const handleReset = async () => {
         try {
-            await setDoc(doc(myCollection, routeId), {
+            await updateDoc(doc(myCollection, routeId), {
                 title: "12/26 풋살하실 분",
                 dates: [
                     'Tue Dec 26 2023',
@@ -368,10 +348,9 @@
                     'Fri Dec 29 2023',
                     'Sat Dec 30 2023',
                     'Sun Dec 31 2023',
-                    'Mon Jan 01 2024',
-                    'Tue Jan 02 2024',
-                    'Wed Jan 03 2024',
-                    'Thu Jan 04 2024',
+                    'Mon Jan 1 2024',
+                    'Tue Jan 2 2024',
+                    'Wed Jan 3 2024',
                 ],
                 start_time: 10,
                 end_time: 15,
@@ -514,24 +493,9 @@
                             { time: 14.5, selected: [] },
                         ]
                     },
-                    {
-                        date: "Thu Jan 4 2024",
-                        times: [
-                            { time: 10, selected: [] },
-                            { time: 10.5, selected: [] },
-                            { time: 11, selected: [] },
-                            { time: 11.5, selected: [] },
-                            { time: 12, selected: [] },
-                            { time: 12.5, selected: [] },
-                            { time: 13, selected: [] },
-                            { time: 13.5, selected: [] },
-                            { time: 14, selected: [] },
-                            { time: 14.5, selected: [] },
-                        ]
-                    }
                 ],
                 capacity: 4,
-                allow_capacity: true,
+                allow_capacity: false,
             });
             location.reload();
         } catch (err) {
