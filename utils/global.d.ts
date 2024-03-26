@@ -3,7 +3,7 @@ export interface Partywon {
 }
 
 export interface Table {
-    date: Date,
+    date: string | Date,
     times: Time[]
 }
 

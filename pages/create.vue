@@ -355,7 +355,7 @@
         const thisTable = [];
         const thisTime = handleTimeBlockArr(states.start_time, states.end_time);
         for (let i = 0; i < states.dates.length; i++) {
-            let obj: Table = { date: new Date(states.dates[i]), times: [] };
+            let obj: Table = { date: states.dates[i], times: [] };
             for (let j = 0; j < thisTime.length; j++) {
                 obj.times.push({
                     time: thisTime[j],
