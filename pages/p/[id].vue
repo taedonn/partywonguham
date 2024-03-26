@@ -36,11 +36,10 @@
                         </ul>
                     </div>
                 </div>
-                <div class="w-full mt-4">
+                <div class="w-full mt-6">
                     <TimelineView
                         :capacity="capacity"
                         :times="times"
-                        :dates="datesArr"
                         :tables="newTables"
                         :onCheck="handleTimeCheck"
                         :onUncheck="handleTimeUncheck"
@@ -69,15 +68,16 @@
                 </div>
                 <h2 class="mt-24 font-bold text-2xl leading-normal">언제 약속을 잡을까요?</h2>
                 <h3 class="mt-4 mb-10 leading-normal">시간은 드래그해서 선택할 수 있어요</h3>
-                <TimelineSelect
-                    :datesArr="datesArr"
-                    :times="times"
-                    :dates="dates"
-                    :tables="tables"
-                    :onChange="handleSubPageTimeChange"
-                    :state="states.subPageTimeState"
-                    :onStateChange="handleSubPageTimeStateChange"
-                />
+                <div class="w-full">
+                    <TimelineSelect
+                        :times="times"
+                        :dates="dates"
+                        :tables="newTables"
+                        :onChange="handleSubPageTimeChange"
+                        :state="states.subPageTimeState"
+                        :onStateChange="handleSubPageTimeStateChange"
+                    />
+                </div>
                 <div class="w-full h-12 mt-6">
                     <Button :click="handleSubPageCreate" :icon="'bi bi-check-circle'" fill>선택하기</Button>
                 </div>
@@ -203,12 +203,6 @@
         tablesWithDate.push({ date: new Date(table.date), times: table.times });
     });
     const newTables = divideTables(tablesWithDate, 7);
-
-    /** Set date array */
-    const datesArr: Date[] = [];
-    dates.map((eachDate: string) => {
-        datesArr.push(new Date(eachDate));
-    });
 
     /** Set time array */
     const handleTimeArr = (startTime: number, endTime: number) => {

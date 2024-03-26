@@ -3,7 +3,7 @@
         <button v-on:click="swiperPrevSlide" class="w-8 h-full rounded-full lg:hover:bg-gray-f">
             <i class="fa-solid fa-angle-left"></i>
         </button>
-        <div class="font-semibold">{{ `${dates[0].getFullYear()}년 ${dates[0].getMonth() + 1}월 ~ ${dates[dates.length-1].getFullYear()}년 ${dates[dates.length-1].getMonth() + 1}월` }}</div>
+        <div class="font-semibold">{{ `${states.start_date.getFullYear()}년 ${states.start_date.getMonth() + 1}월${states.start_date.getFullYear() === states.end_date.getFullYear() && states.start_date.getMonth() === states.end_date.getMonth() ? "" : ` ~ ${states.end_date.getFullYear()}년 ${states.end_date.getMonth() + 1}월`}` }}</div>
         <button v-on:click="swiperNextSlide" class="w-8 h-full rounded-full lg:hover:bg-gray-f">
             <i class="fa-solid fa-angle-right"></i>
         </button>
@@ -15,7 +15,7 @@
         :allow-touch-move="false"
         @swiper="onSwiper"
     >
-        <swiper-slide v-for="table, idx in tables" :key="idx" class="w-full">
+        <swiper-slide v-for="table, tableNo in tables" :key="tableNo" class="w-full">
             <div class="mb-2 pl-14 flex justify-center items-center text-xs">
                 <div v-for="column in table" v-bind:style="`width: ${1 / table.length * 100}%`" class="flex flex-col items-center gap-1">
                     <div v-bind:class="`${column.date.getDay() === 0 || column.date.getDay() === 6 ? 'text-red-e' : ''} selection:bg-transparent`">{{ dayIntoWeekday(column.date.getDay()) }}</div>
@@ -43,10 +43,10 @@
                                 v-bind:class="`w-full h-full absolute z-10 bottom-0 bg-orange-f6 duration-200`"
                             >
                             </div>
-                            <input type="radio" name="time-radio" v-bind:id="`time-${idx}-${time.time}`" @change="e => onChange(e, time)" class="time-radio peer hidden">
+                            <input type="radio" name="time-radio" v-bind:id="`time-${tableNo}-${idx}-${time.time}`" @change="e => onChange(e, time)" class="time-radio peer hidden">
                             <label
                                 v-if="time.selected.length !== 0"
-                                v-bind:for="`time-${idx}-${time.time}`"
+                                v-bind:for="`time-${tableNo}-${idx}-${time.time}`"
                                 class="time-option peer-checked:bg-orange-f3 peer-checked:opacity-100 w-full h-full absolute z-10 bottom-0 opacity-20 cursor-pointer group-hover:bg-orange-f6 duration-200"
                             ></label>
                             <div class="group-last:hidden w-full h-px absolute z-20 bottom-0 border-b group-odd:border-dashed border-orange-fc"></div>
@@ -70,10 +70,19 @@
     }
     const swiperNextSlide = () => {
         swiperInstance.value.slideNext();
+        getDate();
     };
     const swiperPrevSlide = () => {
         swiperInstance.value.slidePrev();
+        getDate();
     };
+
+    const getDate = () => {
+        const activeSlide = document.getElementsByClassName("swiper-slide-active")[0] as HTMLDivElement;
+        const idx = activeSlide.getAttribute("data-swiper-slide-index") + "";
+        states.start_date = tables[Number(idx)][0].date;
+        states.end_date = tables[Number(idx)][tables[Number(idx)].length-1].date;
+    }
 
     // Types
     interface selectedPartywon {
@@ -91,11 +100,15 @@
         selected: string[]
     }
 
+    interface States {
+        start_date: Date,
+        end_date: Date
+    }
+
     // Props
     const props = defineProps({
         capacity: Number,
         times: Array,
-        dates: Array,
         tables: Array,
         onCheck: {
             type: Function,
@@ -111,8 +124,13 @@
 
     const capacity = props.capacity ? props.capacity : 0;
     const times = props.times ? props.times : [];
-    const dates = props.dates ? props.dates as Date[] : [];
     const tables = props.tables ? props.tables as Table[][] : [];
+
+    // States
+    const states: States = reactive({
+        start_date: tables[0][0].date,
+        end_date: tables[0][tables[0].length-1].date
+    });
 
     // 클릭 이벤트
     const onChange = (e: Event, selectedPartywon: selectedPartywon) => {

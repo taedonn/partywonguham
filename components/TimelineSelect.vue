@@ -1,53 +1,95 @@
 <template>
-    <div class="w-full mb-2 pl-14 flex justify-center items-center text-xs">
-        <div v-for="date in datesArr" v-bind:style="`width: ${1 / datesArr.length * 100}%`" class="flex flex-col items-center gap-1">
-            <div v-bind:class="`${date.getDay() === 0 || date.getDay() === 6 ? 'text-red-e' : ''}`">{{ dayIntoWeekday(date.getDay()) }}</div>
-            <div class="font-semibold">{{ (date.getMonth() + 1) + "." + date.getDate() }}</div>
-        </div>
+    <div class="w-full h-8 mb-2 lg:mb-4 flex justify-between items-center">
+        <button v-on:click="swiperPrevSlide" class="w-8 h-full rounded-full lg:hover:bg-gray-f">
+            <i class="fa-solid fa-angle-left"></i>
+        </button>
+        <div class="font-semibold">{{ `${states.start_date.getFullYear()}년 ${states.start_date.getMonth() + 1}월${states.start_date.getFullYear() === states.end_date.getFullYear() && states.start_date.getMonth() === states.end_date.getMonth() ? "" : ` ~ ${states.end_date.getFullYear()}년 ${states.end_date.getMonth() + 1}월`}` }}</div>
+        <button v-on:click="swiperNextSlide" class="w-8 h-full rounded-full lg:hover:bg-gray-f">
+            <i class="fa-solid fa-angle-right"></i>
+        </button>
     </div>
-    <div v-bind:class="`${state.type === 'error' ? 'animate-shake' : ''} w-full rounded-lg border border-gray-6 overflow-hidden`">
-        <div class="w-full h-fit flex">
-            <div class="flex flex-col shrink-0">
-                <div v-for="time in times" class="w-14 h-12 last:h-[calc(3rem+2px)] text-xs text-left pl-2 pt-2 border-dashed border-r border-t first:border-t-0 border-orange-fc">
-                    {{
-                        Number(time) < 12
-                            ? time + " AM"
-                            : Number(time) === 12
-                                ? "12 PM"
-                                : (Number(time) - 12) + " PM"
-                    }}
+    <swiper
+        :slides-per-view="1"
+        :speed="1"
+        :loop="true"
+        :allow-touch-move="false"
+        @swiper="onSwiper"
+    >
+        <swiper-slide v-for="table, tableNo in tables" :key="tableNo" class="w-full">
+            <div class="mb-2 pl-14 flex justify-center items-center text-xs">
+                <div v-for="column in table" v-bind:style="`width: ${1 / table.length * 100}%`" class="flex flex-col items-center gap-1">
+                    <div v-bind:class="`${column.date.getDay() === 0 || column.date.getDay() === 6 ? 'text-red-e' : ''} selection:bg-transparent`">{{ dayIntoWeekday(column.date.getDay()) }}</div>
+                    <div class="font-semibold selection:bg-transparent">{{ (column.date.getMonth() + 1) + "." + column.date.getDate() }}</div>
                 </div>
             </div>
-            <div class="w-full flex overflow-hidden">
-                <!-- 선택 화면 -->
-                <div v-for="table, idx in tables" class="w-full h-full flex flex-col border-dashed border-r last:border-r-0 border-orange-fc">
-                    <div v-for="time in table.times" class="group w-full h-6 first:h-[calc(1.5rem+1px)] relative flex flex-col">
-                        <input
-                            type="checkbox"
-                            v-bind:id="`time-${idx}-${time.time}`"
-                            class="select-time peer hidden"
-                        />
-                        <div
-                            v-bind:data-time="`time-${idx}-${time.time}`"
-                            class="w-full h-full group-last:h-[calc(100%+1px)] absolute z-10 bottom-0 group-last:-bottom-px cursor-[row-resize] duration-200 peer-checked:bg-orange-f6 lg:hover:bg-orange-f6/50"
-                            @mouseover="onMouseOver"
-                            @mousedown="onMouseDown"
-                            @mouseup="onMouseUp"
-                        ></div>
-                        <div class="group-last:hidden w-full h-px absolute z-20 bottom-0 border-b group-odd:border-dashed cursor-[row-resize] border-orange-fc"></div>
+            <div class="w-full h-fit flex rounded-lg border border-gray-6 overflow-hidden">
+                <div class="flex flex-col shrink-0">
+                    <div v-for="time in times" class="w-14 h-12 last:h-[calc(3rem+2px)] text-xs text-left pl-2 pt-2 border-dashed border-r border-t first:border-t-0 border-orange-fc">
+                        {{
+                            Number(time) < 12
+                                ? time + " AM"
+                                : Number(time) === 12
+                                    ? "12 PM"
+                                    : (Number(time) - 12) + " PM"
+                        }}
+                    </div>
+                </div>
+                <div class="w-full flex overflow-hidden">
+                    <!-- 선택 화면 -->
+                    <div v-for="column, idx in table" class="w-full h-full flex flex-col border-dashed border-r last:border-r-0 border-orange-fc">
+                        <div v-for="time in column.times" class="group w-full h-6 first:h-[calc(1.5rem+1px)] relative flex flex-col">
+                            <input
+                                type="checkbox"
+                                v-bind:id="`time-${tableNo}-${idx}-${time.time}`"
+                                class="select-time peer hidden"
+                            />
+                            <div
+                                v-bind:data-time="`time-${tableNo}-${idx}-${time.time}`"
+                                class="w-full h-full group-last:h-[calc(100%+1px)] absolute z-10 bottom-0 group-last:-bottom-px cursor-[row-resize] duration-200 peer-checked:bg-orange-f6 lg:hover:bg-orange-f6/50"
+                                @mouseover="onMouseOver"
+                                @mousedown="onMouseDown"
+                                @mouseup="onMouseUp"
+                            ></div>
+                            <div class="group-last:hidden w-full h-px absolute z-20 bottom-0 border-b group-odd:border-dashed cursor-[row-resize] border-orange-fc"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </swiper-slide>
+    </swiper>
     <div v-if="state.type === 'error'" class="w-full mt-2 text-xs text-left text-red-e">{{ state.msg }}</div>
 </template>
 
 <script setup lang="ts">
+    // Swiper
+    import { Swiper, SwiperSlide } from 'swiper/vue';
+    import 'swiper/css';
+
+    const swiperInstance = ref();
+    function onSwiper(swiper: any) {
+        swiperInstance.value = swiper;
+    }
+    const swiperNextSlide = () => {
+        swiperInstance.value.slideNext();
+        getDate();
+    };
+    const swiperPrevSlide = () => {
+        swiperInstance.value.slidePrev();
+        getDate();
+    };
+
+    const getDate = () => {
+        const activeSlide = document.getElementsByClassName("swiper-slide-active")[0] as HTMLDivElement;
+        const idx = activeSlide.getAttribute("data-swiper-slide-index") + "";
+        states.start_date = tables[Number(idx)][0].date;
+        states.end_date = tables[Number(idx)][tables[Number(idx)].length-1].date;
+    }
+
     // Common
     import { dayIntoWeekday } from '~/utils/common';
 
     interface Table {
+        date: Date,
         times: Time[]
     }
 
@@ -56,11 +98,15 @@
         selected: string[]
     }
 
+    interface States {
+        start_date: Date,
+        end_date: Date
+    }
+
     // Props
     const props = defineProps({
-        datesArr: Array,
-        dates: Array,
         times: Array,
+        dates: Array,
         tables: Array,
         onChange: {
             type: Function,
@@ -79,9 +125,15 @@
         },
     });
 
-    const datesArr = props.datesArr ? props.datesArr as Date[] : [];
     const times = props.times ? props.times : [];
-    const tables = props.tables ? props.tables as Table[] : [];
+    const dates = props.dates ? props.dates as string[] : [];
+    const tables = props.tables ? props.tables as Table[][] : [];
+
+    // States
+    const states: States = reactive({
+        start_date: tables[0][0].date,
+        end_date: tables[0][tables[0].length-1].date
+    });
 
     // 드래그 이벤트
     let isChecked = false;
@@ -109,17 +161,18 @@
         const result: number[][] = [];
         let length = 0;
 
-        for (let i = 0; i < datesArr.length; i++) {
+        for (let i = 0; i < dates.length; i++) {
             result.push([]);
         }
 
         for (let i = 0; i < option.length; i++) {
             let input = option[i] as HTMLInputElement;
             let split = input.id.split("-");
-            let date = Number(split[1]);
-            let time = Number(split[2]);
+            let table = Number(split[1]);
+            let date = Number(split[2]);
+            let time = Number(split[3]);
             if (input.checked) {
-                result[date].push(time);
+                result[(table * 7) + date].push(time);
                 length++;
             }
         }
