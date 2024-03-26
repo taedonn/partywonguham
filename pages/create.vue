@@ -166,7 +166,12 @@
     import type { LocationQuery, LocationQueryValue } from '#vue-router';
 
     // Types
-    import type { Table, State } from '~/utils/global.d';
+    import type { Time, State } from '~/utils/global.d';
+
+    interface Table {
+        date: string | Date,
+        times: Time[]
+    }
 
     interface States {
         query: LocationQueryValue | LocationQueryValue[],
