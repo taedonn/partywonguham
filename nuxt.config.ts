@@ -2,6 +2,9 @@
 export default defineNuxtConfig({
   devtools: { enabled: false },
   pages: true, // 페이지 라우팅 가능하게
+  build: {
+    transpile: ['@vuepic/vue-datepicker']
+  },
   css: [
     '~/assets/tailwind.css',
   ],

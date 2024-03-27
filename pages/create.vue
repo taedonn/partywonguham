@@ -70,9 +70,54 @@
             >
                 <div class="w-full text-center">
                     <h2 class="font-bold text-2xl leading-normal">
-                        캘린더
+                        약속은 몇 일에 잡을까요?
                     </h2>
-                    <h3 class="mt-4 mb-10 leading-normal">약속 날짜</h3>
+                    <h3 class="mt-4 mb-10 leading-normal">대략적인 날짜를 정해주세요</h3>
+                    <div v-bind:class="`${states.datesState.type === 'error' ? 'animate-shake' : ''} w-full`">
+                        <VueDatePicker
+                            v-model="date"
+                            inline
+                            multi-dates
+                            @internal-model-change="handleInternal"
+                            :day-names="['월', '화', '수', '목', '금', '토', '일']"
+                        >
+                            <template #month="{ value }">
+                                {{
+                                    value === 0 ? '1월'
+                                    : value === 1 ? '2월'
+                                    : value === 2 ? '3월'
+                                    : value === 3 ? '4월'
+                                    : value === 4 ? '5월'
+                                    : value === 5 ? '6월'
+                                    : value === 6 ? '7월'
+                                    : value === 7 ? '8월'
+                                    : value === 8 ? '9월'
+                                    : value === 9 ? '10월'
+                                    : value === 10 ? '11월'
+                                    : '12월'
+                                }}
+                            </template>
+                            <template #month-overlay-value="{ value }">
+                                {{
+                                    value === 0 ? '1월'
+                                    : value === 1 ? '2월'
+                                    : value === 2 ? '3월'
+                                    : value === 3 ? '4월'
+                                    : value === 4 ? '5월'
+                                    : value === 5 ? '6월'
+                                    : value === 6 ? '7월'
+                                    : value === 7 ? '8월'
+                                    : value === 8 ? '9월'
+                                    : value === 9 ? '10월'
+                                    : value === 10 ? '11월'
+                                    : '12월'
+                                }}
+                            </template>
+                        </VueDatePicker>
+                    </div>
+                    <div v-if="states.datesState.type === 'error'" class="mt-2 text-xs text-left text-red-e">
+                        {{ states.datesState.msg }}
+                    </div>
                     <div class="w-full h-12 mt-4">
                         <Button :click="handleStepForward">다음으로</Button>
                     </div>
@@ -255,6 +300,10 @@
     // Types
     import type { Time, State } from '~/utils/global.d';
 
+    // Vue date picker
+    import VueDatePicker from '@vuepic/vue-datepicker';
+    import '@vuepic/vue-datepicker/dist/main.css';
+
     // Route
     const route = useRoute();
     const router = useRouter();
@@ -271,7 +320,8 @@
         capacity: string,
         capacityState: State,
         allowCapacity: boolean,
-        dates: string[],
+        dates: Date[],
+        datesState: State,
         startTime: number,
         endTime: number,
         checkedTime: string,
@@ -293,12 +343,9 @@
         titleState: { type: "", msg: "" },
         capacity: "",
         capacityState: { type: "", msg: "" },
-        allowCapacity: true,
-        dates: [
-            'Tue Dec 26 2023',
-            'Wed Dec 27 2023',
-            'Thu Dec 28 2023',
-        ],
+        allowCapacity: false,
+        dates: [new Date()],
+        datesState: { type: "", msg: "" },
         startTime: 9,
         endTime: 18,
         checkedTime: "default",
@@ -317,6 +364,7 @@
     const title = ref();
     const capacity = ref();
     const email = ref();
+    const date = ref();
 
     // Watch queries
     watch(() => route.query, async () => {
@@ -329,6 +377,12 @@
         else if (capacity.value) capacity.value.focus();
         else if (email.value) email.value.focus();
     });
+
+    // Watch dates
+    const handleInternal = (date: Date[]) => {
+        states.dates = date;
+        states.datesState = { type: "", msg: "" };
+    }
 
     const handleQuery = (query: LocationQuery) => {
         states.query = query.step;
@@ -384,7 +438,11 @@
                 router.push("/create?step=3");
             }
         } else if (states.query === "3") {
-            router.push("/create?step=4");
+            if (states.dates === null || states.dates.length === 0) {
+                states.datesState = { type: "error", msg: "날짜를 선택해 주세요." };
+            } else {
+                router.push("/create?step=4");
+            }
         } else if (states.query === "4") {
             const startTimeNum = document.getElementById("start-time-num") as HTMLInputElement;
             const endTimeNum = document.getElementById("end-time-num") as HTMLInputElement;
@@ -563,12 +621,21 @@
     /** Trigger create event */
     const handleCreate = async () => {
         states.isLoading = true;
+
+        // 날짜순 정렬
+        const sortedDates = states.dates.sort((a, b) => a.getTime() - b.getTime());
+
+        // 날짜 문자열로 변경
+        const newDates: string[] = [];
+        for (let i = 0; i < sortedDates.length; i++) {
+            newDates.push(sortedDates[i].toString());
+        }
         
         // 테이블 생성
         const thisTable = [];
         const thisTime = handleTimeBlockArr(states.startTime, states.endTime);
-        for (let i = 0; i < states.dates.length; i++) {
-            let obj: Table = { date: states.dates[i], times: [] };
+        for (let i = 0; i < newDates.length; i++) {
+            let obj: Table = { date: newDates[i], times: [] };
             for (let j = 0; j < thisTime.length; j++) {
                 obj.times.push({
                     time: thisTime[j],
@@ -581,7 +648,7 @@
         // 데이터 생성
         const data = {
             title: states.title === "" ? "제목없음" : states.title,
-            dates: states.dates,
+            dates: newDates,
             start_time: states.startTime,
             end_time: states.endTime,
             email: states.email,
@@ -606,6 +673,8 @@
         window.addEventListener("mousedown", handleStartTimeSelectMouseDown);
         window.addEventListener("mousedown", handleEndTimeSelectMouseDown);
 
+        date.value = states.dates;
+
         // Focus input on component mount
         if (!states.query) {
             const title = document.getElementById("title") as HTMLInputElement;
@@ -624,3 +693,51 @@
         window.removeEventListener("mousedown", handleEndTimeSelectMouseDown);
     });
 </script>
+
+<style>
+    :root {
+        --dp-font-family: "Pretendard", sans-serif;
+        --dp-menu-min-width: 22.5rem;
+        --dp-button-icon-width: 1.125rem;
+        --dp-button-icon-height: 1.125rem;
+        --dp-border-radius: 0.5rem;
+    }
+    .dp__theme_light {
+        --dp-text-color: #333;
+        --dp-primary-color: #FF6E40;
+        --dp-secondary-color: #CCC;
+        --dp-hover-color: #E9EAEE;
+        --dp-icon-color: #333;
+        --dp-hover-icon-color: #333;
+        --dp-border-color: #999;
+        --dp-menu-border-color: #666;
+    }
+    .dp--tp-wrap,
+    .dp__action_row {
+        display: none;
+    }
+    .dp__menu {
+        overflow: hidden;
+    }
+    .dp__calendar {
+        margin-top: 0.5rem;
+    }
+    .dp__calendar_header_item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .dp__calendar_item {
+        width: 3rem;
+        height: 2.25rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+    .dp__cell_inner {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 9999px;
+    }
+</style>
