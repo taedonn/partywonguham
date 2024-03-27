@@ -11,6 +11,7 @@ export default defineEventHandler(async (event) => {
         user: config.emailId,
         password: config.emailPassword,
         host: 'smtp.gmail.com',
+        port: 465,
         ssl: true,
     });
 
@@ -55,7 +56,7 @@ export default defineEventHandler(async (event) => {
                 ],
             },
             (err) => {
-                console.log(err);
+                if (err) console.log(err);
             }
         );
     } else if (body.action === "alert") {
@@ -92,10 +93,8 @@ export default defineEventHandler(async (event) => {
                 ],
             },
             (err) => {
-                console.log(err);
+                if (err) console.log(err);
             }
         );
     }
-
-    return true;
 });
