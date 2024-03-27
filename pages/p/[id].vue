@@ -6,10 +6,10 @@
                     <h2 class="text-2xl font-bold">{{ title }}</h2>
                 </div>
                 <div class="shrink-0 mt-4 flex gap-4">
-                    <button v-on:click="handleReset" class="w-fit flex items-center gap-2 mb-1 lg:hover:text-orange-f6 duration-200">
+                    <!-- <button v-on:click="handleReset" class="w-fit flex items-center gap-2 mb-1 lg:hover:text-orange-f6 duration-200">
                         <i class="bi bi-plus-circle text-sm"></i>
                         리셋하기
-                    </button>
+                    </button> -->
                     <button v-on:click="handleSubPageShow" class="w-fit flex items-center gap-2 mb-1 lg:hover:text-orange-f6 duration-200">
                         <i class="bi bi-plus-circle text-sm"></i>
                         시간 선택하기
@@ -172,6 +172,7 @@
         start_time,
         end_time,
         email,
+        email_sent,
         allow_email,
         partywons,
         tables,
@@ -288,32 +289,62 @@
         } else {
             states.isLoading = true;
 
-            try {
-                // Set new partywon
-                const thisPartywons = partywons;
-                thisPartywons.push({ name: states.subPageName });
+            // Set new partywon
+            const thisPartywons = partywons;
+            thisPartywons.push({ name: states.subPageName });
 
-                // Set new time
-                const thisTables = tables;
-                for (let i = 0; i < thisTables.length; i++) {
-                    for (let j = 0; j < thisTables[i].times.length; j++) {
-                        if (states.subPageTime[i].includes(thisTables[i].times[j].time)) {
-                            thisTables[i].times[j].selected.push(states.subPageName);
+            // Check if it's ok to send email
+            let arrCap = 0;
+
+            // Set new time
+            const thisTables = tables;
+            for (let i = 0; i < thisTables.length; i++) {
+                for (let j = 0; j < thisTables[i].times.length; j++) {
+                    if (states.subPageTime[i].includes(thisTables[i].times[j].time)) {
+                        thisTables[i].times[j].selected.push(states.subPageName);
+                        if (!email_sent && allow_email && thisTables[i].times[j].selected.length >= capacity) {
+                            arrCap++;
                         }
                     }
                 }
-
-                // Update firestore
-                await updateDoc(doc(myCollection, routeId), {
-                    partywons: thisPartywons,
-                    tables: thisTables,
-                });
-
-                // Close subpage
-                handleSubPageClose();
-            } catch (err) {
-                console.log(err);
             }
+            
+            // Send email when alert is ready
+            if (arrCap > 0) {
+                try {
+                    await $fetch("/api/sendemail", {
+                        method: "post",
+                        body: {
+                            action: "alert",
+                            email: email,
+                            id: routeId,
+                        }
+                    })
+                    .then(async () => {
+                        // Update firestore
+                        await updateDoc(doc(myCollection, routeId), {
+                            partywons: thisPartywons,
+                            tables: thisTables,
+                            email_sent: true
+                        });
+                    });
+                } catch (err) {
+                    console.log(err);
+                }
+            } else {
+                try {
+                    // Update firestore
+                    await updateDoc(doc(myCollection, routeId), {
+                        partywons: thisPartywons,
+                        tables: thisTables,
+                    });
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+
+            // Close subpage
+            handleSubPageClose();
 
             states.isLoading = false;
         }

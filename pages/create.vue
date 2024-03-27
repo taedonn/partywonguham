@@ -70,7 +70,7 @@
             >
                 <div class="w-full text-center">
                     <h2 class="font-bold text-2xl leading-normal">
-                        약속은 몇 일에 잡을까요?
+                        몇 일에 약속을 잡을까요?
                     </h2>
                     <h3 class="mt-4 mb-10 leading-normal">대략적인 날짜를 정해주세요</h3>
                     <div v-bind:class="`${states.datesState.type === 'error' ? 'animate-shake' : ''} w-full`">
@@ -343,7 +343,7 @@
         titleState: { type: "", msg: "" },
         capacity: "",
         capacityState: { type: "", msg: "" },
-        allowCapacity: false,
+        allowCapacity: true,
         dates: [new Date()],
         datesState: { type: "", msg: "" },
         startTime: 9,
@@ -652,6 +652,7 @@
             start_time: states.startTime,
             end_time: states.endTime,
             email: states.email,
+            email_sent: false,
             allow_email: states.email === "" ? false : states.allowEmail,
             partywons: [],
             tables: thisTable,
