@@ -8,8 +8,8 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event);
 
     const client = new SMTPClient({
-        user: config.emailId,
-        password: config.emailPassword,
+        user: config.public.emailId + "",
+        password: config.public.emailPassword + "",
         host: 'smtp.gmail.com',
         port: 465,
         ssl: true,

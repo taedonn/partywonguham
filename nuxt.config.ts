@@ -34,8 +34,6 @@ export default defineNuxtConfig({
     '/**': { isr: 60 },
   },
   runtimeConfig: {
-    emailId: '',
-    emailPassword: '',
     public: {
       firebaseServiceAccountKey: '',
       firebaseApiKey: '',
@@ -45,6 +43,8 @@ export default defineNuxtConfig({
       firebaseMessagingSenderId: '',
       firebaseAppId: '',
       firebaseMeasurementId: '',
+      emailId: '',
+      emailPassword: '',
     }
   }
 })
