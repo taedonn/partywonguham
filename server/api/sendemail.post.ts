@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
     });
 
     if (body.action === "feedback") {
-        client.send(
+        await client.send(
             {
                 from: "파티원구함 partywonguham@gmail.com",
                 to: "partywonguham@gmail.com",
@@ -60,7 +60,7 @@ export default defineEventHandler(async (event) => {
             }
         );
     } else if (body.action === "alert") {
-        client.send(
+        await client.send(
             {
                 from: "파티원구함 partywonguham@gmail.com",
                 to: body.email,
