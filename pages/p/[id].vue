@@ -1,5 +1,11 @@
 <template>
-    <main v-if="!states.query || states.query !== '1'" class="w-full px-5 lg:px-0 pt-12 lg:pt-24 pb-24 flex justify-center text-black-3">
+    <Motion
+        :initial="{ y: 40, opacity: 0 }"
+        :animate="{ y: 0, opacity: 1 }"
+        :transition="{ duration: 0.4 }"
+        v-if="!states.query || states.query !== '1'"
+        class="w-full px-5 lg:px-0 pt-12 lg:pt-24 pb-24 flex justify-center text-black-3"
+    >
         <div class="max-w-[48rem] w-full">
             <div>
                 <div>
@@ -54,7 +60,7 @@
             </div>
         </div>
         <Toast/>
-    </main>
+    </Motion>
     <main v-else-if="states.query === '1'" class="w-full px-5 lg:px-0 py-24 text-black-3">
         <SubPage
             :handleClose="handleSubPageClose"

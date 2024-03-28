@@ -1,5 +1,10 @@
 <template>
-    <main class="leading-loose w-full flex justify-center px-5 lg:px-0 pt-12 lg:pt-24 pb-24 text-black-3">
+    <Motion
+        :initial="{ y: 40, opacity: 0 }"
+        :animate="{ y: 0, opacity: 1 }"
+        :transition="{ duration: 0.4 }"
+        class="leading-loose w-full flex justify-center px-5 lg:px-0 pt-12 lg:pt-24 pb-24 text-black-3"
+    >
         <div class="w-[48rem]">
             <h2 class="text-2xl font-bold">개인정보 처리방침</h2>
             <div class="w-full flex flex-col lg:flex-row gap-4 mt-6 p-6 lg:p-8 text-sm border rounded-xl border-gray-d">
@@ -214,7 +219,7 @@
 
 ※ 행정심판에 대해 자세한 사항은 중앙행정심판위원회(<NuxtLink href="https://www.simpan.go.kr" target="_blank" class="underline underline-offset-2 lg:hover:text-orange-f6">www.simpan.go.kr</NuxtLink>) 홈페이지를 참고하시기 바랍니다.</pre>
         </div>
-    </main>
+    </Motion>
 </template>
 
 <script setup lang="ts">

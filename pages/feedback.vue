@@ -1,5 +1,10 @@
 <template>
-    <main class="w-full flex justify-center px-5 lg:px-0 pt-5 lg:pt-24 pb-24 leading-relaxed text-black-3">
+    <Motion
+        :initial="{ y: 40, opacity: 0 }"
+        :animate="{ y: 0, opacity: 1 }"
+        :transition="{ duration: 0.4 }"
+        class="w-full flex justify-center px-5 lg:px-0 pt-5 lg:pt-24 pb-24 leading-relaxed text-black-3"
+    >
         <div class="w-[48rem]">
             <div class="msg-wrap relative lg:h-52 flex flex-col lg:flex-row items-center lg:justify-end gap-4 lg:gap-0 p-5 rounded-xl bg-orange-fe">
                 <div class="msg relative lg:absolute lg:left-80 lg:top-10 px-5 lg:px-6 py-3 text-sm text-center lg:text-left leading-normal rounded-full text-white bg-orange-f6 before:bg-orange-f6 after:bg-orange-fe">
@@ -98,7 +103,7 @@
                 </div>
             </div>
         </div>
-    </main>
+    </Motion>
     <Toast/>
 </template>
 

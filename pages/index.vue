@@ -1,5 +1,10 @@
 <template>
-    <main class="w-full flex justify-center px-5 lg:px-0 py-24 text-black-3">
+    <Motion
+        :initial="{ y: 40, opacity: 0 }"
+        :animate="{ y: 0, opacity: 1 }"
+        :transition="{ duration: 0.4 }"
+        class="w-full flex justify-center px-5 lg:px-0 py-24 text-black-3"
+    >
         <div class="w-[48rem] text-center">
             <h2 class="text-2xl lg:text-3xl font-bold leading-normal">
                 약속 시간 정하기!
@@ -98,7 +103,7 @@
                 </div>
             </div>
         </div>
-    </main>
+    </Motion>
 </template>
 
 <script setup lang="ts">

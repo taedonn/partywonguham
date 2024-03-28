@@ -1,8 +1,8 @@
 <template>
     <div class="font-sans relative min-h-screen overflow-hidden">
-        <Header></Header>
+        <Header/>
         <slot></slot>
-        <Footer></Footer>
+        <Footer/>
         <Tooltip/>
     </div>
 </template>
