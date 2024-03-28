@@ -6,10 +6,6 @@
                     <h2 class="text-2xl font-bold">{{ title }}</h2>
                 </div>
                 <div class="shrink-0 mt-4 flex gap-4">
-                    <!-- <button v-on:click="handleReset" class="w-fit flex items-center gap-2 mb-1 lg:hover:text-orange-f6 duration-200">
-                        <i class="bi bi-plus-circle text-sm"></i>
-                        리셋하기
-                    </button> -->
                     <button v-on:click="handleSubPageShow" class="w-fit flex items-center gap-2 mb-1 lg:hover:text-orange-f6 duration-200">
                         <i class="bi bi-plus-circle text-sm"></i>
                         시간 선택하기
@@ -117,6 +113,7 @@
 
     interface States {
         query: LocationQueryValue | LocationQueryValue[],
+        emailSent: boolean,
         selectedPartywons: string[],
         subPageName: string,
         subPageNameState: State,
@@ -129,39 +126,6 @@
     // Route
     const route = useRoute();
     const router = useRouter();
-
-    // States
-    const states: States = reactive({
-        query: route.query.create,
-        selectedPartywons: [],
-        subPageName: "",
-        subPageNameState: { type: "", msg: "" },
-        subPageTime: [],
-        subPageTimeState: { type: "", msg: "" },
-        copyLink: false,
-        isLoading: false,
-    });
-
-    // Refs
-    const name = ref();
-
-    // Watch queries
-    watch(() => route.query, async () => {
-        handleQuery(route.query);
-    });
-
-    // Watch inputs
-    watch(() => name.value, async () => {
-        if (name.value) name.value.focus();
-    });
-    
-    const handleQuery = (query: LocationQuery) => {
-        states.query = query.create;
-        states.subPageName = "";
-        states.subPageNameState = { type: "", msg: "" };
-        states.subPageTime = [];
-        states.subPageTimeState = { type: "", msg: "" };
-    }
 
     // Fetch data
     const routeId = route.params.id + "";
@@ -179,6 +143,41 @@
         capacity,
         allow_capacity
     } = data.value;
+
+    // States
+    const states: States = reactive({
+        query: route.query.create,
+        emailSent: email_sent,
+        selectedPartywons: [],
+        subPageName: "",
+        subPageNameState: { type: "", msg: "" },
+        subPageTime: [],
+        subPageTimeState: { type: "", msg: "" },
+        copyLink: false,
+        isLoading: false,
+    });
+
+    // Refs
+    const name = ref();
+
+    // Watch queries
+    watch(() => route.query, async () => {
+        window.scrollTo({ top: 0 });
+        handleQuery(route.query);
+    });
+
+    // Watch inputs
+    watch(() => name.value, async () => {
+        if (name.value) name.value.focus();
+    });
+    
+    const handleQuery = (query: LocationQuery) => {
+        states.query = query.create;
+        states.subPageName = "";
+        states.subPageNameState = { type: "", msg: "" };
+        states.subPageTime = [];
+        states.subPageTimeState = { type: "", msg: "" };
+    }
 
     /** 테이블 나누기 */
     const divideTables = (table: Table[], number: number) => {
@@ -302,7 +301,7 @@
                 for (let j = 0; j < thisTables[i].times.length; j++) {
                     if (states.subPageTime[i].includes(thisTables[i].times[j].time)) {
                         thisTables[i].times[j].selected.push(states.subPageName);
-                        if (!email_sent && allow_email && thisTables[i].times[j].selected.length >= capacity) {
+                        if (!states.emailSent && allow_email && thisTables[i].times[j].selected.length >= capacity) {
                             arrCap++;
                         }
                     }
@@ -327,6 +326,9 @@
                             tables: thisTables,
                             email_sent: true
                         });
+
+                        // Update states
+                        states.emailSent = true;
                     });
                 } catch (err) {
                     console.log(err);
@@ -367,170 +369,4 @@
     onBeforeUnmount(() => {
         window.removeEventListener("keydown", onGlobalSubPageCreate);
     });
-
-    const handleReset = async () => {
-        try {
-            await updateDoc(doc(myCollection, routeId), {
-                title: "12/26 풋살하실 분",
-                dates: [
-                    'Tue Dec 26 2023',
-                    'Wed Dec 27 2023',
-                    'Thu Dec 28 2023',
-                    'Fri Dec 29 2023',
-                    'Sat Dec 30 2023',
-                    'Sun Dec 31 2023',
-                    'Mon Jan 1 2024',
-                    'Tue Jan 2 2024',
-                    'Wed Jan 3 2024',
-                ],
-                start_time: 10,
-                end_time: 15,
-                email: "partywonguham@gmail.com",
-                allow_email: false,
-                partywons: [],
-                tables: [
-                    {
-                        date: "Tue Dec 26 2023",
-                        times: [
-                            { time: 10, selected: [] },
-                            { time: 10.5, selected: [] },
-                            { time: 11, selected: [] },
-                            { time: 11.5, selected: [] },
-                            { time: 12, selected: [] },
-                            { time: 12.5, selected: [] },
-                            { time: 13, selected: [] },
-                            { time: 13.5, selected: [] },
-                            { time: 14, selected: [] },
-                            { time: 14.5, selected: [] },
-                        ]
-                    },
-                    {
-                        date: "Wed Dec 27 2023",
-                        times: [
-                            { time: 10, selected: [] },
-                            { time: 10.5, selected: [] },
-                            { time: 11, selected: [] },
-                            { time: 11.5, selected: [] },
-                            { time: 12, selected: [] },
-                            { time: 12.5, selected: [] },
-                            { time: 13, selected: [] },
-                            { time: 13.5, selected: [] },
-                            { time: 14, selected: [] },
-                            { time: 14.5, selected: [] },
-                        ]
-                    },
-                    {
-                        date: "Thu Dec 28 2023",
-                        times: [
-                            { time: 10, selected: [] },
-                            { time: 10.5, selected: [] },
-                            { time: 11, selected: [] },
-                            { time: 11.5, selected: [] },
-                            { time: 12, selected: [] },
-                            { time: 12.5, selected: [] },
-                            { time: 13, selected: [] },
-                            { time: 13.5, selected: [] },
-                            { time: 14, selected: [] },
-                            { time: 14.5, selected: [] },
-                        ]
-                    },
-                    {
-                        date: "Fri Dec 29 2023",
-                        times: [
-                            { time: 10, selected: [] },
-                            { time: 10.5, selected: [] },
-                            { time: 11, selected: [] },
-                            { time: 11.5, selected: [] },
-                            { time: 12, selected: [] },
-                            { time: 12.5, selected: [] },
-                            { time: 13, selected: [] },
-                            { time: 13.5, selected: [] },
-                            { time: 14, selected: [] },
-                            { time: 14.5, selected: [] },
-                        ]
-                    },
-                    {
-                        date: "Sat Dec 30 2023",
-                        times: [
-                            { time: 10, selected: [] },
-                            { time: 10.5, selected: [] },
-                            { time: 11, selected: [] },
-                            { time: 11.5, selected: [] },
-                            { time: 12, selected: [] },
-                            { time: 12.5, selected: [] },
-                            { time: 13, selected: [] },
-                            { time: 13.5, selected: [] },
-                            { time: 14, selected: [] },
-                            { time: 14.5, selected: [] },
-                        ]
-                    },
-                    {
-                        date: "Sun Dec 31 2023",
-                        times: [
-                            { time: 10, selected: [] },
-                            { time: 10.5, selected: [] },
-                            { time: 11, selected: [] },
-                            { time: 11.5, selected: [] },
-                            { time: 12, selected: [] },
-                            { time: 12.5, selected: [] },
-                            { time: 13, selected: [] },
-                            { time: 13.5, selected: [] },
-                            { time: 14, selected: [] },
-                            { time: 14.5, selected: [] },
-                        ]
-                    },
-                    {
-                        date: "Mon Jan 1 2024",
-                        times: [
-                            { time: 10, selected: [] },
-                            { time: 10.5, selected: [] },
-                            { time: 11, selected: [] },
-                            { time: 11.5, selected: [] },
-                            { time: 12, selected: [] },
-                            { time: 12.5, selected: [] },
-                            { time: 13, selected: [] },
-                            { time: 13.5, selected: [] },
-                            { time: 14, selected: [] },
-                            { time: 14.5, selected: [] },
-                        ]
-                    },
-                    {
-                        date: "Tue Jan 2 2024",
-                        times: [
-                            { time: 10, selected: [] },
-                            { time: 10.5, selected: [] },
-                            { time: 11, selected: [] },
-                            { time: 11.5, selected: [] },
-                            { time: 12, selected: [] },
-                            { time: 12.5, selected: [] },
-                            { time: 13, selected: [] },
-                            { time: 13.5, selected: [] },
-                            { time: 14, selected: [] },
-                            { time: 14.5, selected: [] },
-                        ]
-                    },
-                    {
-                        date: "Wed Jan 3 2024",
-                        times: [
-                            { time: 10, selected: [] },
-                            { time: 10.5, selected: [] },
-                            { time: 11, selected: [] },
-                            { time: 11.5, selected: [] },
-                            { time: 12, selected: [] },
-                            { time: 12.5, selected: [] },
-                            { time: 13, selected: [] },
-                            { time: 13.5, selected: [] },
-                            { time: 14, selected: [] },
-                            { time: 14.5, selected: [] },
-                        ]
-                    },
-                ],
-                capacity: 4,
-                allow_capacity: false,
-            });
-            location.reload();
-        } catch (err) {
-            console.log(err);
-        }
-    }
 </script>

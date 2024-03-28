@@ -1,7 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: false },
-  pages: true, // 페이지 라우팅 가능하게
+  pages: true, // 페이지 라우팅
   build: {
     transpile: ['@vuepic/vue-datepicker']
   },
@@ -10,8 +9,8 @@ export default defineNuxtConfig({
   ],
   modules: [
     '@nuxtjs/tailwindcss',
-    '@nuxt/image',
     '@pinia/nuxt',
+    '@oku-ui/motion-nuxt'
   ],
   pinia: { // pinia store 경로
     storesDirs: ['./stores/**']

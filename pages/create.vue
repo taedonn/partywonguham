@@ -368,6 +368,7 @@
 
     // Watch queries
     watch(() => route.query, async () => {
+        window.scrollTo({ top: 0 });
         handleQuery(route.query);
     });
 

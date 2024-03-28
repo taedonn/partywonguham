@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "homepage": "https://partywonguham.vercel.app",
-  "type": "module",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -12,13 +11,12 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@nuxt/devtools": "latest",
-    "@nuxt/image": "^1.4.0",
     "nuxt": "^3.10.3",
     "vue": "^3.4.21"
   },
   "dependencies": {
     "@nuxtjs/tailwindcss": "^6.11.4",
+    "@oku-ui/motion-nuxt": "^0.2.1",
     "@pinia/nuxt": "^0.5.1",
     "@vuepic/vue-datepicker": "^8.3.1",
     "emailjs": "^4.0.3",
