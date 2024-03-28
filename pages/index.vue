@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="w-full flex justify-center">
-                <img class="w-full" src="/img/3d_running.png" alt="3D 남녀 달리기"/>
+                <NuxtImg format="webp" src="/img/3d_running.png" alt="3D 남녀 달리기" class="w-full"/>
             </div>
             <div class="mt-10 lg:mt-0">
                 <h2 class="text-2xl lg:text-3xl font-bold leading-normal">
@@ -28,7 +28,7 @@
                     <div class="w-full max-w-fit flex flex-col gap-6 lg:gap-8 font-medium text-left">
                         <div class="w-full flex items-end lg:items-start gap-4">
                             <div class="w-12 h-12 lg:w-14 lg:h-14 shrink-0 rounded-full bg-blue-c overflow-hidden">
-                                <img class="w-full" src="/img/3d_avatar_1.png" alt="3D 아바타 1"/>
+                                <NuxtImg format="webp" loading="lazy" src="/img/3d_avatar_1.png" alt="3D 아바타 1" class="w-full"/>
                             </div>
                             <div class="msg relative h-fit px-6 py-3.5 rounded-full bg-blue-e before:bg-blue-e after:bg-white">
                                 약속을 단톡에서 정하기 힘들어요.
@@ -36,7 +36,7 @@
                         </div>
                         <div class="w-full flex items-end lg:items-start gap-4">
                             <div class="w-12 h-12 lg:w-14 lg:h-14 shrink-0 rounded-full bg-blue-c overflow-hidden">
-                                <img class="w-full" src="/img/3d_avatar_2.png" alt="3D 아바타 2"/>
+                                <NuxtImg format="webp" loading="lazy" src="/img/3d_avatar_2.png" alt="3D 아바타 2" class="w-full"/>
                             </div>
                             <div class="msg relative h-fit px-6 py-3.5 rounded-full rounded-t-full bg-blue-e before:bg-blue-e after:bg-white">
                                 모두가 가능한 시간을 한 눈에 보고 싶어요.
@@ -44,7 +44,7 @@
                         </div>
                         <div class="w-full flex items-end lg:items-start gap-4">
                             <div class="w-12 h-12 lg:w-14 lg:h-14 shrink-0 rounded-full bg-blue-c overflow-hidden">
-                                <img class="w-full" src="/img/3d_avatar_3.png" alt="3D 아바타 3"/>
+                                <NuxtImg format="webp" loading="lazy" src="/img/3d_avatar_3.png" alt="3D 아바타 3" class="w-full"/>
                             </div>
                             <div class="msg relative h-fit px-6 py-3.5 rounded-full bg-blue-e before:bg-blue-e after:bg-white">
                                 약속에 대한 것들만 따로 기록하고 싶어요.
@@ -64,12 +64,12 @@
                         선택해서 일정을 만들어요.
                     </div>
                     <div class="w-48 h-48 lg:w-60 lg:h-60 mt-8 relative rounded-full bg-blue-e">
-                        <img src="/img/3d_calendar.png" alt="3D 캘린더" class="w-full scale-[1.15] -translate-x-2"/>
+                        <NuxtImg format="webp" loading="lazy" src="/img/3d_calendar.png" alt="3D 캘린더" class="w-full scale-[1.15] -translate-x-2"/>
                     </div>
                     <div class="w-8 mt-20 h-8 flex justify-center items-center rounded-full font-semibold bg-blue-e">2</div>
                     <div class="mt-8">링크를 다른 사람들과 공유해요.</div>
                     <div class="w-48 h-48 lg:w-60 lg:h-60 mt-8 relative rounded-full bg-blue-e">
-                        <img src="/img/3d_share.png" alt="3D 공유" class="w-full scale-[1.3]  lg:-translate-x-2"/>
+                        <NuxtImg format="webp" loading="lazy" src="/img/3d_share.png" alt="3D 공유" class="w-full scale-[1.3]  lg:-translate-x-2"/>
                     </div>
                     <div class="w-8 mt-20 h-8 flex justify-center items-center rounded-full font-semibold bg-blue-e">3</div>
                     <div class="mt-8">
@@ -77,7 +77,7 @@
                         사람이 많은 시간대는 색이 진해져요.
                     </div>
                     <div class="w-48 h-48 lg:w-60 lg:h-60 mt-8 relative rounded-full bg-blue-e">
-                        <img src="/img/3d_check.png" alt="3D 시간 체크" class="w-full scale-[1.4] -translate-x-2"/>
+                        <NuxtImg format="webp" loading="lazy" src="/img/3d_check.png" alt="3D 시간 체크" class="w-full scale-[1.4] -translate-x-2"/>
                     </div>
                     <div class="w-8 mt-20 h-8 flex justify-center items-center rounded-full font-semibold bg-blue-e">4</div>
                     <div class="mt-8">
@@ -85,7 +85,7 @@
                         인원수가 채워지면 알림을 보내요.
                     </div>
                     <div class="w-48 h-48 lg:w-60 lg:h-60 mt-8 relative rounded-full bg-blue-e">
-                        <img src="/img/3d_alarm.png" alt="3D 알람" class="w-full scale-[1.4] -translate-y-2"/>
+                        <NuxtImg format="webp" src="/img/3d_alarm.png" alt="3D 알람" class="w-full scale-[1.4] -translate-y-2"/>
                     </div>
                 </div>
             </div>

@@ -11,7 +11,7 @@
                     피드백이나 문의 사항이 있으시면 알려주세요.<br/>
                     최대한 빠른 시일 내에 답변 드릴게요.
                 </div>
-                <img src="/img/3d_feedback.png" alt="피드백 이미지" class="max-w-full w-60 lg:w-auto h-full lg:h-64 lg:absolute left-20 bottom-0"/>
+                <NuxtImg format="webp" src="/img/3d_feedback.png" alt="피드백 이미지" class="max-w-full w-60 lg:w-auto h-full lg:h-64 lg:absolute left-20 bottom-0"/>
             </div>
             <div class="mt-12 leading-relaxed">
                 <div class="text-sm text-right"><span class="text-red-e">*</span> 필수 입력 사항</div>

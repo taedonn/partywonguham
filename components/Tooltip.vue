@@ -7,6 +7,7 @@
             v-on:click="goToTop"
             v-on:mousedown="onMouseDown"
             v-on:mouseup="onMouseUp"
+            aria-label="go-up-btn"
             id="go-up-btn"
             class="w-10 h-10 flex justify-center items-center rounded-full text-lg translate-x-16 opacity-0 duration-200 bg-orange-f6 lg:bg-orange-f6 text-white"
         >

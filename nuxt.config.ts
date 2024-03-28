@@ -4,19 +4,29 @@ export default defineNuxtConfig({
   build: {
     transpile: ['@vuepic/vue-datepicker']
   },
+  modules: [
+    ['@nuxtjs/robots', {
+      userAgents: '*',
+      disallow: ['/create?step=*', '/p/*'],
+      sitemap: 'https://partywon.taedonn.com/sitemap.xml'
+    }],
+    '@nuxtjs/sitemap',
+    '@nuxt/image',
+    '@nuxtjs/tailwindcss',
+    '@oku-ui/motion-nuxt',
+    '@pinia/nuxt'
+  ],
   css: [
     '~/assets/tailwind.css',
-  ],
-  modules: [
-    '@nuxtjs/tailwindcss',
-    '@pinia/nuxt',
-    '@oku-ui/motion-nuxt'
   ],
   pinia: { // pinia store 경로
     storesDirs: ['./stores/**']
   },
   app: {
     head: {
+      htmlAttrs: {
+        lang: 'ko'
+      },
       link: [
         {
           rel: 'stylesheet',
