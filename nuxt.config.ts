@@ -5,11 +5,7 @@ export default defineNuxtConfig({
     transpile: ['@vuepic/vue-datepicker']
   },
   modules: [
-    ['@nuxtjs/robots', {
-      userAgents: '*',
-      disallow: ['/create?step=*', '/p/*'],
-      sitemap: 'https://partywon.taedonn.com/sitemap.xml'
-    }],
+    ['@nuxtjs/robots', { configPath: '~/config/robots.config' }],
     '@nuxtjs/sitemap',
     '@nuxt/image',
     '@nuxtjs/tailwindcss',
@@ -27,6 +23,12 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: 'ko'
       },
+      meta: [
+        {
+          name: 'naver-site-verification',
+          content: '7a2dc0fff377a5d96fc033a03dc2d609de64cdec'
+        }
+      ],
       link: [
         {
           rel: 'stylesheet',
