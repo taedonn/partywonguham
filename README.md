@@ -15,14 +15,38 @@
   <tbody>
     <tr>
         <td valign="top" width="33.33%">
+            <img src="https://avatars.githubusercontent.com/u/107545098?v=4" width="120px;" alt="taedonn"/><br/>
             <a href="https://github.com/taedonn">
-                <img src="https://avatars.githubusercontent.com/u/107545098?v=4" width="80px;" alt="taedonn"/><br/>
                 <sub><b>taedonn</b></sub>
             </a><br/>
             <a href="https://github.com/taedonn/partywonguham/commits?author=taedonn" title="Commits">
                 <sub>commits</sub>
             </a> <sub>·</sub> 
             <a href="https://github.com/taedonn/partywonguham/pulls?q=taedonn" title="Pull Requests">
+                <sub>pull requests</sub>
+            </a>
+        </td>
+        <td valign="top" width="33.33%">
+            <img src="https://avatars.githubusercontent.com/u/96365042?v=4" width="120px;" alt="g1azed"/><br/>
+            <a href="https://github.com/g1azed">
+                <sub><b>g1azed</b></sub>
+            </a><br/>
+            <a href="https://github.com/g1azed/partywonguham/commits?author=g1azed" title="Commits">
+                <sub>commits</sub>
+            </a> <sub>·</sub> 
+            <a href="https://github.com/g1azed/partywonguham/pulls?q=g1azed" title="Pull Requests">
+                <sub>pull requests</sub>
+            </a>
+        </td>
+        <td valign="top" width="33.33%">
+            <img src="https://avatars.githubusercontent.com/u/88708708?v=4" width="120px;" alt="hanjuda"/><br/>
+            <a href="https://github.com/hanjuda">
+                <sub><b>hanjuda</b></sub>
+            </a><br/>
+            <a href="https://github.com/hanjuda/partywonguham/commits?author=hanjuda" title="Commits">
+                <sub>commits</sub>
+            </a> <sub>·</sub> 
+            <a href="https://github.com/hanjuda/partywonguham/pulls?q=hanjuda" title="Pull Requests">
                 <sub>pull requests</sub>
             </a>
         </td>
