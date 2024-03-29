@@ -46,7 +46,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="w-full mt-6">
+                <div class="w-full mt-8">
                     <TimelineView
                         :partywons="partywons"
                         :allowCapacity="allow_capacity"
@@ -90,7 +90,7 @@
                         :onStateChange="handleSubPageTimeStateChange"
                     />
                 </div>
-                <div class="w-full h-12 mt-6">
+                <div class="w-full h-12 mt-4">
                     <Button :click="handleSubPageCreate" :isLoading="states.isLoading" :icon="'bi bi-check-circle'">선택하기</Button>
                 </div>
             </div>

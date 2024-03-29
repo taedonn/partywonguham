@@ -67,7 +67,7 @@
                             <label
                                 v-if="time.selected.length !== 0"
                                 v-bind:for="`time-${tableNo}-${idx}-${time.time}`"
-                                class="time-option peer-checked:bg-orange-f3 peer-checked:opacity-100 w-full h-full absolute z-10 bottom-0 opacity-20 cursor-pointer lg:group-hover:bg-orange-f6 duration-200"
+                                class="time-option peer-checked:bg-orange-f3 peer-checked:opacity-100 w-full h-full absolute z-10 bottom-0 opacity-20 cursor-pointer lg:group-hover:bg-orange-f6 lg:group-hover:peer-checked:bg-orange-f3 duration-200"
                             ></label>
                             <div class="group-last:hidden w-full h-px absolute z-20 bottom-0 border-b group-odd:border-dashed border-orange-fc"></div>
                             <i v-if="props.allowCapacity && time.selected.length >= capacity" class="fa-solid fa-star relative z-10 ml-2 mb-0.5 text-[0.625rem] text-yellow-f"></i>
