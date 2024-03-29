@@ -66,3 +66,27 @@
 | Nuxt3    | v3.10.3 | Serverless framework    |
 | Pinia    | v.2.1.7 | Global state management |
 | Firebase | v10.9.0 | NoSQL database          |
+
+&nbsp;
+
+## 페이지 경로
+
+```bash
+/
+├── /create?
+│   ├── step=1
+│   ├── step=2
+│   ├── step=3
+│   ├── step=4
+│   └── step=5
+├── /p
+│   └── /[id]
+├── /feedback
+└── /privacy
+```
+
+&nbsp;
+
+## 라이센스
+
+MIT License © 2023-PRESENT 태돈, 파티원구함
