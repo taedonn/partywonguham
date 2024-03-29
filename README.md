@@ -62,7 +62,7 @@
 ## 스택
 
 | Name     | Version | Feature                 |
-| -------- |:-------:| -----------------------:|
+|:-------- |:------- |:----------------------- |
 | Nuxt3    | v3.10.3 | Serverless framework    |
 | Pinia    | v.2.1.7 | Global state management |
 | Firebase | v10.9.0 | NoSQL database          |
