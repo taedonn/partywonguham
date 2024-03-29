@@ -71,7 +71,7 @@
 
 ## 화면 구성
 
-<img width="280px" src="https://partywonguham.s3.ap-northeast-2.amazonaws.com/page_1.png" alt="페이지 1"/> <img width="280px" src="https://partywonguham.s3.ap-northeast-2.amazonaws.com/page_2.png" alt="페이지 2"/> <img width="280px" src="https://partywonguham.s3.ap-northeast-2.amazonaws.com/page_3.png" alt="페이지 3"/> <img width="280px" src="https://partywonguham.s3.ap-northeast-2.amazonaws.com/page_4.png" alt="페이지 4"/>
+<img width="320px" src="https://partywonguham.s3.ap-northeast-2.amazonaws.com/page_1.png" alt="페이지 1"/> <img width="320px" src="https://partywonguham.s3.ap-northeast-2.amazonaws.com/page_2.png" alt="페이지 2"/> <img width="320px" src="https://partywonguham.s3.ap-northeast-2.amazonaws.com/page_3.png" alt="페이지 3"/> <img width="320px" src="https://partywonguham.s3.ap-northeast-2.amazonaws.com/page_4.png" alt="페이지 4"/>
 
 &nbsp;
 
