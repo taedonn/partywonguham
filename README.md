@@ -1,8 +1,13 @@
-# 파티원구함
+![](https://partywonguham.s3.ap-northeast-2.amazonaws.com/readme_bg_1.png)
 
-![Node badge](https://img.shields.io/badge/Node-v18.+-%23ff6e40)
-![Build badge](https://img.shields.io/badge/Build-nuxt3-%23ff6e40)
-![License badge](https://img.shields.io/badge/License-MIT-%23ff6e40)
+&nbsp;
+
+<h1 align="center">파티원구함</h1>
+<p align="center">
+  <img src="https://img.shields.io/badge/Node-v18.+-%23ff6e40" alt="Node badge"/>
+  <img src="https://img.shields.io/badge/Build-nuxt3-%23ff6e40" alt="Build badge"/>
+  <img src="https://img.shields.io/badge/License-MIT-%23ff6e40" alt="License badge"/>
+</p>
 
 &nbsp;
 
