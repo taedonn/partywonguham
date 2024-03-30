@@ -68,6 +68,19 @@
 
 > 데이터베이스는 Firebase의 Cloud Firestore를 사용하고 있고, Firebase에서 기본 제공하는 `firebase admin sdk`를 사용해서 데이터베이스에 접근하고 있습니다.
 
+<table align=center>
+  <tr>
+    <td>
+      <img src="https://partywonguham.s3.ap-northeast-2.amazonaws.com/readme_service_structure.svg" alt="Service structure"/>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p align=center>서비스 구성도</p>
+    </td>
+  </tr>
+</table>
+
 &nbsp;
 
 ## 기술 스택
