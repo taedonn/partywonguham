@@ -54,7 +54,7 @@
       <p align=center>설정한 인원수가 모두 채워짐</p>
     </td>
     <td>
-      <p align=center>이메일에 알림 발송</p>
+      <p align=center>이메일로 알림 발송</p>
     </td>
   </tr>
 </table>
