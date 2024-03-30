@@ -71,7 +71,7 @@
 <table align=center>
   <tr>
     <td>
-      <img src="https://partywonguham.s3.ap-northeast-2.amazonaws.com/readme_service_structure_1.svg" alt="Service structure"/>
+      <img src="https://partywonguham.s3.ap-northeast-2.amazonaws.com/readme_service_structure.svg" alt="Service structure"/>
     </td>
   </tr>
   <tr>
