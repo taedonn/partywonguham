@@ -109,11 +109,11 @@
         <p align=center>Frontend</p>
       </td>
       <td>
-        <img src="https://img.shields.io/badge/Nuxt.js-00DC82?logo=nuxt.js&logoColor=000000" alt="Next.js badge"/>
-        <img src="https://img.shields.io/badge/Vue.js-4FC08D?logo=vue.js&logoColor=000000" alt="MUI badge"/>
-        <img src="https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=ffffff" alt="Framer badge"/>
+        <img src="https://img.shields.io/badge/Nuxt.js-00DC82?logo=nuxt.js&logoColor=000000" alt="Nuxt.js badge"/>
+        <img src="https://img.shields.io/badge/Vue.js-4FC08D?logo=vue.js&logoColor=000000" alt="Vue.js badge"/>
+        <img src="https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=ffffff" alt="Vite badge"/>
         <img src="https://img.shields.io/badge/Tailwind%20CSS-38BDF8?logo=tailwindcss&logoColor=ffffff" alt="Tailwind CSS badge"/>
-        <img src="https://img.shields.io/badge/Swiper-6332F6?logo=swiper&logoColor=ffffff" alt="Tailwind CSS badge"/>
+        <img src="https://img.shields.io/badge/Swiper-6332F6?logo=swiper&logoColor=ffffff" alt="Swiper badge"/>
       </td>
     </tr>
     <tr>
@@ -121,8 +121,8 @@
         <p align=center>Backend</p>
       </td>
       <td>
-        <img src="https://img.shields.io/badge/Firestore-4487FA?logo=data:image/svg%2bxml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCg0KPCEtLSBVcGxvYWRlZCB0bzogU1ZHIFJlcG8sIHd3dy5zdmdyZXBvLmNvbSwgR2VuZXJhdG9yOiBTVkcgUmVwbyBNaXhlciBUb29scyAtLT4NCjxzdmcgd2lkdGg9IjgwMHB4IiBoZWlnaHQ9IjgwMHB4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+DQoNCjxkZWZzPg0KDQo8c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZmZmZjt9LmNscy0ye2ZpbGw6I2ZmZmZmZjt9LmNscy0ze2ZpbGw6I2ZmZmZmZjt9PC9zdHlsZT4NCg0KPC9kZWZzPg0KDQo8dGl0bGU+SWNvbl8yNHB4X0ZpcmVzdG9yZV9Db2xvcjwvdGl0bGU+DQoNCjxnIGRhdGEtbmFtZT0iUHJvZHVjdCBJY29ucyI+DQoNCjxnIGRhdGEtbmFtZT0iY29sb3JlZC0zMi9maXJlc3RvcmUiPg0KDQo8ZyA+DQoNCjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTIxLDEzLDEyLDl2NGw5LDRabTAtN0wxMiwyVjZsOSw0WiIvPg0KDQo8cG9seWdvbiBpZD0iUmVjdGFuZ2xlLTciIGNsYXNzPSJjbHMtMiIgcG9pbnRzPSIzIDYgMTIgMiAxMiA2IDMgMTAgMyA2Ii8+DQoNCjxwb2x5Z29uIGlkPSJSZWN0YW5nbGUtNy0yIiBkYXRhLW5hbWU9IlJlY3RhbmdsZS03IiBjbGFzcz0iY2xzLTIiIHBvaW50cz0iMyAxMyAxMiA5IDEyIDEzIDMgMTcgMyAxMyIvPg0KDQo8cG9seWdvbiBpZD0iUmVjdGFuZ2xlLTctMyIgZGF0YS1uYW1lPSJSZWN0YW5nbGUtNyIgY2xhc3M9ImNscy0zIiBwb2ludHM9IjEyIDE4IDE1LjM3IDE2LjUgMTkuODggMTguNSAxMiAyMiAxMiAxOCIvPg0KDQo8L2c+DQoNCjwvZz4NCg0KPC9nPg0KDQo8L3N2Zz4=" alt="MySQL badge"/>
-        <img src="https://img.shields.io/badge/NoSQL-C925D1?logo=amazondocumentdb&logoColor=ffffff" alt="MySQL badge"/>
+        <img src="https://img.shields.io/badge/Firestore-4487FA?logo=data:image/svg%2bxml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCg0KPCEtLSBVcGxvYWRlZCB0bzogU1ZHIFJlcG8sIHd3dy5zdmdyZXBvLmNvbSwgR2VuZXJhdG9yOiBTVkcgUmVwbyBNaXhlciBUb29scyAtLT4NCjxzdmcgd2lkdGg9IjgwMHB4IiBoZWlnaHQ9IjgwMHB4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+DQoNCjxkZWZzPg0KDQo8c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZmZmZjt9LmNscy0ye2ZpbGw6I2ZmZmZmZjt9LmNscy0ze2ZpbGw6I2ZmZmZmZjt9PC9zdHlsZT4NCg0KPC9kZWZzPg0KDQo8dGl0bGU+SWNvbl8yNHB4X0ZpcmVzdG9yZV9Db2xvcjwvdGl0bGU+DQoNCjxnIGRhdGEtbmFtZT0iUHJvZHVjdCBJY29ucyI+DQoNCjxnIGRhdGEtbmFtZT0iY29sb3JlZC0zMi9maXJlc3RvcmUiPg0KDQo8ZyA+DQoNCjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTIxLDEzLDEyLDl2NGw5LDRabTAtN0wxMiwyVjZsOSw0WiIvPg0KDQo8cG9seWdvbiBpZD0iUmVjdGFuZ2xlLTciIGNsYXNzPSJjbHMtMiIgcG9pbnRzPSIzIDYgMTIgMiAxMiA2IDMgMTAgMyA2Ii8+DQoNCjxwb2x5Z29uIGlkPSJSZWN0YW5nbGUtNy0yIiBkYXRhLW5hbWU9IlJlY3RhbmdsZS03IiBjbGFzcz0iY2xzLTIiIHBvaW50cz0iMyAxMyAxMiA5IDEyIDEzIDMgMTcgMyAxMyIvPg0KDQo8cG9seWdvbiBpZD0iUmVjdGFuZ2xlLTctMyIgZGF0YS1uYW1lPSJSZWN0YW5nbGUtNyIgY2xhc3M9ImNscy0zIiBwb2ludHM9IjEyIDE4IDE1LjM3IDE2LjUgMTkuODggMTguNSAxMiAyMiAxMiAxOCIvPg0KDQo8L2c+DQoNCjwvZz4NCg0KPC9nPg0KDQo8L3N2Zz4=" alt="Firestore badge"/>
+        <img src="https://img.shields.io/badge/NoSQL-C925D1?logo=amazondocumentdb&logoColor=ffffff" alt="NoSQL badge"/>
       </td>
     </tr>
     <tr>
@@ -131,7 +131,7 @@
       </td>
       <td>
         <img src="https://img.shields.io/badge/Vercel-000000?logo=vercel&logoColor=ffffff" alt="Vercel badge"/>
-        <img src="https://img.shields.io/badge/Firebase-FFCA28?logo=firebase&logoColor=000000" alt="MySQL badge"/>
+        <img src="https://img.shields.io/badge/Firebase-FFCA28?logo=firebase&logoColor=000000" alt="Firebase badge"/>
       </td>
     </tr>
     <tr>
