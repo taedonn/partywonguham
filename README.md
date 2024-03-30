@@ -182,6 +182,18 @@
 
 &nbsp;
 
+## 바로가기
+
+[홈페이지](https://partywon.taedonn.com)
+
+[약속 잡기](https://partywon.taedonn.com/create)
+
+[피드백 및 문의](https://partywon.taedonn.com/feedback)
+
+[개인정보 처리방침](https://partywon.taedonn.com/privacy)
+
+&nbsp;
+
 ## 라이센스
 
 MIT License © 2023-PRESENT 태돈, 파티원구함
