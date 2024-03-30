@@ -1,14 +1,18 @@
 # 파티원구함
 
-![Build](https://img.shields.io/badge/Build-nuxt3-%2328CF8D)
-![Node](https://img.shields.io/badge/Node-v18.+-%2324B524)
-![License](https://img.shields.io/badge/License-MIT-blue.svg)
+![Node badge](https://img.shields.io/badge/Node-v18.+-%23ff6e40)
+![Build badge](https://img.shields.io/badge/Build-nuxt3-%23ff6e40)
+![License badge](https://img.shields.io/badge/License-MIT-%23ff6e40)
 
 &nbsp;
 
-## 소개
+## 파티원구함의 주요 기능
 
-파티원구함은 단체 약속 시간 확정을 도와주는 웹 서비스입니다. 인원수, 날짜, 시간을 정해 약속 페이지를 만들고, 링크를 공유해 인원수가 채워지면 이메일로 알림을 받을 수 있습니다.
+### 약속 생성
+
+> 인원수, 날짜, 시간, 알림 설정을 하고 약속 생성 버튼을 누르면 약속 페이지가 생성됩니다. 약속 페이지의 링크를 공유해 인원수가 채워지면 타임라인의 색이 진해집니다.
+
+
 
 &nbsp;
 
@@ -66,12 +70,6 @@
 | Nuxt3    | v3.10.3 | Serverless framework    |
 | Pinia    | v.2.1.7 | Global state management |
 | Firebase | v10.9.0 | NoSQL database          |
-
-&nbsp;
-
-## 화면 구성
-
-<img width="320px" src="https://partywonguham.s3.ap-northeast-2.amazonaws.com/page_1.png" alt="페이지 1"/> <img width="320px" src="https://partywonguham.s3.ap-northeast-2.amazonaws.com/page_2.png" alt="페이지 2"/> <img width="320px" src="https://partywonguham.s3.ap-northeast-2.amazonaws.com/page_3.png" alt="페이지 3"/> <img width="320px" src="https://partywonguham.s3.ap-northeast-2.amazonaws.com/page_4.png" alt="페이지 4"/>
 
 &nbsp;
 
