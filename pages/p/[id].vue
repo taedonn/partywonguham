@@ -359,7 +359,10 @@
     }
 
     const onGlobalSubPageCreate = (e: KeyboardEvent) => {
-        if (e.key === "Enter") handleSubPageCreate();
+        if (e.key === "Enter") {
+            e.preventDefault();
+            handleSubPageCreate();
+        }
     }
 
     onMounted(async () => {

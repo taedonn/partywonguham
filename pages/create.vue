@@ -616,7 +616,10 @@
     }
 
     const onGlobalStepForward = async (e: KeyboardEvent) => {
-        if (e.key === "Enter") await handleStepForward();
+        if (e.key === "Enter") {
+            e.preventDefault();
+            await handleStepForward();
+        }
     }
 
     /** Trigger create event */
