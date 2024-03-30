@@ -197,3 +197,5 @@
 ## 라이센스
 
 MIT License © 2023-PRESENT 태돈, 파티원구함
+
+[라이센스 전문](https://github.com/taedonn/partywonguham/blob/main/LICENSE)
