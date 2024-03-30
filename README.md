@@ -1,8 +1,7 @@
 ![](https://partywonguham.s3.ap-northeast-2.amazonaws.com/readme_bg_1.png)
 
-&nbsp;
+---
 
-<h1 align="center">파티원구함</h1>
 <p align="center">
   <img src="https://img.shields.io/badge/Node-v18.+-%23ff6e40" alt="Node badge"/>
   <img src="https://img.shields.io/badge/Build-nuxt3-%23ff6e40" alt="Build badge"/>
