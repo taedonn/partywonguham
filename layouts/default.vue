@@ -1,10 +1,10 @@
 <template>
-    <div class="font-sans relative min-h-screen overflow-hidden">
+    <main class="font-sans relative min-h-screen overflow-hidden">
         <Header/>
         <slot></slot>
         <Footer/>
         <Tooltip/>
-    </div>
+    </main>
 </template>
 
 <script setup>
