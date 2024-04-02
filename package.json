@@ -2,7 +2,7 @@
   "name": "partywonguham",
   "version": "0.0.0",
   "private": true,
-  "homepage": "https://partywon.taedonn.com",
+  "homepage": "https://partywon.vercel.app",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
