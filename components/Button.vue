@@ -7,13 +7,13 @@
         v-bind:class="`w-full h-full p-2 flex justify-center items-center gap-3 shrink-0 rounded-lg border-2 outline-none duration-200 
                         ${
                             color === 'orange' 
-                            ? `${fill ? 'bg-orange-f6 lg:bg-orange-f6 text-white': 'text-orange-f6 lg:hover:bg-orange-f6 lg:hover:text-white'} border-orange-f6`
-                            : `${fill ? 'bg-gray-4 text-white' : 'text-gray-4 lg:hover:bg-gray-4 lg:hover:text-white'} border-gray-4`
+                            ? `bg-orange-f6 lg:bg-orange-f6 border-orange-f6 text-white`
+                            : `bg-gray-4 border-gray-4 text-white`
                         }
                     `"
     > 
         <i
-            v-if="icon !== ''"
+            v-if="!isLoading && icon !== ''"
             v-bind:class="`${icon}`"
         ></i>
         <slot v-if="!isLoading">{{ text }}</slot>
@@ -32,11 +32,6 @@
             type: String,
             required: false,
             default: "orange"
-        },
-        fill: {
-            type: Boolean,
-            required: false,
-            default: false,
         },
         isLoading: {
             type: Boolean,

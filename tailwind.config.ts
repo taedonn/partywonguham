@@ -7,7 +7,6 @@ export default {
     },
     extend: {
       colors: {
-        'gray-f': '#F0F5FA',
         'gray-e': '#E9EAEE',
         'gray-d': '#D2D4DC',
         'gray-c': '#CCCCCC',
@@ -17,10 +16,6 @@ export default {
         'black-3': '#333333',
         'blue-e': '#E0ECFF',
         'blue-c': '#CBDFFF',
-        'blue-a': '#AEC4E6',
-        'blue-5': '#5194FF',
-        'blue-3': '#3D7FE0',
-        'blue-1': '#1B73E7',
         'red-e': '#EB4D3E',
         'yellow-f': '#FFD43B',
         'orange-fe': '#FFE2D9',

@@ -1,12 +1,17 @@
 <template>
-    <main class="w-full flex justify-center px-5 lg:px-0 pt-5 lg:pt-24 pb-24 leading-relaxed text-black-3">
+    <Motion
+        :initial="{ y: 40, opacity: 0 }"
+        :animate="{ y: 0, opacity: 1 }"
+        :transition="{ duration: 0.4 }"
+        class="w-full flex justify-center px-5 lg:px-0 pt-5 lg:pt-24 pb-24 leading-relaxed text-black-3"
+    >
         <div class="w-[48rem]">
             <div class="msg-wrap relative lg:h-52 flex flex-col lg:flex-row items-center lg:justify-end gap-4 lg:gap-0 p-5 rounded-xl bg-orange-fe">
                 <div class="msg relative lg:absolute lg:left-80 lg:top-10 px-5 lg:px-6 py-3 text-sm text-center lg:text-left leading-normal rounded-full text-white bg-orange-f6 before:bg-orange-f6 after:bg-orange-fe">
                     피드백이나 문의 사항이 있으시면 알려주세요.<br/>
                     최대한 빠른 시일 내에 답변 드릴게요.
                 </div>
-                <img src="/img/3d_feedback.png" alt="피드백 이미지" class="max-w-full w-60 lg:w-auto h-full lg:h-64 lg:absolute left-20 bottom-0"/>
+                <NuxtImg format="webp" src="/img/3d_feedback.png" alt="피드백 이미지" class="max-w-full w-60 lg:w-auto h-full lg:h-64 lg:absolute left-20 bottom-0"/>
             </div>
             <div class="mt-12 leading-relaxed">
                 <div class="text-sm text-right"><span class="text-red-e">*</span> 필수 입력 사항</div>
@@ -61,7 +66,7 @@
                 <div class="w-full h-px bg-gray-4"></div>
                 <div class="text-base mt-12">개인정보 수집·이용에 대한 안내</div>
                 <div class="font-semibold mt-3">(필수) 개인정보 수집·이용에 대한 안내</div>
-                <div class="mt-8 text-gray-6">파티원 구함은 이용자 문의를 처리하기 위해 다음과 같이 개인정보를 수집 및 이용하며, 이용자의 개인정보를 안전하게 취급하는데 최선을 다하고 있습니다.</div>
+                <div class="mt-8 text-gray-6">파티원구함은 이용자 문의를 처리하기 위해 다음과 같이 개인정보를 수집 및 이용하며, 이용자의 개인정보를 안전하게 취급하는데 최선을 다하고 있습니다.</div>
                 <div class="flex flex-col lg:flex-row mt-8 border-y-2 border-gray-d text-gray-6">
                     <div class="w-full lg:w-1/3 flex lg:block lg:border-r border-b lg:border-b-0 border-gray-d">
                         <div class="w-32 lg:w-full p-4 border-r lg:border-r-0 lg:border-b border-gray-d">수집 항목</div>
@@ -86,19 +91,19 @@
                         <i class="peer-checked:group-[]:hidden block fa-regular fa-square-check"></i>
                         <i class="peer-checked:group-[]:block hidden text-orange-f6 fa-solid fa-square-check"></i>
                     </label>
-                    <div class="mb-0.5">위 내용에 동의합니다.</div>
+                    <div class="mb-px">위 내용에 동의합니다.</div>
                 </div>
                 <div v-if="states.agreeState.type === 'error'" class="w-full mt-2 text-xs text-red-e">
                     {{ states.agreeState.msg }}
                 </div>
                 <div class="w-full mt-12 flex justify-end">
                     <div class="w-40 lg:w-44 h-12">
-                        <Button :click="onSubmit" :isLoading="states.isLoading" fill>문의하기</Button>
+                        <Button :click="onSubmit" :isLoading="states.isLoading">문의하기</Button>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
+    </Motion>
     <Toast/>
 </template>
 
@@ -111,23 +116,20 @@
     import { emailValidChk } from '~/utils/common';
 
     // Types
+    import type { State } from '~/utils/global.d';
+
     interface States {
         email: string,
-        emailState: InputState,
+        emailState: State,
         category: string,
         categoryShow: boolean,
-        categoryState: InputState,
+        categoryState: State,
         title: string,
-        titleState: InputState,
+        titleState: State,
         content: string,
         agree: boolean,
-        agreeState: InputState,
+        agreeState: State,
         isLoading: boolean,
-    }
-
-    interface InputState {
-        type: string,
-        msg: string,
     }
 
     // States
@@ -205,49 +207,83 @@
 
         if (states.email === "") {
             states.emailState = { type: "error", msg: "이메일을 입력해 주세요." };
-            email.focus({ preventScroll: true });
-            window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
+            
+            // Trigger scroll event
+            if (width >= 1024) {
+                email.focus({ preventScroll: true });
+                window.scrollTo({ top: 160, behavior: 'smooth' });
+            } else {
+                email.focus();
+            }
         } else if (!emailValidChk(states.email)) {
             states.emailState = { type: "error", msg: "이메일 형식이 올바르지 않아요." };
-            email.focus({ preventScroll: true });
-            window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
+            
+            // Trigger scroll event
+            if (width >= 1024) {
+                email.focus({ preventScroll: true });
+                window.scrollTo({ top: 160, behavior: 'smooth' });
+            } else {
+                email.focus();
+            }
         } else if (states.category === "카테고리 선택") {
             states.categoryState = { type: "error", msg: "카테고리를 선택해 주세요." };
-            window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
+
+            // Trigger scroll event
+            if (width >= 1024) {
+                window.scrollTo({ top: 240, behavior: 'smooth' });
+            } else {
+                window.scrollTo({ top: 240 });
+            }
         } else if (states.title === "") {
             states.titleState = { type: "error", msg: "제목을 입력해 주세요." };
-            title.focus({ preventScroll: true });
-            window.scrollTo({ top: width >= 1024 ? 80 : 160, behavior: 'smooth' });
+
+            // Trigger scroll event
+            if (width >= 1024) {
+                title.focus({ preventScroll: true });
+                window.scrollTo({ top: 320, behavior: 'smooth' });
+            } else {
+                title.focus();
+            }
         } else if (!states.agree) {
             states.agreeState = { type: "error", msg: "약관에 동의해야 문의를 제출할 수 있어요." };
-            window.scrollTo({ top: document.body.offsetHeight, behavior: "smooth" });
+
+            // Trigger scroll event
+            if (width >= 1024) {
+                window.scrollTo({ top: document.body.offsetHeight, behavior: "smooth" });
+            } else {
+                window.scrollTo({ top: document.body.offsetHeight });
+            }
         } else {
             states.isLoading = true;
 
-            await $fetch("/api/sendemail", {
-                method: "post",
-                body: {
-                    email: states.email,
-                    category: states.category,
-                    title: states.title,
-                    content: states.content,
-                }
-            })
-            .then(() => {
-                // Reset fields
-                email.value = "";
-                states.email = "";
-                title.value = "";
-                states.title = "";
-                content.value = "";
-                states.content = "";
-                agree.checked = false;
+            try {
+                await $fetch("/api/sendemail", {
+                    method: "post",
+                    body: {
+                        action: "feedback",
+                        email: states.email,
+                        category: states.category,
+                        title: states.title,
+                        content: states.content,
+                    }
+                })
+                .then(() => {
+                    // Reset fields
+                    email.value = "";
+                    states.email = "";
+                    title.value = "";
+                    states.title = "";
+                    content.value = "";
+                    states.content = "";
+                    agree.checked = false;
 
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                
-                toastStore.success({ text: "문의가 제출되었어요." });
-            })
-            .catch(err => console.log(err));
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    
+                    toastStore.success({ text: "문의가 제출되었어요." });
+                });
+            } catch (err) {
+                console.log(err);
+            }
 
             states.isLoading = false;
         }

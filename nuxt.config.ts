@@ -1,20 +1,34 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: false },
-  pages: true, // 페이지 라우팅 가능하게
+  pages: true, // 페이지 라우팅
+  build: {
+    transpile: ['@vuepic/vue-datepicker']
+  },
+  modules: [
+    ['@nuxtjs/robots', { configPath: '~/config/robots.config' }],
+    '@nuxtjs/sitemap',
+    '@nuxt/image',
+    '@nuxtjs/tailwindcss',
+    '@oku-ui/motion-nuxt',
+    '@pinia/nuxt'
+  ],
   css: [
     '~/assets/tailwind.css',
-  ],
-  modules: [
-    '@nuxtjs/tailwindcss',
-    '@nuxt/image',
-    '@pinia/nuxt',
   ],
   pinia: { // pinia store 경로
     storesDirs: ['./stores/**']
   },
   app: {
     head: {
+      htmlAttrs: {
+        lang: 'ko'
+      },
+      meta: [
+        {
+          name: 'naver-site-verification',
+          content: '7a2dc0fff377a5d96fc033a03dc2d609de64cdec'
+        }
+      ],
       link: [
         {
           rel: 'stylesheet',
@@ -31,8 +45,6 @@ export default defineNuxtConfig({
     '/**': { isr: 60 },
   },
   runtimeConfig: {
-    emailId: '',
-    emailPassword: '',
     public: {
       firebaseServiceAccountKey: '',
       firebaseApiKey: '',
@@ -42,6 +54,8 @@ export default defineNuxtConfig({
       firebaseMessagingSenderId: '',
       firebaseAppId: '',
       firebaseMeasurementId: '',
+      emailId: '',
+      emailPassword: '',
     }
   }
 })

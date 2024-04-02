@@ -8,14 +8,20 @@
                     @mousedown="handleCloseMousedown"
                     @mouseup="handleCloseMouseup"
                     @mouseleave="handleCloseMouseup"
+                    aria-label="go-back-btn"
                     class="w-10 h-10 absolute left-5 top-1/2 -translate-y-1/2 flex justify-start lg:justify-center items-center rounded-full duration-200 lg:hover:bg-gray-e"
                 >
                     <i class="text-xl mr-0.5 fa-solid fa-angle-left"></i>
                 </button>
             </div>
-            <div class="w-full flex justify-center">
+            <Motion
+                :initial="{ x: -40, opacity: 0 }"
+                :animate="{ x: 0, opacity: 1 }"
+                :transition="{ duration: 0.4 }"
+                class="w-full flex justify-center"
+            >
                 <slot></slot>
-            </div>
+            </Motion>
         </div>
     </div>
 </template>
