@@ -658,7 +658,7 @@
             end_date: new Date(newDates[newDates.length-1]).getTime(),
             start_time: states.startTime,
             end_time: states.endTime,
-            email: states.email,
+            emails: states.email === "" ? [] : [states.email],
             email_sent: false,
             allow_email: states.email === "" ? false : states.allowEmail,
             partywons: [],
