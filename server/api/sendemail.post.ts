@@ -62,7 +62,7 @@ export default defineEventHandler(async (event) => {
         try {
             await client.sendAsync({
                 from: "파티원구함 partywonguham@gmail.com",
-                to: body.email,
+                to: body.emails.toString(),
                 subject: "[파티원구함] 인원이 모두 모였어요",
                 text: "",
                 attachment: [

@@ -632,7 +632,9 @@
         // 날짜 문자열로 변경
         const newDates: string[] = [];
         for (let i = 0; i < sortedDates.length; i++) {
-            newDates.push(sortedDates[i].toString());
+            let date = sortedDates[i];
+            let dateStr = `${date.toLocaleDateString("en", { weekday: "short" })} ${date.toLocaleDateString("en", { month: "short" })} ${date.getDate()} ${date.getFullYear()}`;
+            newDates.push(dateStr);
         }
         
         // 테이블 생성
@@ -653,9 +655,10 @@
         const data = {
             title: states.title === "" ? "제목없음" : states.title,
             dates: newDates,
+            end_date: new Date(newDates[newDates.length-1]).getTime(),
             start_time: states.startTime,
             end_time: states.endTime,
-            email: states.email,
+            emails: states.email === "" ? [] : [states.email],
             email_sent: false,
             allow_email: states.email === "" ? false : states.allowEmail,
             partywons: [],

@@ -9,7 +9,7 @@
         >
             <i class="fa-solid fa-angle-left"></i>
         </button>
-        <div class="w-full font-semibold text-center">{{ `${states.start_date.getFullYear()}년 ${states.start_date.getMonth() + 1}월${states.start_date.getFullYear() === states.end_date.getFullYear() && states.start_date.getMonth() === states.end_date.getMonth() ? "" : ` ~ ${states.end_date.getFullYear()}년 ${states.end_date.getMonth() + 1}월`}` }}</div>
+        <div class="w-full font-semibold text-center">{{ `${states.start_date.getFullYear()}년 ${states.start_date.toLocaleDateString("ko", { month: "short" })}${states.start_date.getFullYear() === states.end_date.getFullYear() && states.start_date.getMonth() === states.end_date.getMonth() ? "" : ` ~ ${states.end_date.getFullYear()}년 ${states.end_date.getMonth() + 1}월`}` }}</div>
         <button
             v-if="tables.length > 1"
             v-on:click="swiperNextSlide"
@@ -30,7 +30,7 @@
         <swiper-slide v-for="table, tableNo in tables" :key="tableNo" class="w-full">
             <div class="mb-2 pl-14 flex justify-center items-center text-xs">
                 <div v-for="column in table" v-bind:style="`width: ${1 / table.length * 100}%`" class="flex flex-col items-center gap-1">
-                    <div v-bind:class="`${column.date.getDay() === 0 || column.date.getDay() === 6 ? 'text-red-e' : ''} selection:bg-transparent`">{{ dayIntoWeekday(column.date.getDay()) }}</div>
+                    <div v-bind:class="`${column.date.getDay() === 0 || column.date.getDay() === 6 ? 'text-red-e' : ''} selection:bg-transparent`">{{ column.date.toLocaleDateString("default", { weekday: "short" }) }}</div>
                     <div class="font-semibold selection:bg-transparent">{{ (column.date.getMonth() + 1) + "." + column.date.getDate() }}</div>
                 </div>
             </div>
@@ -96,9 +96,6 @@
         states.start_date = tables[Number(idx)][0].date;
         states.end_date = tables[Number(idx)][tables[Number(idx)].length-1].date;
     }
-
-    // Common
-    import { dayIntoWeekday } from '~/utils/common';
 
     // Types
     import type { Table } from '~/utils/global.d';

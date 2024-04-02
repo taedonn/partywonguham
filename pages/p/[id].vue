@@ -141,7 +141,7 @@
         dates,
         start_time,
         end_time,
-        email,
+        emails,
         email_sent,
         allow_email,
         partywons,
@@ -321,7 +321,7 @@
                         method: "post",
                         body: {
                             action: "alert",
-                            email: email,
+                            emails: emails,
                             id: routeId,
                         }
                     })
