@@ -3,7 +3,8 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Node-v18.+-%23ff6e40" alt="Node badge"/>
-  <img src="https://img.shields.io/badge/Build-nuxt3-%23ff6e40" alt="Build badge"/>
+  <img src="https://img.shields.io/github/v/release/taedonn/partywonguham?color=ff6e40" alt="Release badge"/>
+  <img src="https://img.shields.io/github/release-date/taedonn/partywonguham?color=ff6e40" alt="Release date badge"/>
   <img src="https://img.shields.io/badge/License-MIT-%23ff6e40" alt="License badge"/>
 </p>
 
