@@ -2,6 +2,29 @@
     <main class="font-sans relative min-h-screen overflow-hidden">
         <Header></Header>
         <slot></slot>
+
+        <!-- Google AdSense for PC -->
+        <div class="hidden xl:flex absolute top-40 left-8">
+            <Adsbygoogle
+                :ad-style="{display: 'inline-block', width: 160 + 'px', height: 600 + 'px'}"
+                ad-slot="6230757383"
+            />
+        </div>
+        <div class="hidden xl:flex absolute top-40 right-8">
+            <Adsbygoogle
+                :ad-style="{display: 'inline-block', width: 160 + 'px', height: 600 + 'px'}"
+                ad-slot="6230757383"
+            />
+        </div>
+
+        <!-- Google AdSense for Mobile -->
+        <div class="flex xl:hidden w-full justify-center">
+            <Adsbygoogle
+                :ad-style="{display: 'inline-block', width: 300 + 'px', height: 100 + 'px', marginBottom: 1 + 'rem'}"
+                ad-slot="9257409816"
+            />
+        </div>
+
         <Footer></Footer>
         <Tooltip/>
     </main>

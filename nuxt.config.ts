@@ -6,14 +6,16 @@ export default defineNuxtConfig({
   },
   modules: [
     ['@nuxtjs/robots', { configPath: '~/config/robots.config' }],
+    ['@nuxtjs/google-adsense', { id: 'ca-pub-7819549426971576' }],
     '@nuxtjs/sitemap',
     '@nuxt/image',
     '@nuxtjs/tailwindcss',
     '@oku-ui/motion-nuxt',
-    '@pinia/nuxt'
+    '@pinia/nuxt',
+    'nuxt-gtag'
   ],
   css: [
-    '~/assets/tailwind.css',
+    '~/assets/tailwind.css'
   ],
   pinia: { // pinia store 경로
     storesDirs: ['./stores/**']
@@ -42,7 +44,7 @@ export default defineNuxtConfig({
     }
   },
   routeRules: { // https://github.com/danielroe/nuxt-vercel-isr
-    '/**': { isr: 60 },
+    '/**': { isr: 60 }
   },
   runtimeConfig: {
     public: {
@@ -57,5 +59,8 @@ export default defineNuxtConfig({
       emailId: '',
       emailPassword: '',
     }
+  },
+  gtag: {
+    id: process.env.NUXT_PUBLIC_FIREBASE_MEASUREMENT_ID
   }
 })
