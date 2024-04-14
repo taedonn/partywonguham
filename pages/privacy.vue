@@ -30,7 +30,7 @@
             <div class="w-full mt-4 px-6 lg:px-8 py-6 rounded-xl bg-orange-fe">
                 <div class="text-lg font-bold mb-3">개요</div>
                 <div>
-                    태돈('<NuxtLink href="/" class="underline underline-offset-2 lg:hover:text-orange-f6">https://partywon.vercel.app</NuxtLink>' 이하 '파티원구함')은 「개인정보 보호법」 제30조에 따라 정보 주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리방침을 수립·공개합니다. <br/>
+                    태돈('<NuxtLink href="/" class="underline underline-offset-2 lg:hover:text-orange-f6">https://partywon.taedonn.com</NuxtLink>' 이하 '파티원구함')은 「개인정보 보호법」 제30조에 따라 정보 주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리방침을 수립·공개합니다. <br/>
                     <br/>
                     ○ 이 개인정보처리방침은 2023년 12월 1부터 적용됩니다.
                 </div>

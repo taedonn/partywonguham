@@ -3,7 +3,7 @@
         <div class="flex justify-between items-center gap-2">
             <NuxtImg foramt="webp" src="/img/logo.svg" alt="파티원구함 아이콘" class="w-5"/>
             <div class="font-bold"> 
-                파티원구함,<span class="ml-2 font-normal">© 2023-{{ date.getFullYear() }} 태돈</span>
+                파티원구함,<span class="ml-2 font-normal">© 2023-{{ date.getFullYear() }} 태돈.</span>
             </div>
         </div>
         <div class="flex gap-2">
